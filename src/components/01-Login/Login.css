@@ -1,0 +1,87 @@
+.carouselDiv {
+  block-size: 85vh;
+}
+
+.carouselDiv img {
+  block-size: 50vh;
+  inline-size: 100%;
+  object-fit: cover;
+}
+
+.skipButton {
+  block-size: 5vh;
+  align-items: center;
+  display: flex;
+  padding-inline-end: 20px;
+  padding-inline-start: 20px;
+  justify-content: end;
+}
+
+.carouselDiv .contents p {
+  margin: 0;
+}
+
+.carouselDiv .contents {
+  block-size: 35vh;
+  padding-inline-start: 20px;
+  padding-inline-end: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.carouselDiv .contents .heading {
+  font-size: 26px;
+  padding-block-end: 10px;
+}
+
+.carouselDiv .contents .heading span {
+  font-weight: bold;
+}
+
+.skipButton p {
+  margin: 0;
+}
+
+.carouselButtons {
+  display: flex;
+  flex-direction: row;
+  block-size: 10vh;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.carouselButtons .carouselButton {
+  background-color: transparent;
+}
+
+.carouselButtons .carouselButton ion-icon {
+  color: black;
+  font-size: 40px;
+}
+
+.carouselIndicators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.indicator {
+  inline-size: 10px;
+  block-size: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.indicator.active {
+  background-color: #000000;
+}
+
+.carouselButtons .carouselButton:disabled ion-icon {
+  color: white;
+}

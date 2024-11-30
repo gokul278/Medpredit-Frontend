@@ -1,0 +1,82 @@
+/* primary color - #1c70b0 -- blue */
+/* primary color - #33b725 -- green */
+
+ion-segment {
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  z-index: 100;
+  --background: #f7f7f7;
+  position: fixed;
+}
+
+ion-content {
+  block-size: 100vh;
+}
+
+ion-searchbar {
+  background-color: #f7f7f7;
+}
+
+ion-segment-button {
+  padding: 7px;
+}
+
+ion-segment-button ion-label {
+  font-size: clamp(13px, 1.5vw, 16px);
+}
+
+ion-segment-button ion-icon {
+  font-size: 24px;
+}
+
+.p-inputtext:focus,
+.p-password input:focus,
+.p-dropdown:focus,
+.p-calendar input:focus,
+.p-inputgroup input:focus,
+.p-multiselect:focus,
+textarea:focus {
+  border-color: #6b7280;
+  box-shadow: none;
+  outline: none;
+}
+
+.p-button:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.p-checkbox:not(.p-disabled):has(.p-checkbox-input:hover).p-highlight
+  .p-checkbox-box {
+  border-color: #6b7280;
+  background-color: black;
+}
+
+ion-tab-button {
+  color: black;
+}
+
+ion-checkbox {
+  --checkbox-background-checked: black;
+}
+
+ion-checkbox::part(container) {
+  border: 1px solid black;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.p-password.p-component.p-inputwrapper.p-input-icon-right
+  .p-icon-field.p-icon-field-right,
+.p-password.p-component.p-inputwrapper.p-input-icon-right
+  .p-icon-field.p-icon-field-right
+  .p-password-input.p-inputtext.p-component {
+  inline-size: 100%;
+  border-start-start-radius: 0px;
+  border-end-start-radius: 0px;
+}

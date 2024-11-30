@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">medpredit</string>
+    <string name="title_activity_main">medpredit</string>
+    <string name="package_name">io.ionic.medpredit</string>
+    <string name="custom_url_scheme">io.ionic.medpredit</string>
+</resources>

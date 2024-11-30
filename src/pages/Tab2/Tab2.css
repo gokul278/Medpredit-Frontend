@@ -1,0 +1,464 @@
+.filters {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  overflow: auto;
+  padding: 10px;
+}
+
+.filters p {
+  margin: 0;
+}
+
+.filters .filter {
+  display: flex;
+  border-radius: 6px;
+  padding: 3px 10px;
+  inline-size: 6rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.block {
+  inline-size: 100%;
+  block-size: auto;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.block .sortOptions .options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.block .sortOptions .options p {
+  margin: 0;
+  font-weight: normal;
+}
+
+.open-modal-filters {
+  --height: auto;
+}
+
+.block .sortOptions p {
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.addIcon {
+  margin-right: 10px;
+  background-color: #51c145;
+  color: #fff;
+  width: 30px;
+  height: 33px;
+  border-radius: 5px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.addIcon.disabled {
+  background-color: #9dc598; /* Light gray for disabled state */
+  color: #f3f3f3; /* Dimmed icon color */
+  cursor: not-allowed; /* Shows the element is not interactive */
+  opacity: 0.6; /* Slight transparency for visual feedback */
+}
+
+/* PATIENT CARDS STYLES */
+
+.patientContents {
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+  padding-block-end: auto;
+}
+.patiendDetails {
+  display: flex;
+  justify-content: space-between;
+}
+
+.patientCardsParent {
+  
+  
+  border-radius: 5px;
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+  /* gap: 10px; */
+}
+
+.patientCardsParent .patientCard{
+  padding: 10px;
+  background-color: #e6e6e6;
+}
+
+.patientCardsParent .patientCard img {
+  inline-size: 20%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.patientCardsParent .patientCard .cardContents {
+  inline-size: 77%;
+}
+
+.patientCardsParent .patientCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.patientCardsParent .patientCard .cardContents p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.patientCardsParent .patientCard .cardContents .footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.patientCardsParent .patientCard .cardContents .patiendDetails p {
+  font-weight: bold;
+}
+
+/* PAGINATOR STYLES */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination .active a {
+  font-weight: bold;
+  background-color: #ddd;
+  color: black;
+}
+
+.pagination a {
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: black;
+}
+
+.pagination a:hover {
+  background-color: #ddd;
+}
+
+/* ADD USER STYLES */
+
+.carouselDivForm {
+  display: flex;
+  flex-direction: column;
+  margin-block-end: 10vh;
+  align-items: center;
+  justify-content: center;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+  padding-block-start: 10px;
+}
+
+.carouselDivForm .p-inputgroup {
+  padding-block-end: 10px;
+}
+
+.carouselDivForm .p-password.p-component.p-inputwrapper.p-input-icon-right {
+  margin-inline-start: 20px;
+  margin-inline-end: 20px;
+}
+
+.carouselDivForm .p-password-input.p-inputtext.p-component {
+  inline-size: 95vw;
+}
+
+.carouselDivForm .p-dropdown-label.p-inputtext.p-placeholder {
+  text-align: start;
+}
+.p-dropdown-label.p-inputtext {
+  text-align: start;
+}
+
+.carouselButtonsForm {
+  display: flex;
+  flex-direction: row;
+  block-size: 10vh;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+  inset-block-end: 0;
+  background-color: #f7f7f7;
+  position: fixed;
+  inset-inline-end: 0;
+  inset-inline-start: 0;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.carouselButtonsForm .carouselButtonForm {
+  background-color: transparent;
+}
+
+.carouselButtonsForm .carouselButtonForm ion-icon {
+  color: black;
+  font-size: 40px;
+}
+
+.carouselIndicatorsForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.indicatorForm {
+  inline-size: 10px;
+  block-size: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.indicatorForm.active {
+  background-color: #000000;
+}
+
+.carouselButtonsForm .carouselButtonForm:disabled ion-icon {
+  color: white;
+}
+
+/* KNOW ABOUT CARDS */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.grid-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.knowCard {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  position: relative;
+  inline-size: 100%;
+  block-size: auto;
+  text-align: center;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.knowCard p {
+  margin: 0;
+  padding: 5px 1px;
+  display: -webkit-box;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Web view: 4 items per row */
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* QUESTIONS */
+.questionContainers {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.questionContainers .questions {
+  display: flex;
+  flex-direction: column;
+  inline-size: 80vw;
+  margin-block-end: 20px;
+}
+
+.questionContainers .questions p {
+  margin: 0;
+}
+
+.questionContainers .questions .question {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: justify;
+  padding-block-end: 10px;
+}
+
+.questions .options .option {
+  display: flex;
+  padding: 10px;
+  text-align: center;
+  border-radius: 7px;
+  margin-block-end: 10px;
+  border: 1px solid #6b7280;
+}
+
+.footerButtons {
+  display: flex;
+  background-color: #f7f7f7;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footerButtons button {
+  padding: 10px 20px;
+  inline-size: 7rem;
+  margin-inline-start: 10px;
+  margin-inline-end: 10px;
+  border-radius: 7px;
+  border: 1px solid black;
+}
+
+.questionsOutline {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* YES OR NO OR OPTION BUTTONS */
+.buttonGroup {
+  display: grid;
+  gap: 10px;
+}
+
+/* Mobile view (default): Buttons stack one on top of another */
+.buttonGroup {
+  grid-template-columns: 1fr; /* One button per row */
+}
+
+/* Tablet and Desktop views: Two buttons per row */
+@media (min-width: 768px) {
+  .buttonGroup {
+    grid-template-columns: repeat(2, 1fr); /* Two buttons per row */
+  }
+}
+
+.buttonGroup button {
+  font-size: 15px;
+}
+
+.optionButton {
+  padding: 15px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.optionButton.selected {
+  background-color: #6b7280;
+  color: white;
+  border-color: #6b7280;
+}
+
+/* SUB CARDS STYLES */
+.subCardContents {
+  display: flex;
+  flex-direction: column;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+}
+
+.subCards img {
+  inline-size: 20vw;
+  border-radius: 50%;
+}
+
+.subCards .cardConts {
+  inline-size: 75vw;
+  padding-inline-start: 10px;
+}
+
+.subCards .cardConts .cardHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subCards {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subCards .cardConts .cardHeader p,
+.subCards .cardConts .cardSecHeader p {
+  margin: 0;
+}
+
+.subCardsHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* CIRCULAR PROGRESS BAR */
+
+.circularProgress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.circularChart {
+  inline-size: 20px;
+  block-size: 20px;
+}
+
+.circleBackground {
+  fill: none;
+  stroke: #e0e0e0;
+  stroke-width: 3.8;
+}
+
+.circle {
+  fill: none;
+  stroke: #222d3a;
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.3s ease;
+}
+
+.subCardContents .p-divider.p-divider-horizontal {
+  margin: 0.75rem 0;
+}
+

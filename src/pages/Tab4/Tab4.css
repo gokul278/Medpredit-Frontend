@@ -1,0 +1,85 @@
+.headerCont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline-end: 10px;
+}
+
+.headerCont ion-icon {
+  font-size: 22px;
+}
+
+.headerCont .headerProfile {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.headerCont .headerProfile img {
+  block-size: 50px;
+  border-radius: 50%;
+}
+
+.headerCont .headerProfile .profileEditCont p {
+  margin: 0;
+  font-size: 13px;
+}
+
+/* GRIDS */
+.settingsGrids {
+  padding: 0px 10px;
+}
+
+.grids {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.grids .gridCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.gridCol p {
+  margin: 8px 0 0;
+  font-size: 14px;
+}
+
+.gridCol ion-icon {
+  font-size: 24px;
+  /* color: white; */
+  /* fill: white; */
+}
+
+.listsSettings {
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+}
+.listSet .listItems {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-block-end: 1px solid #ccc;
+}
+
+.listSet .listItems p {
+  margin: 0;
+}
+
+.listContent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chevronIcon {
+  color: #666;
+}

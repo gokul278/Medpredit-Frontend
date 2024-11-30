@@ -1,0 +1,103 @@
+.signIn {
+  block-size: 100vh;
+}
+
+.signinPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  block-size: 100vh;
+}
+
+.signinPage p {
+  margin: 0;
+}
+
+/* .formContentSignIn input {
+  background: white;
+  border: 1px solid black;
+  border-radius: 7px;
+  padding: 8px 10px;
+} */
+
+.formContentSignIn button {
+  padding: 10px 20px;
+  background: #0165fc;
+  font-size: 16px;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 7px;
+}
+
+.formContentSignIn p {
+  font-size: 15px;
+}
+
+.formContentSignIn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-inline-start: 30px;
+  padding-inline-end: 30px;
+  inline-size: 100%;
+}
+
+.formContentSignIn .forgotPassword {
+  text-align: end;
+  text-decoration: underline;
+}
+
+.googleSignIn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.formContentSignIn .signUp p {
+  font-size: 14px;
+  text-align: center;
+}
+
+.formContentSignIn .signUp p span {
+  font-weight: bold;
+  color: #0165fc;
+}
+
+.signinPage .signinHeader {
+  font-weight: bold;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+.signinPage .welcomeCont {
+  font-size: 14px;
+  text-align: center;
+  padding-inline-start: 30px;
+  padding-inline-end: 30px;
+}
+
+.termsCond {
+  text-align: center;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.termsConditionsCont {
+  text-align: justify;
+  text-indent: 2rem;
+}
+
+.continueButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline-start: 20%;
+  margin-inline-end: 20%;
+}
+
+.continueButton ion-icon {
+  font-size: 20px;
+  padding-inline-start: 10px;
+}

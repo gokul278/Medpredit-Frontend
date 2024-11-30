@@ -1,0 +1,22 @@
+.alert-button.alert-button-role-confirm.yes-button {
+    background: #51c145; /* Button background */
+    color: white;      /* Text color */
+    border: none;      /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+
+    font-size: 16px;   /* Adjust font size */
+    cursor: pointer;   /* Change cursor to pointer on hover */
+    transition: background 0.3s ease; /* Smooth transition on hover */
+    margin: 0px 10px;
+}
+
+.alert-button.alert-button-role-cancel.no-button {
+    background: rgb(255, 75, 75); /* Button background */
+    color: white;      /* Text color */
+    border: none;      /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    margin: 10px 10px;
+    font-size: 16px;   /* Adjust font size */
+    cursor: pointer;   /* Change cursor to pointer on hover */
+    transition: background 0.3s ease; /* Smooth transition on hover */
+}
