@@ -177,6 +177,9 @@ const Questions: React.FC = () => {
               patientId: patientId,
               categoryId: cardTitle,
               answers: updatedResponses,
+              employeeId: localStorage.getItem("currentDoctorId")
+                ? localStorage.getItem("currentDoctorId")
+                : null,
             },
             {
               headers: {

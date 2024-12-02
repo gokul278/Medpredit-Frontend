@@ -65,6 +65,11 @@ const KnowAboutPatient: React.FC = () => {
 
             if (data.data.length > 0) {
               setCategories(data.data);
+              categories.push({
+                refQCategoryId: 4,
+                refCategoryLabel: "Know About Patient",
+              });
+
               const firstCategory = data.data[0];
               subMainCategory(firstCategory.refQCategoryId);
             } else {
@@ -111,10 +116,17 @@ const KnowAboutPatient: React.FC = () => {
     const selectedCategory = categories.find(
       (category) => category.refCategoryLabel === value
     );
-    if (selectedCategory) {
-      subMainCategory(selectedCategory.refQCategoryId);
+
+    if (value === "knowabout") {
+      console.log("-------------Hello");
+    } else {
+      if (selectedCategory) {
+        subMainCategory(selectedCategory.refQCategoryId);
+      }
     }
   };
+
+  const getReport = async () => {};
 
   return (
     <IonPage>
@@ -136,7 +148,7 @@ const KnowAboutPatient: React.FC = () => {
             <IonSegmentButton
               key="knowabout"
               value="knowabout"
-              contentId="Know About Patient"
+              contentId="knowabout"
             >
               <IonLabel>Know About Patient</IonLabel>
             </IonSegmentButton>
@@ -152,16 +164,26 @@ const KnowAboutPatient: React.FC = () => {
           </IonSegment>
         </IonToolbar>
         <div>
-          {categories.map((category) => (
-            <IonSegmentContent
-              key={category.refQCategoryId}
-              id={category.refCategoryLabel}
-            >
-              {selectedValue === category.refCategoryLabel && (
-                <KnowCards cardData={subCategoryData} />
-              )}
+          {selectedValue === "knowabout" ? (
+            <IonSegmentContent key="knowabout" id="knowabout">
+              <div>Hello</div>
             </IonSegmentContent>
-          ))}
+          ) : (
+            <>
+              {categories.map((category) => (
+                <IonSegmentContent
+                  key={category.refQCategoryId}
+                  id={category.refCategoryLabel}
+                >
+                  {selectedValue === category.refCategoryLabel && (
+                    <>
+                      <KnowCards cardData={subCategoryData} />
+                    </>
+                  )}
+                </IonSegmentContent>
+              ))}
+            </>
+          )}
         </div>
       </IonContent>
     </IonPage>
