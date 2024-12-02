@@ -1,11 +1,15 @@
+import { IonAlert } from "@ionic/react";
 import { Divider } from "primereact/divider";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
+import Axios from "axios";
+import decrypt from "../../helper";
 
 interface CardData {
   refQCategoryId: number;
   refCategoryLabel: string;
   refScore?: any;
+  refScoreId?: any;
 }
 
 interface SubCardsProps {
@@ -25,8 +29,81 @@ const SubCards: React.FC<SubCardsProps> = ({
     history.push(`/questions/${refCategoryLabel}/${cardTitle}`);
   };
 
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+
+  const [selectedData, setSelectedData] = useState({
+    cardTitle: "",
+    refCategoryLabel: 0,
+    refScoreId: "",
+  });
+
+  const handleremoveScore = () => {
+    const tokenString = localStorage.getItem("userDetails");
+
+    if (tokenString) {
+      try {
+        const tokenObject = JSON.parse(tokenString);
+        const token = tokenObject.token;
+
+        Axios.post(
+          `${import.meta.env.VITE_API_URL}/resetScore `,
+          {
+            scoreId: selectedData.refScoreId,
+          },
+          {
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
+          }
+        ).then((response) => {
+          const data = decrypt(
+            response.data[1],
+            response.data[0],
+            import.meta.env.VITE_ENCRYPTION_KEY
+          );
+
+          if (data.status) {
+            handleCardClick(
+              selectedData.refCategoryLabel,
+              selectedData.cardTitle
+            );
+          }
+        });
+      } catch (error) {
+        console.error("Error parsing token:", error);
+      }
+    } else {
+      console.error("No token found in localStorage.");
+    }
+  };
+
   return (
     <div className="subCardContents ion-padding-top">
+      <IonAlert
+        isOpen={isAlertOpen}
+        cssClass="custom-alert"
+        header="Do you want to re-enter the question?"
+        backdropDismiss={false}
+        buttons={[
+          {
+            text: "Yes",
+            role: "confirm",
+            handler: () => {
+              setIsAlertOpen(false);
+              handleremoveScore();
+            },
+            cssClass: "yes-button",
+          },
+          {
+            text: "No",
+            role: "cancel",
+            handler: () => {},
+            cssClass: "no-button",
+          },
+        ]}
+        onDidDismiss={() => setIsAlertOpen(false)}
+      />
       {data.map((card) => (
         <>
           <div
@@ -35,6 +112,13 @@ const SubCards: React.FC<SubCardsProps> = ({
             onClick={() => {
               if (card.refScore === null) {
                 handleCardClick(card.refQCategoryId, card.refCategoryLabel);
+              } else {
+                setIsAlertOpen(true);
+                setSelectedData({
+                  refScoreId: card.refScoreId,
+                  refCategoryLabel: card.refQCategoryId,
+                  cardTitle: card.refCategoryLabel,
+                });
               }
             }}
             style={{ cursor: "pointer" }}
@@ -64,38 +148,10 @@ const SubCards: React.FC<SubCardsProps> = ({
                       ></i>
                     </div>
                   ) : (
-                    <div style={{ color: "green" }}>{card.refScore}</div>
+                    <div style={{ color: "green" }}>Score: {card.refScore}</div>
                   )}
-                  {/* <svg
-                    width="50"
-                    height="50"
-                    viewBox="0 0 36 36"
-                    className="circularChart"
-                  >
-                    <path
-                      className="circleBackground"
-                      d="M18 2.0845
-                      a 15.9155 15.9155 0 0 1 0 31.831
-                      a 15.9155 15.9155 0 0 1 0 -31.831"
-                    />
-                    <path
-                      className="circle"
-                      strokeDasharray={`${card.completionPercentage}, 100`}
-                      d="M18 2.0845
-                      a 15.9155 15.9155 0 0 1 0 31.831
-                      a 15.9155 15.9155 0 0 1 0 -31.831"
-                    />
-                  </svg> */}
                 </div>
               </div>
-              {/* <div className="cardSecHeader">
-                <p>
-                  Form Filled by: <span>{card.filledBy}</span>
-                </p>
-              </div>
-              <div className="cardSecHeader">
-                <p>Form Filled Date: {card.filledDate}</p>
-              </div> */}
             </div>
           </div>
           <Divider />

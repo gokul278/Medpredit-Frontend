@@ -8,7 +8,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import SubCards from "./SubCards";
 import axios from "axios";
 import decrypt from "../../helper";
@@ -22,6 +22,8 @@ const SubCategories: React.FC = () => {
   const [categories, setCategories] = useState<
     { refQCategoryId: number; refCategoryLabel: string }[]
   >([]);
+
+  const history = useHistory();
 
   useEffect(() => {
     const tokenString = localStorage.getItem("userDetails");
@@ -38,6 +40,10 @@ const SubCategories: React.FC = () => {
             {
               SubCategoryId: categoryId,
               patientId: patientId,
+              employeeId:
+                tokenObject.roleType === 1
+                  ? null
+                  : localStorage.getItem("currentDoctorId"),
             },
             {
               headers: {
@@ -63,66 +69,9 @@ const SubCategories: React.FC = () => {
     } else {
       console.error("No token found in localStorage.");
     }
-  }, []);
 
-  // const subCardData = [
-  //   {
-  //     id: "1",
-  //     riskFactor: "Physical Activity",
-  //     completionPercentage: 85,
-  //     filledBy: "Dr. Smith",
-  //     filledDate: "22-Nov-2024",
-  //   },
-  //   {
-  //     id: "2",
-  //     riskFactor: "Stress",
-  //     completionPercentage: 60,
-  //     filledBy: "Dr. Taylor",
-  //     filledDate: "21-Nov-2024",
-  //   },
-  //   {
-  //     id: "3",
-  //     riskFactor: "Tobacco",
-  //     completionPercentage: 45,
-  //     filledBy: "Dr. Brown",
-  //     filledDate: "20-Nov-2024",
-  //   },
-  //   {
-  //     id: "4",
-  //     riskFactor: "Alcohol",
-  //     completionPercentage: 45,
-  //     filledBy: "Dr. Brown",
-  //     filledDate: "20-Nov-2024",
-  //   },
-  //   {
-  //     id: "5",
-  //     riskFactor: "Diet",
-  //     completionPercentage: 45,
-  //     filledBy: "Dr. Brown",
-  //     filledDate: "20-Nov-2024",
-  //   },
-  //   {
-  //     id: "6",
-  //     riskFactor: "Sleep",
-  //     completionPercentage: 45,
-  //     filledBy: "Dr. Brown",
-  //     filledDate: "20-Nov-2024",
-  //   },
-  //   {
-  //     id: "7",
-  //     riskFactor: "BMI",
-  //     completionPercentage: 45,
-  //     filledBy: "Dr. Brown",
-  //     filledDate: "20-Nov-2024",
-  //   },
-  //   {
-  //     id: "8",
-  //     riskFactor: "Family History",
-  //     completionPercentage: 45,
-  //     filledBy: "Dr. Brown",
-  //     filledDate: "20-Nov-2024",
-  //   },
-  // ];
+    console.log(history.location.pathname);
+  }, [history.location.pathname]);
 
   return (
     <IonPage>

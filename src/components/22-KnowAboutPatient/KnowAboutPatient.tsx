@@ -86,7 +86,11 @@ const KnowAboutPatient: React.FC = () => {
       const subCategory = await axios.post(
         `${import.meta.env.VITE_API_URL}/getSubMainCategory`,
         {
+          patientId: patientId,
           SubCategoryId: categoryId,
+          employeeId: localStorage.getItem("currentDoctorId")
+            ? localStorage.getItem("currentDoctorId")
+            : null,
         },
         {
           headers: {
