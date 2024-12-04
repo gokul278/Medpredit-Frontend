@@ -58,11 +58,11 @@ const Tab2: React.FC = () => {
 
   const location = useLocation();
 
-  useEffect(() => {
-    setPatientData([]);
-    setMobileNumber("");
-    console.log("dfhbdf");
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   // setPatientData([]);
+  //   // setMobileNumber("");
+  //   // console.log("dfhbdf");
+  // }, [location.pathname]);
 
   const [urlMobileNo, setURLMobileNo] = useState("");
   const [urluserId, setUrluserId] = useState("");

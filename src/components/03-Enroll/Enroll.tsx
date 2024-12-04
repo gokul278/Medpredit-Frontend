@@ -81,7 +81,6 @@ const Enroll: React.FC = () => {
           token: "Bearer " + data.token,
         };
 
-        
         localStorage.setItem("userDetails", JSON.stringify(userDetails));
 
         history.push("/home", {
@@ -119,9 +118,102 @@ const Enroll: React.FC = () => {
     });
   };
 
+  const [hospitalModel, setHospitalModel] = useState(false);
+
   return (
     <IonPage ref={page}>
       <IonContent>
+        <IonModal
+          mode="ios"
+          isOpen={hospitalModel} // Only open modal for the clicked patient
+          onDidDismiss={() => {
+            setHospitalModel(false);
+          }}
+          initialBreakpoint={0.75}
+        >
+          <IonContent className="ion-padding">
+            <div style={{ height: "71vh" }}>
+              <div
+                style={{
+                  height: "8vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "18px",
+                  fontWeight: "700",
+                }}
+              >
+                Choose Your Hospital to Login
+              </div>
+              <div
+                style={{
+                  height: "55vh",
+                  overflow: "auto",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50px",
+                    background: "#e6e6e6",
+                    borderRadius: "5px",
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "20px",
+                  }}
+                >
+                  Universel Hospital
+                </div>  
+                <div
+                  style={{
+                    height: "50px",
+                    background: "#e6e6e6",
+                    borderRadius: "5px",
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "20px",
+                  }}
+                >
+                  SKS Hospital
+                </div>
+              </div>
+              <div
+                style={{
+                  height: "8vh",
+                  overflow: "auto",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "18px",
+                  fontWeight: "700",
+                }}
+              >
+                <div
+                  style={{
+                    width: "100%",
+                    height: "5vh",
+                    background: "#89A8B2",
+                    color: "#fff",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    fontSize: "18px",
+                    fontWeight: "700",
+                    borderRadius: "5px",
+                  }}
+                  onClick={() => {
+                    setHospitalModel(false);
+                  }}
+                >
+                  Close
+                </div>
+              </div>
+            </div>
+          </IonContent>
+        </IonModal>
+
         <div
           className="signIn"
           style={{

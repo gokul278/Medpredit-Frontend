@@ -39,6 +39,7 @@ import AddQuestions from "../../components/33-AddQuestions/AddQuestions";
 import AddEmployee from "../../components/34-AddEmployee/AddEmployee";
 import SubCategories from "../SubCategories/SubCategories";
 import AddFamilyUser from "../AddFamilyUser/AddFamilyUser";
+import PastReport from "../../components/35-PastReport/PastReport";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -182,6 +183,9 @@ const MainRoutes: React.FC = () => {
         </Route>
         <Route path="/addEmployee">
           <AddEmployee />
+        </Route>
+        <Route path="/pastreport/:reportId">
+          <PastReport />
         </Route>
         <Route exact path="/">
           <Redirect to="/splash" />

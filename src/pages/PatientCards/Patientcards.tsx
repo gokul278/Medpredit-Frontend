@@ -400,6 +400,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
                               patient.refUserCustId,
                               doctor.refDoctorId
                             );
+                            setOpenModalPatientId(null);
                             localStorage.setItem(
                               "currentDoctorId",
                               doctor.refDoctorId
