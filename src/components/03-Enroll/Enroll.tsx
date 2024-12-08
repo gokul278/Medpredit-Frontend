@@ -25,6 +25,12 @@ import decrypt from "../../helper";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 
+interface HospitalData {
+  refHospitalName: any;
+  FullAddress: any;
+  refHospitalId: any;
+}
+
 const Enroll: React.FC = () => {
   const modal = useRef<HTMLIonModalElement>(null);
   const page = useRef(undefined);
@@ -76,17 +82,47 @@ const Enroll: React.FC = () => {
       );
 
       if (data.status) {
-        const userDetails = {
-          roleType: data.roleType,
-          token: "Bearer " + data.token,
-        };
+        if (data.roleType === 1) {
+          console.log(data.action);
 
-        localStorage.setItem("userDetails", JSON.stringify(userDetails));
+          if (data.action === "single") {
+            const userDetails = {
+              roleType: data.roleType,
+              token: "Bearer " + data.token,
+            };
 
-        history.push("/home", {
-          direction: "forward",
-          animation: "slide",
-        });
+            localStorage.setItem("userDetails", JSON.stringify(userDetails));
+            localStorage.setItem("hospitalId", data.hospitaId);
+
+            history.push("/home", {
+              direction: "forward",
+              animation: "slide",
+            });
+          } else if (data.action === "multiple") {
+            console.log(data);
+            const userDetails = {
+              roleType: data.roleType,
+              token: "Bearer " + data.token,
+            };
+
+            localStorage.setItem("userDetails", JSON.stringify(userDetails));
+            setHospitalData(data.hospitals);
+            setHospitalModel(true);
+          }
+        } else {
+          const userDetails = {
+            roleType: data.roleType,
+            token: "Bearer " + data.token,
+          };
+
+          localStorage.setItem("userDetails", JSON.stringify(userDetails));
+          localStorage.setItem("hospitalId", data.hospitaId);
+
+          history.push("/home", {
+            direction: "forward",
+            animation: "slide",
+          });
+        }
       } else {
         setErrorMessage("Invalid username or password");
 
@@ -119,6 +155,18 @@ const Enroll: React.FC = () => {
   };
 
   const [hospitalModel, setHospitalModel] = useState(false);
+
+  const [hospitalsData, setHospitalData] = useState<HospitalData[]>([]);
+
+  const handleChooseLanguage = (hospitalId: any) => {
+    setHospitalModel(false);
+    localStorage.setItem("hospitalId", hospitalId);
+
+    history.push("/home", {
+      direction: "forward",
+      animation: "slide",
+    });
+  };
 
   return (
     <IonPage ref={page}>
@@ -154,30 +202,30 @@ const Enroll: React.FC = () => {
                   gap: "10px",
                 }}
               >
-                <div
-                  style={{
-                    height: "50px",
-                    background: "#e6e6e6",
-                    borderRadius: "5px",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "20px",
-                  }}
-                >
-                  Universel Hospital
-                </div>  
-                <div
-                  style={{
-                    height: "50px",
-                    background: "#e6e6e6",
-                    borderRadius: "5px",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "20px",
-                  }}
-                >
-                  SKS Hospital
-                </div>
+                {hospitalsData.map((hospitalData, index) => (
+                  <div
+                    onClick={() => {
+                      handleChooseLanguage(hospitalData.refHospitalId);
+                    }}
+                    key={index}
+                    style={{
+                      height: "60px",
+                      background: "#e6e6e6",
+                      borderRadius: "5px",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "start",
+                      justifyContent: "center",
+                      padding: "8px",
+                      fontSize: "16px",
+                    }}
+                  >
+                    <div>{hospitalData.refHospitalName}</div>
+                    <div style={{ fontSize: "13px", marginTop: "5px" }}>
+                      {hospitalData.FullAddress}
+                    </div>
+                  </div>
+                ))}
               </div>
               <div
                 style={{

@@ -180,6 +180,7 @@ const Questions: React.FC = () => {
               employeeId: localStorage.getItem("currentDoctorId")
                 ? localStorage.getItem("currentDoctorId")
                 : null,
+                hospitalId: localStorage.getItem("hospitalId")
             },
             {
               headers: {

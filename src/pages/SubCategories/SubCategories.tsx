@@ -44,6 +44,7 @@ const SubCategories: React.FC = () => {
                 tokenObject.roleType === 1
                   ? null
                   : localStorage.getItem("currentDoctorId"),
+              hospitalId: localStorage.getItem("hospitalId"),
             },
             {
               headers: {

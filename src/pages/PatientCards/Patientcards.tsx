@@ -89,12 +89,18 @@ const Patientcards: React.FC<PatientcardsProps> = ({
       const tokenObject = JSON.parse(tokenString);
       const token = tokenObject.token;
 
-      Axios.get(`${import.meta.env.VITE_API_URL}/getAssistantDoctor`, {
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
+      Axios.post(
+        `${import.meta.env.VITE_API_URL}/getAssistantDoctor`,
+        {
+          hospitalId: localStorage.getItem("hospitalId")
         },
-      })
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then((response) => {
           const data = decrypt(
             response.data[1],
@@ -128,6 +134,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
         {
           employeeId: doctorId,
           patientId: patientId,
+          hospitalId: localStorage.getItem("hospitalId")
         },
         {
           headers: {
@@ -173,6 +180,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
         {
           employeeId: doctorId,
           patientId: patientId,
+          hospitalId: localStorage.getItem("hospitalId")
         },
         {
           headers: {
@@ -209,6 +217,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
         `${import.meta.env.VITE_API_URL}/checkPatientMap`,
         {
           patientId: patientId,
+          hospitalId: localStorage.getItem("hospitalId")
         },
         {
           headers: {
@@ -253,6 +262,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
         `${import.meta.env.VITE_API_URL}/addPatientMap`,
         {
           patientId: patientId,
+          hospitalId: localStorage.getItem("hospitalId")
         },
         {
           headers: {
