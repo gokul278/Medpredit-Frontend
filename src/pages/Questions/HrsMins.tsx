@@ -1,7 +1,8 @@
 import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
 import React, { useState } from "react";
-interface SingleInputBoxProps {
+
+interface HrsInputBox {
   type: string;
   label: {
     questionType: string;
@@ -16,24 +17,17 @@ interface SingleInputBoxProps {
       }
     ];
   };
-  onClickOpt: (value: string, questionId: number, forwardQId: string) => void;
-  onEdit: (value: any, forwardQId: string) => void;
+  onEdit: (hrsValue: any, minsValue: any, forwardQId: string) => void;
 }
 
-const SingleInputBox: React.FC<SingleInputBoxProps> = ({
-  label,
-  type,
-  onClickOpt,
-  onEdit,
-}) => {
-  const [value, setValue] = useState<string>("");
+const HrsMins: React.FC<HrsInputBox> = ({ label, type, onEdit }) => {
+  const [hrsValue, setHrsvalue] = useState<string>("");
+  const [minsValue, setMinsValue] = useState<string>("");
 
   const handleButtonClick = () => {
     const forwardQId = label.options[0]?.forwardQId || "";
-    onClickOpt(value, label.questionId, forwardQId);
-    onEdit(value, forwardQId);
+    onEdit(hrsValue, minsValue, forwardQId);
   };
-
   return (
     <div className="questionsOutline">
       {/* <p className="questionNumber">1</p> */}
@@ -41,10 +35,19 @@ const SingleInputBox: React.FC<SingleInputBoxProps> = ({
         <p className="question ">{label.questionText}</p>
         <div className="p-inputgroup flex-1">
           <InputText
-            value={value}
+            value={hrsValue}
             type={type}
+            placeholder="In Hrs"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setValue(e.target.value)
+              setHrsvalue(e.target.value)
+            }
+          />
+          <InputText
+            value={minsValue}
+            type={type}
+            placeholder="In Mins"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setMinsValue(e.target.value)
             }
           />
           <span className="p-inputgroup-addon" onClick={handleButtonClick}>
@@ -57,4 +60,4 @@ const SingleInputBox: React.FC<SingleInputBoxProps> = ({
   );
 };
 
-export default SingleInputBox;
+export default HrsMins;

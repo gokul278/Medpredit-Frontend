@@ -17,6 +17,7 @@ import YesNo from "./YesNo";
 import axios from "axios";
 import decrypt from "../../helper";
 import SingleInputBox from "./SingleInputBox";
+import HrsMins from "./HrsMins";
 
 const Questions: React.FC = () => {
   // URL PARAMS
@@ -64,12 +65,6 @@ const Questions: React.FC = () => {
     { questionId: any; answer: string | number }[]
   >([]);
 
-  const [showAlert, setShowAlert] = useState(false);
-  const [editedQuestion, setEditedQuestion] = useState<{
-    questionId: any;
-    answer: string | number;
-  } | null>(null);
-
   const tokenString: any = localStorage.getItem("userDetails");
   const patientId: any = localStorage.getItem("currentPatientId");
   const tokenObject = JSON.parse(tokenString);
@@ -102,32 +97,6 @@ const Questions: React.FC = () => {
           setVisibleQuestions([data.questions[0]]);
         }
       });
-  };
-
-  const handleAnswerChange = (
-    questionId: any,
-    answer: string | number,
-    forwardQId: string | null
-  ) => {
-    const alreadyAnswered = responses.some(
-      (res) => res.questionId === questionId
-    );
-
-    if (alreadyAnswered) {
-      setEditedQuestion({ questionId, answer });
-      setShowAlert(true);
-    } else {
-      getNextQuestions(questionId, answer, forwardQId);
-    }
-  };
-
-  const confirmEditAnswer = () => {
-    if (editedQuestion) {
-      console.log("Edited answer:", editedQuestion);
-      getNextQuestions(editedQuestion.questionId, editedQuestion.answer, null);
-    }
-    setEditedQuestion(null);
-    setShowAlert(false);
   };
 
   const getNextQuestions = (
@@ -180,7 +149,7 @@ const Questions: React.FC = () => {
               employeeId: localStorage.getItem("currentDoctorId")
                 ? localStorage.getItem("currentDoctorId")
                 : null,
-                hospitalId: localStorage.getItem("hospitalId")
+              hospitalId: localStorage.getItem("hospitalId"),
             },
             {
               headers: {
@@ -216,31 +185,57 @@ const Questions: React.FC = () => {
     }
   };
 
-  const handleQuestionEdit = (index: number, questionId: any) => {
-    // Show confirmation dialog when a question is changed
-    if (index === 2) {
-      setShowAlert(true);
+  const handleQuestionEdit = (
+    questionId: any,
+    refOptionId: number,
+    forwardQnId: any
+  ) => {
+    if (responses) {
+      responses.map((res) => {
+        if (res.questionId === questionId) {
+          console.log("Response found - editing");
+          const index = visibleQuestions.findIndex(
+            (visibleQns) => visibleQns.questionId === questionId
+          );
+          if (index !== -1) {
+            const newVisibleQuestions = visibleQuestions.slice(0, index + 1);
+            console.log("Visible qns", visibleQuestions);
+            console.log("Response data", responses);
+            console.log("Edited");
+            setVisibleQuestions(newVisibleQuestions);
+          }
+        }
+      });
     }
+    getNextQuestions(questionId, refOptionId, forwardQnId);
   };
 
-  const handleAlertConfirm = (questionId: any, forwardQId: string) => {
-    // Clear responses after confirmation and reset visible questions from forwardQId
-    setVisibleQuestions((prev) =>
-      prev.filter((q) => parseInt(q.questionId, 10) <= questionId)
-    );
-    setResponses((prevResponses) =>
-      prevResponses.filter((response) => response.questionId <= questionId)
-    );
-
-    // Show next questions based on forwardQId
-    const nextQuestion = questionData.find((q) => q.questionId === forwardQId);
-
-    if (nextQuestion) {
-      setVisibleQuestions([nextQuestion]);
-      setEnabledIndex(0);
+  const handleHrsEdit = (
+    questionId: any,
+    hrsValue: any,
+    minsValue: any,
+    forwardQnId: any
+  ) => {
+    if (responses) {
+      responses.map((res) => {
+        if (res.questionId === questionId) {
+          console.log("Response found - editing");
+          const index = visibleQuestions.findIndex(
+            (visibleQns) => visibleQns.questionId === questionId
+          );
+          if (index !== -1) {
+            const newVisibleQuestions = visibleQuestions.slice(0, index + 1);
+            console.log("Visible qns", visibleQuestions);
+            console.log("Response data", responses);
+            console.log("Edited");
+            setVisibleQuestions(newVisibleQuestions);
+          }
+        }
+      });
     }
 
-    setShowAlert(false);
+    const resultValue = hrsValue + minsValue;
+    getNextQuestions(questionId, resultValue, forwardQnId);
   };
 
   useEffect(() => {
@@ -276,7 +271,9 @@ const Questions: React.FC = () => {
                       getNextQuestions(questionId, parseInt(value), forwardQId);
                     }
                   }}
-                  onEdit={() => handleQuestionEdit(index, question.questionId)} // Edit event handler
+                  onEdit={(value, forwardQId) => {
+                    handleQuestionEdit(question.questionId, value, forwardQId);
+                  }}
                 />
               )}
               {question.questionType === "1" && (
@@ -284,40 +281,40 @@ const Questions: React.FC = () => {
                   label={question}
                   onOptionSelect={(refOptionId, forwardQId) => {
                     if (index === enabledIndex) {
-                      getNextQuestions(
-                        question.questionId,
-                        refOptionId,
-                        forwardQId
-                      );
+                      // getNextQuestions(
+                      //   question.questionId,
+                      //   refOptionId,
+                      //   forwardQId
+                      // );
                     }
                   }}
-                  onEdit={() => handleQuestionEdit(index, question.questionId)} // Edit event handler
+                  onEdit={(refOptionId, forwardQId) => {
+                    handleQuestionEdit(
+                      question.questionId,
+                      refOptionId,
+                      forwardQId
+                    );
+                  }}
+                />
+              )}
+
+              {question.questionType === "5" && (
+                <HrsMins
+                  type="text"
+                  label={question}
+                  onEdit={(hrsValue, minsValue, forwardQId) => {
+                    handleHrsEdit(
+                      question.questionId,
+                      hrsValue,
+                      minsValue,
+                      forwardQId
+                    );
+                  }}
                 />
               )}
             </div>
           ))}
         </div>
-
-        {/* Alert dialog for editing a question */}
-        <IonAlert
-          isOpen={showAlert}
-          onDidDismiss={() => setShowAlert(false)}
-          header={"Confirm Edit"}
-          message={"Are you sure you want to edit this answer?"}
-          buttons={[
-            {
-              text: "No",
-              role: "cancel",
-            },
-            {
-              text: "Yes",
-              handler: () => {
-                const forwardQId = visibleQuestions[2]?.options[0]?.forwardQId; // Example forwardQId logic
-                handleAlertConfirm(visibleQuestions[2].questionId, forwardQId);
-              },
-            },
-          ]}
-        />
       </IonContent>
     </IonPage>
   );

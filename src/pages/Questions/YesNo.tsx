@@ -20,7 +20,7 @@ interface YesNoProps {
   };
 
   onOptionSelect: (refOptionId: number, forwardQId: string) => void;
-  onEdit: (questionId: number, forwardQId: string) => void;
+  onEdit: (refOptionId: number, forwardQId: string) => void;
 }
 
 const YesNo: React.FC<YesNoProps> = ({ label, onOptionSelect, onEdit }) => {
@@ -30,10 +30,8 @@ const YesNo: React.FC<YesNoProps> = ({ label, onOptionSelect, onEdit }) => {
 
   const handleButtonClick = (refOptionId: any, refNextQn: any) => {
     setSelectedValue(refOptionId);
-    console.log("refNextQn", refNextQn);
-    console.log("refOptionId", refOptionId);
     onOptionSelect(refOptionId, refNextQn);
-    onEdit(label.questionId, refNextQn);
+    onEdit(refOptionId, refNextQn);
   };
 
   return (
