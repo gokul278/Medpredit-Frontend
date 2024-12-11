@@ -10,6 +10,7 @@ interface CardData {
   refCategoryLabel: string;
   refScore?: any;
   refScoreId?: any;
+  UserScoreVerify?: any
 }
 
 interface SubCardsProps {
@@ -35,6 +36,7 @@ const SubCards: React.FC<SubCardsProps> = ({
     cardTitle: "",
     refCategoryLabel: 0,
     refScoreId: "",
+    refQCategoryId: 0,
   });
 
   const handleremoveScore = () => {
@@ -48,7 +50,13 @@ const SubCards: React.FC<SubCardsProps> = ({
         Axios.post(
           `${import.meta.env.VITE_API_URL}/resetScore `,
           {
-            scoreId: selectedData.refScoreId,
+            refPatientId: localStorage.getItem("currentPatientId"),
+            refQCategoryId: selectedData.refQCategoryId,
+            refHospitalId: localStorage.getItem("hospitalId"),
+            employeeId:
+              tokenObject.roleType === 1
+                ? null
+                : localStorage.getItem("currentDoctorId"),
           },
           {
             headers: {
@@ -75,6 +83,184 @@ const SubCards: React.FC<SubCardsProps> = ({
       }
     } else {
       console.error("No token found in localStorage.");
+    }
+  };
+
+  const handleScoreValue = (categoryId: any, score: any) => {
+    console.log(categoryId);
+    if (categoryId === 8) {
+      if (score >= 150) {
+        return (
+          <div
+            style={{
+              color: "green",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div>Score: {score}</div>
+            <div>No Risk</div>
+          </div>
+        );
+      } else if (score < 150) {
+        return (
+          <div
+            style={{
+              color: "red",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div style={{ fontSize: "16px" }}>Score: {score}</div>
+            <div style={{ fontSize: "14px" }}>Substantial Risk</div>
+          </div>
+        );
+      }
+    } else if (categoryId === 9) {
+      if (score <= 13) {
+        return (
+          <div
+            style={{
+              color: "green",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div style={{ fontSize: "16px" }}>Score: {score}</div>
+            <div style={{ fontSize: "14px" }}>Low Stress</div>
+          </div>
+        );
+      } else if (score >= 14 && score <= 26) {
+        return (
+          <div
+            style={{
+              color: "#FCC737",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div style={{ fontSize: "16px" }}>Score: {score}</div>
+            <div style={{ fontSize: "14px" }}>Moderate Stress</div>
+          </div>
+        );
+      } else if (score >= 27) {
+        return (
+          <div
+            style={{
+              color: "red",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div style={{ fontSize: "16px" }}>Score: {score}</div>
+            <div style={{ fontSize: "14px" }}>High Perceived Stress</div>
+          </div>
+        );
+      }
+    } else if (categoryId === 11) {
+      if (score <= 7) {
+        return (
+          <div
+            style={{
+              color: "green",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div style={{ fontSize: "16px" }}>Score: {score}</div>
+            <div style={{ fontSize: "14px" }}>Zone 1</div>
+          </div>
+        );
+      } else if (score >= 8 && score <= 15) {
+        return (
+          <div
+            style={{
+              color: "#FCC737",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div style={{ fontSize: "16px" }}>Score: {score}</div>
+            <div style={{ fontSize: "14px" }}>Zone 2</div>
+          </div>
+        );
+      } else if (score >= 16 && score <= 19) {
+        return (
+          <div
+            style={{
+              color: "#F26B0F",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div style={{ fontSize: "16px" }}>Score: {score}</div>
+            <div style={{ fontSize: "14px" }}>Zone 3</div>
+          </div>
+        );
+      } else if (score >= 20) {
+        return (
+          <div
+            style={{
+              color: "red",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div style={{ fontSize: "16px" }}>Score: {score}</div>
+            <div style={{ fontSize: "14px" }}>Zone 4</div>
+          </div>
+        );
+      }
+    } else if (categoryId === 12) {
+      if (score <= 7) {
+        return (
+          <div
+            style={{
+              color: "green",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div>Score: {score}</div>
+            <div>Low risk</div>
+          </div>
+        );
+      } else if (score > 7) {
+        return (
+          <div
+            style={{
+              color: "red",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div style={{ fontSize: "16px" }}>Score: {score}</div>
+            <div style={{ fontSize: "14px" }}>Substantial Risk</div>
+          </div>
+        );
+      }
     }
   };
 
@@ -105,9 +291,8 @@ const SubCards: React.FC<SubCardsProps> = ({
         onDidDismiss={() => setIsAlertOpen(false)}
       />
       {data.map((card) => (
-        <>
+        <div key={card.refQCategoryId}>
           <div
-            key={card.refQCategoryId}
             className="subCards"
             onClick={() => {
               if (card.refScore === null) {
@@ -118,6 +303,7 @@ const SubCards: React.FC<SubCardsProps> = ({
                   refScoreId: card.refScoreId,
                   refCategoryLabel: card.refQCategoryId,
                   cardTitle: card.refCategoryLabel,
+                  refQCategoryId: card.refQCategoryId,
                 });
               }
             }}
@@ -132,7 +318,7 @@ const SubCards: React.FC<SubCardsProps> = ({
                 <p
                   className="factorHeading"
                   style={{
-                    fontSize: "20px",
+                    fontSize: "18px",
                     fontWeight: "600",
                     color: "#373A40",
                   }}
@@ -148,14 +334,14 @@ const SubCards: React.FC<SubCardsProps> = ({
                       ></i>
                     </div>
                   ) : (
-                    <div style={{ color: "green" }}>Score: {card.refScore}</div>
+                    <>{handleScoreValue(card.UserScoreVerify, card.refScore)}</>
                   )}
                 </div>
               </div>
             </div>
           </div>
           <Divider />
-        </>
+        </div>
       ))}
     </div>
   );

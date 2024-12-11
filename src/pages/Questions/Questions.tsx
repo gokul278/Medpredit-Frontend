@@ -10,7 +10,7 @@ import {
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import MultiInputBox from "./MultiInputBox";
 import Checkbox from "./Checkbox";
 import YesNo from "./YesNo";
@@ -18,13 +18,25 @@ import axios from "axios";
 import decrypt from "../../helper";
 import SingleInputBox from "./SingleInputBox";
 import HrsMins from "./HrsMins";
+import NumberInputBoxT6 from "./NumberInputBoxT6";
+import NumberInputBoxT4 from "./NumberInputBoxT4";
 
 const Questions: React.FC = () => {
+  const history = useHistory();
   // URL PARAMS
   const { refCategoryLabel, cardTitle } = useParams<{
     refCategoryLabel: string;
     cardTitle: string;
   }>();
+
+  useEffect(() => {
+    const getCategory = {
+      id: cardTitle,
+      label: refCategoryLabel,
+    };
+
+    localStorage.setItem("getQuestions", JSON.stringify(getCategory));
+  }, []);
 
   // INTERFACE FOR QUESTIONS
   const [questionData, setQuestionsData] = useState<
@@ -62,7 +74,7 @@ const Questions: React.FC = () => {
   const [enabledIndex, setEnabledIndex] = useState<number>(0);
 
   const [responses, setResponses] = useState<
-    { questionId: any; answer: string | number }[]
+    { questionId: any; questionType: any; answer: any }[]
   >([]);
 
   const tokenString: any = localStorage.getItem("userDetails");
@@ -92,6 +104,8 @@ const Questions: React.FC = () => {
           import.meta.env.VITE_ENCRYPTION_KEY
         );
         if (data.status) {
+          console.log(data.questions);
+
           setQuestionsData(data.questions);
           console.log("data.questions", data.questions);
           setVisibleQuestions([data.questions[0]]);
@@ -99,76 +113,34 @@ const Questions: React.FC = () => {
       });
   };
 
-  const getNextQuestions = (
+  const getNextQuestions = async (
     questionId: any,
-    answer: string | number,
-    forwardQId: string | null
+    questionType: any,
+    answer: any,
+    forwardQId: any
   ) => {
-    console.log("forwardQId:", forwardQId);
+    console.log("forwardQId:", questionType);
     console.log("Answer submitted for questionId:", questionId, answer);
 
     // Convert forwardQId to a number, if not null
     const nextQuestionId = forwardQId ? parseInt(forwardQId, 10) : null;
 
-    // Add response to the state
+    // Update the responses state
     setResponses((prevResponses) => {
-      // Create a map to ensure unique questionId
       const responseMap = new Map(
-        prevResponses.map((res) => [res.questionId, res.answer])
+        prevResponses.map((res) => [
+          res.questionId,
+          { questionType: res.questionType, answer: res.answer },
+        ])
       );
 
-      // Update the map with the latest value
-      responseMap.set(questionId, answer);
+      responseMap.set(questionId, { questionType, answer });
 
-      // Convert the map back to an array
-      const updatedResponses = Array.from(responseMap.entries()).map(
-        ([id, ans]) => ({
-          questionId: id,
-          answer: ans,
-        })
-      );
-
-      // If forwardQId is null or no matching question is found, submit the responses
-      if (
-        !nextQuestionId ||
-        !questionData.some((q) => parseInt(q.questionId, 10) === nextQuestionId)
-      ) {
-        console.log(
-          "No matching question found or forwardQId is null:",
-          forwardQId
-        );
-        console.log("Submitting responses:", updatedResponses);
-
-        axios
-          .post(
-            `${import.meta.env.VITE_API_URL}/postAnswers`,
-            {
-              patientId: patientId,
-              categoryId: cardTitle,
-              answers: updatedResponses,
-              employeeId: localStorage.getItem("currentDoctorId")
-                ? localStorage.getItem("currentDoctorId")
-                : null,
-              hospitalId: localStorage.getItem("hospitalId"),
-            },
-            {
-              headers: {
-                Authorization: token,
-                "Content-Type": "application/json",
-              },
-            }
-          )
-          .then((response) => {
-            console.log("Responses submitted successfully:", response.data);
-          })
-          .catch((error) => {
-            console.error("Error submitting responses:", error);
-          });
-
-        return updatedResponses;
-      }
-
-      return updatedResponses;
+      return Array.from(responseMap.entries()).map(([id, value]) => ({
+        questionId: id,
+        questionType: value.questionType,
+        answer: value.answer,
+      }));
     });
 
     // Find and reveal the next question, if it exists
@@ -182,11 +154,62 @@ const Questions: React.FC = () => {
         nextQuestion,
       ]);
       setEnabledIndex((prevIndex) => prevIndex + 1);
+    } else {
+      // Submit responses if no next question exists
+      const updatedResponses = responses; // Make sure `responses` reflects the current state
+
+      console.log("Submitting responses:", updatedResponses);
+
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/postAnswers`,
+          {
+            patientId: patientId,
+            categoryId: cardTitle,
+            answers: updatedResponses,
+            employeeId: localStorage.getItem("currentDoctorId")
+              ? localStorage.getItem("currentDoctorId")
+              : null,
+            hospitalId: localStorage.getItem("hospitalId"),
+          },
+          {
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const data = decrypt(
+          response.data[1],
+          response.data[0],
+          import.meta.env.VITE_ENCRYPTION_KEY
+        );
+
+        if (data.status) {
+          const getCategory = localStorage.getItem("getCategory");
+          if (getCategory) {
+            const getQuestionsToken = JSON.parse(getCategory);
+            getQuestions();
+            setResponses([]);
+            history.push(
+              `/subCategories/${getQuestionsToken.id}/${getQuestionsToken.label}`
+            );
+          } else {
+            console.error("getCategory is null or undefined");
+          }
+        }
+
+        console.log("Responses submitted successfully:", data);
+      } catch (error) {
+        console.error("Error submitting responses:", error);
+      }
     }
   };
 
   const handleQuestionEdit = (
     questionId: any,
+    questionType: any,
     refOptionId: number,
     forwardQnId: any
   ) => {
@@ -207,15 +230,17 @@ const Questions: React.FC = () => {
         }
       });
     }
-    getNextQuestions(questionId, refOptionId, forwardQnId);
+    getNextQuestions(questionId, questionType, refOptionId, forwardQnId);
   };
 
   const handleHrsEdit = (
     questionId: any,
+    questionType: any,
     hrsValue: any,
     minsValue: any,
     forwardQnId: any
   ) => {
+    console.log("questionType", questionType);
     if (responses) {
       responses.map((res) => {
         if (res.questionId === questionId) {
@@ -234,8 +259,8 @@ const Questions: React.FC = () => {
       });
     }
 
-    const resultValue = hrsValue + minsValue;
-    getNextQuestions(questionId, resultValue, forwardQnId);
+    const resultValue = hrsValue + ":" + minsValue;
+    getNextQuestions(questionId, questionType, resultValue, forwardQnId);
   };
 
   useEffect(() => {
@@ -246,7 +271,7 @@ const Questions: React.FC = () => {
         console.log("Error fetching questions");
       }
     }
-  }, []);
+  }, [token]);
 
   return (
     <IonPage>
@@ -262,20 +287,32 @@ const Questions: React.FC = () => {
         <div className="questionContainers">
           {visibleQuestions.map((question, index) => (
             <div key={index}>
-              {question.questionType === "3" && (
-                <SingleInputBox
-                  type="text"
+              {question.questionType === "6" && (
+                <NumberInputBoxT6
+                  type="number"
                   label={question}
                   onClickOpt={(value, questionId, forwardQId) => {
                     if (index === enabledIndex) {
-                      getNextQuestions(questionId, parseInt(value), forwardQId);
+                      console.log("-------------------->onEdit Triggered");
+                      // getNextQuestions(
+                      //   questionId,
+                      //   question.questionType,
+                      //   parseInt(value),
+                      //   forwardQId
+                      // );
                     }
                   }}
-                  onEdit={(value, forwardQId) => {
-                    handleQuestionEdit(question.questionId, value, forwardQId);
+                  onEdit={(questionType, value, forwardQId) => {
+                    handleQuestionEdit(
+                      question.questionId,
+                      questionType,
+                      value,
+                      forwardQId
+                    );
                   }}
                 />
               )}
+
               {question.questionType === "1" && (
                 <YesNo
                   label={question}
@@ -288,9 +325,10 @@ const Questions: React.FC = () => {
                       // );
                     }
                   }}
-                  onEdit={(refOptionId, forwardQId) => {
+                  onEdit={(questionType, refOptionId, forwardQId) => {
                     handleQuestionEdit(
                       question.questionId,
+                      questionType,
                       refOptionId,
                       forwardQId
                     );
@@ -302,11 +340,38 @@ const Questions: React.FC = () => {
                 <HrsMins
                   type="text"
                   label={question}
-                  onEdit={(hrsValue, minsValue, forwardQId) => {
+                  onEdit={(questionType, hrsValue, minsValue, forwardQId) => {
                     handleHrsEdit(
                       question.questionId,
+                      questionType,
                       hrsValue,
                       minsValue,
+                      forwardQId
+                    );
+                  }}
+                />
+              )}
+
+              {question.questionType === "4" && (
+                <NumberInputBoxT4
+                  type="number"
+                  label={question}
+                  onClickOpt={(value, questionId, forwardQId) => {
+                    if (index === enabledIndex) {
+                      console.log("-------------------->onEdit Triggered");
+                      // getNextQuestions(
+                      //   questionId,
+                      //   question.questionType,
+                      //   parseInt(value),
+                      //   forwardQId
+                      // );
+                    }
+                  }}
+                  onEdit={(questionType, value, forwardQId) => {
+                    handleQuestionEdit(
+                      question.questionId,
+                      questionType,
+                      value,
                       forwardQId
                     );
                   }}

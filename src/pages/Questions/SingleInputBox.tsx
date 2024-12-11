@@ -17,7 +17,7 @@ interface SingleInputBoxProps {
     ];
   };
   onClickOpt: (value: string, questionId: number, forwardQId: string) => void;
-  onEdit: (value: any, forwardQId: string) => void;
+  onEdit: (questionType: any, value: any, forwardQId: string) => void;
 }
 
 const SingleInputBox: React.FC<SingleInputBoxProps> = ({
@@ -31,7 +31,7 @@ const SingleInputBox: React.FC<SingleInputBoxProps> = ({
   const handleButtonClick = () => {
     const forwardQId = label.options[0]?.forwardQId || "";
     onClickOpt(value, label.questionId, forwardQId);
-    onEdit(value, forwardQId);
+    onEdit(label.questionType, value, forwardQId);
   };
 
   return (

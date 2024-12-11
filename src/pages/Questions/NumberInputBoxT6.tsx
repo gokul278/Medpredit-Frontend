@@ -2,7 +2,7 @@ import { Divider } from "primereact/divider";
 import { InputNumber } from "primereact/inputnumber";
 import React, { useState } from "react";
 
-interface HrsInputBox {
+interface NumberInputBoxT6Props {
   type: string;
   label: {
     questionType: string;
@@ -17,21 +17,22 @@ interface HrsInputBox {
       }
     ];
   };
-  onEdit: (
-    questionType: any,
-    hrsValue: any,
-    minsValue: any,
-    forwardQId: string
-  ) => void;
+  onClickOpt: (value: string, questionId: number, forwardQId: string) => void;
+  onEdit: (questionType: any, value: any, forwardQId: string) => void;
 }
 
-const HrsMins: React.FC<HrsInputBox> = ({ label, type, onEdit }) => {
-  const [hrsValue, setHrsValue] = useState<number>();
-  const [minsValue, setMinsValue] = useState<number>();
+const NumberInputBoxT6: React.FC<NumberInputBoxT6Props> = ({
+  label,
+  type,
+  onClickOpt,
+  onEdit,
+}) => {
+  const [value, setValue] = useState<number | null>(null);
 
   const handleButtonClick = () => {
     const forwardQId = label.options[0]?.forwardQId || "";
-    onEdit(label.questionType, hrsValue, minsValue, forwardQId);
+    onClickOpt(String(value), label.questionId, forwardQId);
+    onEdit(label.questionType, value, forwardQId);
   };
 
   return (
@@ -43,26 +44,15 @@ const HrsMins: React.FC<HrsInputBox> = ({ label, type, onEdit }) => {
         }}
       >
         <div className="questions inputText">
-          <p className="question">{label.questionText}</p>
+          <p className="question ">{label.questionText}</p>
           <div className="p-inputgroup flex-1">
             <InputNumber
-              value={hrsValue}
-              placeholder="In Hrs"
-              onChange={(e: any) => {
-                setHrsValue(e.value);
+              value={value}
+              onChange={(e) => {
+                setValue(e.value);
               }}
               min={0}
-              max={20}
-              required
-            />
-            <InputNumber
-              value={minsValue}
-              placeholder="In Mins"
-              onChange={(e: any) => {
-                setMinsValue(e.value);
-              }}
-              min={0}
-              max={59}
+              max={7}
               required
             />
             <button type="submit">
@@ -78,4 +68,4 @@ const HrsMins: React.FC<HrsInputBox> = ({ label, type, onEdit }) => {
   );
 };
 
-export default HrsMins;
+export default NumberInputBoxT6;

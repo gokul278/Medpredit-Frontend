@@ -19,6 +19,15 @@ const SubCategories: React.FC = () => {
     categroyName: string;
   }>();
 
+  useEffect(() => {
+    const getCategory = {
+      id: categoryId,
+      label: categroyName,
+    };
+
+    localStorage.setItem("getCategory", JSON.stringify(getCategory));
+  }, []);
+
   const [categories, setCategories] = useState<
     { refQCategoryId: number; refCategoryLabel: string }[]
   >([]);
@@ -60,9 +69,10 @@ const SubCategories: React.FC = () => {
               import.meta.env.VITE_ENCRYPTION_KEY
             );
 
-            console.log(data.data);
-
             setCategories(data.data);
+
+            console.log("----------->",data.data);
+            
           });
       } catch (error) {
         console.error("Error parsing token:", error);

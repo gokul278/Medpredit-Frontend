@@ -28,6 +28,15 @@ const KnowAboutPatient: React.FC = () => {
     patientId: string;
   }>();
 
+  useEffect(() => {
+    const getSubCategory = {
+      id: patientId,
+      label: patient,
+    };
+
+    localStorage.setItem("getSubCategory", JSON.stringify(getSubCategory));
+  }, []);
+
   const [categories, setCategories] = useState<
     { refQCategoryId: number; refCategoryLabel: string }[]
   >([]);
@@ -61,7 +70,7 @@ const KnowAboutPatient: React.FC = () => {
               employeeId: localStorage.getItem("currentDoctorId")
                 ? localStorage.getItem("currentDoctorId")
                 : null,
-                hospitalId: localStorage.getItem("hospitalId")
+              hospitalId: localStorage.getItem("hospitalId"),
             },
             {
               headers: {
