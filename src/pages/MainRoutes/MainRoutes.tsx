@@ -40,6 +40,9 @@ import AddEmployee from "../../components/34-AddEmployee/AddEmployee";
 import SubCategories from "../SubCategories/SubCategories";
 import AddFamilyUser from "../AddFamilyUser/AddFamilyUser";
 import PastReport from "../../components/35-PastReport/PastReport";
+import AlcoholInfo from "../Information/AlcoholInfo";
+import AlcoholInstructions from "../Instructions/AlcoholInstructions";
+import TobaccoInfo from "../Information/TobaccoInfo";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -189,6 +192,15 @@ const MainRoutes: React.FC = () => {
         </Route>
         <Route exact path="/">
           <Redirect to="/splash" />
+        </Route>
+        <Route path="/alcoholInfo">
+          <AlcoholInfo />
+        </Route>
+        <Route path="/tobaccoInfo">
+          <TobaccoInfo />
+        </Route>
+        <Route path="/alcoholInstruction/:refCategoryLabel/:cardTitle">
+          <AlcoholInstructions />
         </Route>
       </IonRouterOutlet>
 
