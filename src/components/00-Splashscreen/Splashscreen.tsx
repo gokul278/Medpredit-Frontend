@@ -25,7 +25,6 @@ const Splashscreen: React.FC = () => {
       } else {
         history.push("/intro");
       }
-
     }, 3000);
 
     return () => clearTimeout(timer);

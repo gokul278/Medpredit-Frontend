@@ -43,6 +43,7 @@ import PastReport from "../../components/35-PastReport/PastReport";
 import AlcoholInfo from "../Information/AlcoholInfo";
 import AlcoholInstructions from "../Instructions/AlcoholInstructions";
 import TobaccoInfo from "../Information/TobaccoInfo";
+import ChangePassword from "../../components/04-ChangePassword/ChangePassword";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -138,6 +139,9 @@ const MainRoutes: React.FC = () => {
       <IonRouterOutlet id="main">
         <Route exact path="/">
           <Splashscreen />
+        </Route>
+        <Route exact path="/changePassword">
+          <ChangePassword />
         </Route>
         <Route path="/home">
           <Tab1 />

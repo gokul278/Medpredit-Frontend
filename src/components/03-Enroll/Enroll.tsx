@@ -1,4 +1,5 @@
 import {
+  IonAvatar,
   IonButton,
   IonCheckbox,
   IonContent,
@@ -14,18 +15,20 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 
 import logo from "../../assets/logo/logo.svg";
+import home1 from "../../assets/images/home1.jpg";
 
 import "./Enroll.css";
-import { Divider } from "primereact/divider";
-import { Avatar } from "primereact/avatar";
-import { arrowForwardOutline } from "ionicons/icons";
+import { arrowForwardOutline, image } from "ionicons/icons";
 import { useHistory } from "react-router";
+
+import hospital from "../../assets/images/hospital.jpg";
 
 import axios from "axios";
 
 import decrypt from "../../helper";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
+import { Divider } from "primereact/divider";
 
 interface HospitalData {
   refHospitalName: any;
@@ -175,14 +178,14 @@ const Enroll: React.FC = () => {
       <IonContent>
         <IonModal
           mode="ios"
-          isOpen={hospitalModel} // Only open modal for the clicked patient
+          isOpen={hospitalModel}
           onDidDismiss={() => {
             setHospitalModel(false);
           }}
           initialBreakpoint={0.75}
         >
           <IonContent className="ion-padding">
-            <div style={{ height: "71vh" }}>
+            <div>
               <div
                 style={{
                   height: "8vh",
@@ -198,7 +201,7 @@ const Enroll: React.FC = () => {
               <div
                 style={{
                   height: "55vh",
-                  overflow: "auto",
+                  overflow: "hidden",
                   display: "flex",
                   flexDirection: "column",
                   gap: "10px",
@@ -211,54 +214,26 @@ const Enroll: React.FC = () => {
                     }}
                     key={index}
                     style={{
-                      height: "60px",
-                      background: "#e6e6e6",
                       borderRadius: "5px",
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "start",
                       justifyContent: "center",
-                      padding: "8px",
                       fontSize: "16px",
                     }}
                   >
-                    <div>{hospitalData.refHospitalName}</div>
-                    <div style={{ fontSize: "13px", marginTop: "5px" }}>
-                      {hospitalData.FullAddress}
+                    <div className="hospitalsDiv flex w-full align-items-center">
+                      <img height={80} src={hospital} alt="" />
+                      <div className="contents ml-3">
+                        <div>{hospitalData.refHospitalName}</div>
+                        <div style={{ fontSize: "13px", marginTop: "5px" }}>
+                          {hospitalData.FullAddress}
+                        </div>
+                      </div>
                     </div>
+                    <Divider className="m-2" />
                   </div>
                 ))}
-              </div>
-              <div
-                style={{
-                  height: "8vh",
-                  overflow: "auto",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  fontSize: "18px",
-                  fontWeight: "700",
-                }}
-              >
-                <div
-                  style={{
-                    width: "100%",
-                    height: "5vh",
-                    background: "#89A8B2",
-                    color: "#fff",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    borderRadius: "5px",
-                  }}
-                  onClick={() => {
-                    setHospitalModel(false);
-                  }}
-                >
-                  Close
-                </div>
               </div>
             </div>
           </IonContent>
@@ -271,14 +246,21 @@ const Enroll: React.FC = () => {
             overflow: "auto",
           }}
         >
-          <div className="signinPage">
-            <img src={logo} alt="" width="200px" className="ion-padding-bottom" />
-            <p className="signinHeader ion-padding-top ion-padding-bottom">
-              Sign In
-            </p>
-            <p className="welcomeCont ion-padding-bottom">
-              Hi! Welcome Back, You've Been Missed !!
-            </p>
+          <div className="signinPage" style={{ height: "100vh" }}>
+            <img
+              src={logo}
+              alt=""
+              width="200px"
+              className="ion-padding-bottom"
+            />
+            <div>
+              <p className="signinHeader text-center ion-padding-top ion-padding-bottom">
+                Sign In
+              </p>
+              <p className="welcomeCont ion-padding-bottom">
+                Hi! Welcome Back, You've Been Missed !!
+              </p>
+            </div>
 
             <div className="formContentSignIn ion-padding-top">
               <div className="input-container">
@@ -315,70 +297,19 @@ const Enroll: React.FC = () => {
               <button
                 className="ion-margin-top ion-margin-bottom"
                 onClick={handleSignIn}
+                style={{ background: "#1c70b0" }}
               >
                 Sign In
               </button>
-              {/* <Divider layout="horizontal">
-                <b>OR</b>
-              </Divider>
-              <div className="googleSignIn">
-                <Avatar icon="pi pi-envelope" size="large" shape="circle" />
-              </div> */}
-              {/* <div className="signUp">
-                <p className="ion-padding-top">
-                  Don't have an account?
-                  <span onClick={() => setIsSignInVisible(false)}>
-                    &nbsp; Sign up here!
-                  </span>{" "}
-                </p>
-              </div> */}
             </div>
+            <img
+              style={{ height: "30vh", width: "100%", objectFit: "cover" }}
+              src={home1}
+              alt=""
+            />
           </div>
         </div>
-        <div
-          className="register"
-          style={{
-            display: isSignInVisible ? "block" : "none",
-            overflow: "auto",
-          }}
-        >
-          <div className="signinPage">
-            <p className="signinHeader ion-padding-bottom">Create Account</p>
-            <p className="welcomeCont ion-padding-bottom">
-              Fill your information below or register with your social account.
-            </p>
 
-            <div className="formContentSignIn ion-padding-top">
-              <p>Name</p>
-              <input type="text" required />
-              <p>Email</p>
-              <input type="email" required />
-              <p>Password</p>
-              <input type="password" required />
-              <div className="termsCondition"></div>
-              <button
-                className="ion-margin-top ion-margin-bottom"
-                id="open-modal"
-              >
-                Sign Up
-              </button>
-              <Divider layout="horizontal">
-                <b>OR</b>
-              </Divider>
-              <div className="googleSignIn">
-                <Avatar icon="pi pi-phone" size="large" shape="circle" />
-              </div>
-              <div className="signUp">
-                <p className="ion-padding-top">
-                  Already have an account ?
-                  <span onClick={() => setIsSignInVisible(true)}>
-                    &nbsp; Sign in here!
-                  </span>{" "}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
         <IonModal
           ref={modal}
           mode="ios"

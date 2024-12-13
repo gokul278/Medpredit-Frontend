@@ -101,7 +101,7 @@ const Tab4: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton mode="md" defaultHref="/patient"></IonBackButton>
           </IonButtons>
-          <IonTitle></IonTitle>
+          <IonTitle>Profile</IonTitle>
         </IonToolbar>
       </IonHeader>
 
