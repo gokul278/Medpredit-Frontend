@@ -28,6 +28,10 @@ const YesNo: React.FC<YesNoProps> = ({ label, onOptionSelect, onEdit }) => {
 
   useEffect(() => {}, []);
 
+  useEffect(() => {
+    setSelectedValue(0); // Reset selection to empty array initially
+  }, [label]);
+
   const handleButtonClick = (refOptionId: any, refNextQn: any) => {
     setSelectedValue(refOptionId);
     onOptionSelect(refOptionId, refNextQn);

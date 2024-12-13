@@ -10,18 +10,26 @@ import "./Tab3.css";
 const Tab3: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader mode="ios">
+      {/* <IonHeader mode="ios">
         <IonToolbar>
           <IonTitle>Tab 3</IonTitle>
         </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 3</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-      </IonContent>
+      </IonHeader> */}
+      <IonPage>
+        <IonContent fullscreen>
+          <div
+            style={{
+              width: "100%",
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <h1>Advice - Coming Soon</h1>
+          </div>
+        </IonContent>
+      </IonPage>
     </IonPage>
   );
 };

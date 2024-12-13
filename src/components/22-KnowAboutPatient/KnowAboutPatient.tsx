@@ -262,7 +262,7 @@ const KnowAboutPatient: React.FC = () => {
         <div>
           {selectedValue === "knowabout" ? (
             <>
-              {/* <IonSegmentContent key="knowabout" id="knowabout">
+              <IonSegmentContent key="knowabout" id="knowabout">
                 <div
                   style={{
                     width: "100%",
@@ -413,7 +413,7 @@ const KnowAboutPatient: React.FC = () => {
                     </>
                   )}
                 </div>
-              </IonSegmentContent> */}
+              </IonSegmentContent>
             </>
           ) : (
             <>

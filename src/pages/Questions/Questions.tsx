@@ -4,6 +4,7 @@ import {
   IonButton,
   IonButtons,
   IonContent,
+  IonFooter,
   IonHeader,
   IonPage,
   IonTitle,
@@ -19,14 +20,28 @@ import axios from "axios";
 import decrypt from "../../helper";
 import SingleInputBox from "./SingleInputBox";
 import HrsMins from "./HrsMins";
+import NumberInputBoxT6 from "./NumberInputBoxT6";
+import NumberInputBoxT4 from "./NumberInputBoxT4";
 import MultipleSelect from "./MultipleSelect";
 
 const Questions: React.FC = () => {
+  const history = useHistory();
   // URL PARAMS
   const { refCategoryLabel, cardTitle } = useParams<{
     refCategoryLabel: string;
     cardTitle: string;
   }>();
+
+  const [submitButton, setSubmitButton] = useState(true);
+
+  useEffect(() => {
+    const getCategory = {
+      id: cardTitle,
+      label: refCategoryLabel,
+    };
+
+    localStorage.setItem("getQuestions", JSON.stringify(getCategory));
+  }, []);
 
   // INTERFACE FOR QUESTIONS
   const [questionData, setQuestionsData] = useState<
@@ -63,8 +78,10 @@ const Questions: React.FC = () => {
 
   const [enabledIndex, setEnabledIndex] = useState<number>(0);
 
+  const [submittedAnswer, setSubmittedAnswer] = useState<any>();
+
   const [responses, setResponses] = useState<
-    { questionId: any; answer: string | number }[]
+    { questionId: any; questionType: any; answer: any }[]
   >([]);
 
   const tokenString: any = localStorage.getItem("userDetails");
@@ -94,6 +111,8 @@ const Questions: React.FC = () => {
           import.meta.env.VITE_ENCRYPTION_KEY
         );
         if (data.status) {
+          console.log(data.questions);
+
           setQuestionsData(data.questions);
           console.log("data.questions", data.questions);
           setVisibleQuestions([data.questions[0]]);
@@ -103,92 +122,212 @@ const Questions: React.FC = () => {
 
   const getNextQuestions = (
     questionId: any,
-    answer: string | number,
-    forwardQId: string | null
+    questionType: any,
+    answer: any,
+    forwardQId: any
   ) => {
-    console.log("forwardQId:", forwardQId);
+    setSubmitButton(true);
+    console.log("forwardQId:", questionType);
     console.log("Answer submitted for questionId:", questionId, answer);
 
     // Convert forwardQId to a number, if not null
-    const nextQuestionId = forwardQId ? parseInt(forwardQId, 10) : null;
+    let nextQuestionId = forwardQId ? parseInt(forwardQId, 10) : null;
 
-    // Add response to the state
+    // Update the responses state
     setResponses((prevResponses) => {
-      // Create a map to ensure unique questionId
       const responseMap = new Map(
-        prevResponses.map((res) => [res.questionId, res.answer])
+        prevResponses.map((res) => [
+          res.questionId,
+          { questionType: res.questionType, answer: res.answer },
+        ])
       );
 
-      // Update the map with the latest value
-      responseMap.set(questionId, answer);
+      responseMap.set(questionId, { questionType, answer });
 
-      // Convert the map back to an array
       const updatedResponses = Array.from(responseMap.entries()).map(
-        ([id, ans]) => ({
+        ([id, value]) => ({
           questionId: id,
-          answer: ans,
+          questionType: value.questionType,
+          answer: value.answer,
         })
       );
 
-      // If forwardQId is null or no matching question is found, submit the responses
-      if (
-        !nextQuestionId ||
-        !questionData.some((q) => parseInt(q.questionId, 10) === nextQuestionId)
-      ) {
-        console.log(
-          "No matching question found or forwardQId is null:",
-          forwardQId
-        );
+      // Submit the final updated responses if no next question exists
+      if (!nextQuestionId) {
+        setSubmitButton(false);
+        setSubmittedAnswer(updatedResponses); // Use the updated responses here
         console.log("Submitting responses:", updatedResponses);
-
-        axios
-          .post(
-            `${import.meta.env.VITE_API_URL}/postAnswers`,
-            {
-              patientId: patientId,
-              categoryId: cardTitle,
-              answers: updatedResponses,
-              employeeId: localStorage.getItem("currentDoctorId")
-                ? localStorage.getItem("currentDoctorId")
-                : null,
-              hospitalId: localStorage.getItem("hospitalId"),
-            },
-            {
-              headers: {
-                Authorization: token,
-                "Content-Type": "application/json",
-              },
-            }
-          )
-          .then((response) => {
-            console.log("Responses submitted successfully:", response.data);
-          })
-          .catch((error) => {
-            console.error("Error submitting responses:", error);
-          });
-
-        return updatedResponses;
       }
 
       return updatedResponses;
     });
 
-    // Find and reveal the next question, if it exists
-    const nextQuestion = questionData.find(
-      (q) => parseInt(q.questionId, 10) === nextQuestionId
-    );
+    if (questionId === 33) {
+      const prevQuestion = responses[1].answer;
+      const currentQuestion = answer;
+      console.log(prevQuestion, currentQuestion, forwardQId);
 
-    if (nextQuestion) {
-      setVisibleQuestions((prevVisibleQuestions) => [
-        ...prevVisibleQuestions,
-        nextQuestion,
-      ]);
-      setEnabledIndex((prevIndex) => prevIndex + 1);
+      if (currentQuestion === 118) {
+        if (prevQuestion === 113) {
+          const nextQuestion = questionData.find(
+            (q) => parseInt(q.questionId, 10) === 39
+          );
+
+          if (nextQuestion) {
+            setVisibleQuestions((prevVisibleQuestions) => [
+              ...prevVisibleQuestions,
+              nextQuestion,
+            ]);
+            setEnabledIndex((prevIndex) => prevIndex + 1);
+          }
+        } else {
+          const nextQuestion = questionData.find(
+            (q) => parseInt(q.questionId, 10) === 34
+          );
+
+          if (nextQuestion) {
+            setVisibleQuestions((prevVisibleQuestions) => [
+              ...prevVisibleQuestions,
+              nextQuestion,
+            ]);
+            setEnabledIndex((prevIndex) => prevIndex + 1);
+          }
+        }
+      } else {
+        const nextQuestion = questionData.find(
+          (q) => parseInt(q.questionId, 10) === nextQuestionId
+        );
+
+        if (nextQuestion) {
+          setVisibleQuestions((prevVisibleQuestions) => [
+            ...prevVisibleQuestions,
+            nextQuestion,
+          ]);
+          setEnabledIndex((prevIndex) => prevIndex + 1);
+        }
+      }
+    } else {
+      const nextQuestion = questionData.find(
+        (q) => parseInt(q.questionId, 10) === nextQuestionId
+      );
+
+      if (nextQuestion) {
+        setVisibleQuestions((prevVisibleQuestions) => [
+          ...prevVisibleQuestions,
+          nextQuestion,
+        ]);
+        setEnabledIndex((prevIndex) => prevIndex + 1);
+      }
+    }
+  };
+
+  // const getNextQuestions = (
+  //   questionId: any,
+  //   questionType: any,
+  //   answer: any,
+  //   forwardQId: any
+  // ) => {
+  //   setSubmitButton(true);
+  //   console.log("forwardQId:", questionType);
+  //   console.log("Answer submitted for questionId:", questionId, answer);
+
+  //   // Convert forwardQId to a number, if not null
+  //   const nextQuestionId = forwardQId ? parseInt(forwardQId, 10) : null;
+
+  //   // Update the responses state
+  //   setResponses((prevResponses) => {
+  //     const responseMap = new Map(
+  //       prevResponses.map((res) => [
+  //         res.questionId,
+  //         { questionType: res.questionType, answer: res.answer },
+  //       ])
+  //     );
+
+  //     responseMap.set(questionId, { questionType, answer });
+
+  //     return Array.from(responseMap.entries()).map(([id, value]) => ({
+  //       questionId: id,
+  //       questionType: value.questionType,
+  //       answer: value.answer,
+  //     }));
+  //   });
+
+  //   // Find and reveal the next question, if it exists
+  //   const nextQuestion = questionData.find(
+  //     (q) => parseInt(q.questionId, 10) === nextQuestionId
+  //   );
+
+  //   console.log("line 159", nextQuestion);
+
+  //   if (nextQuestion) {
+  //     setVisibleQuestions((prevVisibleQuestions) => [
+  //       ...prevVisibleQuestions,
+  //       nextQuestion,
+  //     ]);
+  //     setEnabledIndex((prevIndex) => prevIndex + 1);
+  //   } else {
+  //     // Submit responses if no next question exists
+  //     const updatedResponses = responses; // Make sure responses reflects the current state
+
+  //     setSubmitButton(false);
+  //     setSubmittedAnswer(responses);
+  //     console.log("Submitting responses:", responses);
+  //     // submitResponse(updatedResponses);
+  //   }
+  // };
+
+  const submitResponse = () => {
+    console.log("updatedResponses", submittedAnswer);
+    try {
+      axios
+        .post(
+          `${import.meta.env.VITE_API_URL}/postAnswers`,
+          {
+            patientId: patientId,
+            categoryId: cardTitle,
+            answers: submittedAnswer,
+            employeeId: localStorage.getItem("currentDoctorId")
+              ? localStorage.getItem("currentDoctorId")
+              : null,
+            hospitalId: localStorage.getItem("hospitalId"),
+          },
+          {
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          const data = decrypt(
+            response.data[1],
+            response.data[0],
+            import.meta.env.VITE_ENCRYPTION_KEY
+          );
+
+          if (data.status) {
+            const getCategory = localStorage.getItem("getCategory");
+            if (getCategory) {
+              const getQuestionsToken = JSON.parse(getCategory);
+              getQuestions();
+              setResponses([]);
+              history.push(
+                `/subCategories/${getQuestionsToken.id}/${getQuestionsToken.label}`
+              );
+              setSubmittedAnswer([]);
+            } else {
+              console.error("getCategory is null or undefined");
+            }
+          }
+        });
+    } catch (error) {
+      console.error("Error submitting responses:", error);
     }
   };
 
   const handleQuestionEdit = (
     questionId: any,
+    questionType: any,
     refOptionId: number,
     forwardQnId: any
   ) => {
@@ -209,12 +348,13 @@ const Questions: React.FC = () => {
         }
       });
     }
-    getNextQuestions(questionId, refOptionId, forwardQnId);
+    getNextQuestions(questionId, questionType, refOptionId, forwardQnId);
   };
 
   const handleMultipleSelectEdit = (
     questionId: any,
-    refOptionId: any[],
+    questionType: any,
+    selectedOptions: any[],
     forwardQnId: any
   ) => {
     if (responses) {
@@ -234,15 +374,17 @@ const Questions: React.FC = () => {
         }
       });
     }
-    // getNextQuestions(questionId, refOptionId, forwardQnId);
+    getNextQuestions(questionId, questionType, selectedOptions, forwardQnId);
   };
 
   const handleHrsEdit = (
     questionId: any,
+    questionType: any,
     hrsValue: any,
     minsValue: any,
     forwardQnId: any
   ) => {
+    console.log("questionType", questionType);
     if (responses) {
       responses.map((res) => {
         if (res.questionId === questionId) {
@@ -261,8 +403,8 @@ const Questions: React.FC = () => {
       });
     }
 
-    const resultValue = hrsValue + minsValue;
-    getNextQuestions(questionId, resultValue, forwardQnId);
+    const resultValue = hrsValue + ":" + minsValue;
+    getNextQuestions(questionId, questionType, resultValue, forwardQnId);
   };
 
   useEffect(() => {
@@ -273,63 +415,48 @@ const Questions: React.FC = () => {
         console.log("Error fetching questions");
       }
     }
-  }, []);
-
-  const history = useHistory();
-
-  const handleInstruction = () => {
-    if (cardTitle == "8") {
-      history.push(`/alcoholInfo`);
-    } else {
-      history.push(`/tobacooInfo`);
-    }
-  };
-
-  const handleInst = () => {
-    history.push(`/alcoholInstruction/${refCategoryLabel}/${cardTitle}`);
-  };
+  }, [token]);
 
   return (
     <IonPage>
       <IonHeader mode="ios">
         <IonToolbar className="pt-1 pb-1" mode="ios">
           <IonButtons slot="start">
-            <IonBackButton
-              mode="md"
-              defaultHref="/subCategories/4/Risk%20Factor"
-            ></IonBackButton>
+            <IonBackButton mode="md" defaultHref="/patient"></IonBackButton>
           </IonButtons>
           <IonTitle>{refCategoryLabel}</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonButton onClick={handleInstruction}>Info</IonButton>
-          </IonButtons>
-          <IonButtons slot="end">
-            <IonButton onClick={handleInst}>Instructions</IonButton>
-          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <div className="questionContainers">
           {visibleQuestions.map((question, index) => (
             <div key={index}>
-              {question.questionType === "3" && (
-                <SingleInputBox
-                  type="text"
+              {question.questionType === "6" && (
+                <NumberInputBoxT6
+                  type="number"
                   label={question}
                   onClickOpt={(value, questionId, forwardQId) => {
                     if (index === enabledIndex) {
-                      getNextQuestions(questionId, parseInt(value), forwardQId);
+                      console.log("-------------------->onEdit Triggered");
+                      // getNextQuestions(
+                      //   questionId,
+                      //   question.questionType,
+                      //   parseInt(value),
+                      //   forwardQId
+                      // );
                     }
                   }}
-                  onEdit={(value, forwardQId) => {
-                    handleQuestionEdit(question.questionId, value, forwardQId);
+                  onEdit={(questionType, value, forwardQId) => {
+                    handleQuestionEdit(
+                      question.questionId,
+                      questionType,
+                      value,
+                      forwardQId
+                    );
                   }}
                 />
               )}
+
               {question.questionType === "1" && (
                 <YesNo
                   label={question}
@@ -342,16 +469,16 @@ const Questions: React.FC = () => {
                       // );
                     }
                   }}
-                  onEdit={(refOptionId, forwardQId) => {
+                  onEdit={(questionType, refOptionId, forwardQId) => {
                     handleQuestionEdit(
                       question.questionId,
+                      questionType,
                       refOptionId,
                       forwardQId
                     );
                   }}
                 />
               )}
-
               {question.questionType === "2" && (
                 <MultipleSelect
                   label={question}
@@ -367,6 +494,7 @@ const Questions: React.FC = () => {
                   onEdit={(selectedOptions, forwardQId) => {
                     handleMultipleSelectEdit(
                       question.questionId,
+                      question.questionType,
                       selectedOptions,
                       forwardQId
                     );
@@ -374,30 +502,42 @@ const Questions: React.FC = () => {
                 />
               )}
 
-              {/* {question.questionType === "2" && (
-                <MultiInputBox
+              {question.questionType === "5" && (
+                <HrsMins
                   type="text"
                   label={question}
-                  onEdit={(hrsValue, minsValue, forwardQId) => {
+                  onEdit={(questionType, hrsValue, minsValue, forwardQId) => {
                     handleHrsEdit(
                       question.questionId,
+                      questionType,
                       hrsValue,
                       minsValue,
                       forwardQId
                     );
                   }}
                 />
-              )} */}
+              )}
 
-              {question.questionType === "5" && (
-                <HrsMins
-                  type="text"
+              {question.questionType === "4" && (
+                <NumberInputBoxT4
+                  type="number"
                   label={question}
-                  onEdit={(hrsValue, minsValue, forwardQId) => {
-                    handleHrsEdit(
+                  onClickOpt={(value, questionId, forwardQId) => {
+                    if (index === enabledIndex) {
+                      console.log("-------------------->onEdit Triggered");
+                      // getNextQuestions(
+                      //   questionId,
+                      //   question.questionType,
+                      //   parseInt(value),
+                      //   forwardQId
+                      // );
+                    }
+                  }}
+                  onEdit={(questionType, value, forwardQId) => {
+                    handleQuestionEdit(
                       question.questionId,
-                      hrsValue,
-                      minsValue,
+                      questionType,
+                      value,
                       forwardQId
                     );
                   }}
@@ -407,6 +547,17 @@ const Questions: React.FC = () => {
           ))}
         </div>
       </IonContent>
+      <IonFooter>
+        <IonToolbar>
+          <IonButton
+            expand="block"
+            disabled={submitButton}
+            onClick={submitResponse}
+          >
+            Submit
+          </IonButton>
+        </IonToolbar>
+      </IonFooter>
     </IonPage>
   );
 };

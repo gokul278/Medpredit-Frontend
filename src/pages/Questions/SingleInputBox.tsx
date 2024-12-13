@@ -1,6 +1,6 @@
 import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 interface SingleInputBoxProps {
   type: string;
   label: {
@@ -27,6 +27,10 @@ const SingleInputBox: React.FC<SingleInputBoxProps> = ({
   onEdit,
 }) => {
   const [value, setValue] = useState<string>("");
+
+  useEffect(() => {
+    setValue(""); // Reset selection to empty array initially
+  }, [label]);
 
   const handleButtonClick = () => {
     const forwardQId = label.options[0]?.forwardQId || "";

@@ -1,6 +1,6 @@
 import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface MultiInputBoxProps {
   type: string;
@@ -29,6 +29,10 @@ const MultiInputBox: React.FC<MultiInputBoxProps> = ({
   const [values, setValues] = useState<string[]>(
     Array(placeholders?.length).fill("")
   );
+
+  useEffect(() => {
+    setValues([]); // Reset selection to empty array initially
+  }, [label]);
 
   const handleInputChange = (index: number, value: string) => {
     const updatedValues = [...values];

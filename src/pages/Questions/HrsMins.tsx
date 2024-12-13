@@ -1,6 +1,6 @@
 import { Divider } from "primereact/divider";
 import { InputNumber } from "primereact/inputnumber";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface HrsInputBox {
   type: string;

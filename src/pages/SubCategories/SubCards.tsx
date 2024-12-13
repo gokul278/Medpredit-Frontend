@@ -10,7 +10,7 @@ interface CardData {
   refCategoryLabel: string;
   refScore?: any;
   refScoreId?: any;
-  UserScoreVerify?: any
+  UserScoreVerify?: any;
 }
 
 interface SubCardsProps {
@@ -86,182 +86,93 @@ const SubCards: React.FC<SubCardsProps> = ({
     }
   };
 
-  const handleScoreValue = (categoryId: any, score: any) => {
-    console.log(categoryId);
-    if (categoryId === 8) {
-      if (score >= 150) {
-        return (
-          <div
-            style={{
-              color: "green",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <div>Score: {score}</div>
-            <div>No Risk</div>
-          </div>
-        );
-      } else if (score < 150) {
-        return (
-          <div
-            style={{
-              color: "red",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <div style={{ fontSize: "16px" }}>Score: {score}</div>
-            <div style={{ fontSize: "14px" }}>Substantial Risk</div>
-          </div>
-        );
+  const handleScoreValue = (UserScoreVerify: any, refScore: any) => {
+    let label = "";
+    let scoreValue = "";
+    let color = "";
+
+    UserScoreVerify.map((element: any) => {
+      switch (element.refAction) {
+        case "equal":
+          if (refScore.toString() === element.refValue.toString()) {
+            label = element.refAnswerLabel;
+            scoreValue = refScore;
+            color = element.refScoreColor;
+            break;
+          }
+          break;
+
+        case "lessThanEqual":
+          if (parseFloat(refScore) <= parseFloat(element.refValue)) {
+            label = element.refAnswerLabel;
+            scoreValue = refScore;
+            color = element.refScoreColor;
+            break;
+          }
+          break;
+
+        case "greaterThanEqual":
+          if (parseFloat(refScore) >= parseFloat(element.refValue)) {
+            label = element.refAnswerLabel;
+            scoreValue = refScore;
+            color = element.refScoreColor;
+            break;
+          }
+          break;
+
+        case "lessThan":
+          if (parseFloat(refScore) < parseFloat(element.refValue)) {
+            label = element.refAnswerLabel;
+            scoreValue = refScore;
+            color = element.refScoreColor;
+            break;
+          }
+          break;
+
+        case "greaterThan":
+          if (parseFloat(refScore) > parseFloat(element.refValue)) {
+            label = element.refAnswerLabel;
+            scoreValue = refScore;
+            color = element.refScoreColor;
+            break;
+          }
+          break;
+
+        case "rangeEqual":
+          const [firstVal, secondVal] = element.refValue
+            .split(",")
+            .map(parseFloat);
+
+          if (
+            parseFloat(firstVal) <= parseFloat(refScore) &&
+            parseFloat(refScore) <= parseFloat(secondVal)
+          ) {
+            label = element.refAnswerLabel;
+            scoreValue = refScore;
+            color = element.refScoreColor;
+            break;
+          }
+          break;
+
+        default:
+          console.log("Unknown refAction:", element.refAction);
       }
-    } else if (categoryId === 9) {
-      if (score <= 13) {
-        return (
-          <div
-            style={{
-              color: "green",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <div style={{ fontSize: "16px" }}>Score: {score}</div>
-            <div style={{ fontSize: "14px" }}>Low Stress</div>
-          </div>
-        );
-      } else if (score >= 14 && score <= 26) {
-        return (
-          <div
-            style={{
-              color: "#FCC737",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <div style={{ fontSize: "16px" }}>Score: {score}</div>
-            <div style={{ fontSize: "14px" }}>Moderate Stress</div>
-          </div>
-        );
-      } else if (score >= 27) {
-        return (
-          <div
-            style={{
-              color: "red",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <div style={{ fontSize: "16px" }}>Score: {score}</div>
-            <div style={{ fontSize: "14px" }}>High Perceived Stress</div>
-          </div>
-        );
-      }
-    } else if (categoryId === 11) {
-      if (score <= 7) {
-        return (
-          <div
-            style={{
-              color: "green",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <div style={{ fontSize: "16px" }}>Score: {score}</div>
-            <div style={{ fontSize: "14px" }}>Zone 1</div>
-          </div>
-        );
-      } else if (score >= 8 && score <= 15) {
-        return (
-          <div
-            style={{
-              color: "#FCC737",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <div style={{ fontSize: "16px" }}>Score: {score}</div>
-            <div style={{ fontSize: "14px" }}>Zone 2</div>
-          </div>
-        );
-      } else if (score >= 16 && score <= 19) {
-        return (
-          <div
-            style={{
-              color: "#F26B0F",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <div style={{ fontSize: "16px" }}>Score: {score}</div>
-            <div style={{ fontSize: "14px" }}>Zone 3</div>
-          </div>
-        );
-      } else if (score >= 20) {
-        return (
-          <div
-            style={{
-              color: "red",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <div style={{ fontSize: "16px" }}>Score: {score}</div>
-            <div style={{ fontSize: "14px" }}>Zone 4</div>
-          </div>
-        );
-      }
-    } else if (categoryId === 12) {
-      if (score <= 7) {
-        return (
-          <div
-            style={{
-              color: "green",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <div>Score: {score}</div>
-            <div>Low risk</div>
-          </div>
-        );
-      } else if (score > 7) {
-        return (
-          <div
-            style={{
-              color: "red",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <div style={{ fontSize: "16px" }}>Score: {score}</div>
-            <div style={{ fontSize: "14px" }}>Substantial Risk</div>
-          </div>
-        );
-      }
-    }
+    });
+
+    return (
+      <div
+        style={{
+          color: `${color}`,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <div>Score: {scoreValue}</div>
+        <div>{label}</div>
+      </div>
+    );
   };
 
   return (

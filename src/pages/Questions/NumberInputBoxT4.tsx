@@ -1,6 +1,6 @@
 import { Divider } from "primereact/divider";
 import { InputNumber } from "primereact/inputnumber";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface NumberInputBoxT4Props {
   type: string;
@@ -51,6 +51,7 @@ const NumberInputBoxT4: React.FC<NumberInputBoxT4Props> = ({
               onChange={(e) => {
                 setValue(e.value);
               }}
+              min={1}
               required
             />
             <button type="submit">

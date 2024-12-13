@@ -1,6 +1,6 @@
 import { Divider } from "primereact/divider";
 import { InputNumber } from "primereact/inputnumber";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface NumberInputBoxT6Props {
   type: string;
@@ -34,6 +34,7 @@ const NumberInputBoxT6: React.FC<NumberInputBoxT6Props> = ({
     onClickOpt(String(value), label.questionId, forwardQId);
     onEdit(label.questionType, value, forwardQId);
   };
+
 
   return (
     <div className="questionsOutline">

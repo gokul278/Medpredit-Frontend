@@ -1,5 +1,5 @@
 import { Divider } from "primereact/divider";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface MultipleSelectProps {
   label: {
@@ -23,6 +23,10 @@ const MultipleSelect: React.FC<MultipleSelectProps> = ({
   onEdit,
 }) => {
   const [selectedValues, setSelectedValues] = useState<number[]>([]);
+
+  useEffect(() => {
+    setSelectedValues([0]);
+  }, []);
 
   const handleButtonClick = (refOptionId: number, refNextQn: string) => {
     let updatedSelectedValues;

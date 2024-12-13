@@ -23,10 +23,14 @@ import {
   personOutline,
   starOutline,
   logOutOutline,
+  lockClosedOutline,
 } from "ionicons/icons";
 import SettingsTile from "../SettingsTile/SettingsTile";
 import ListItem from "../ListItem/ListItem";
 import { useHistory } from "react-router";
+import { useEffect, useState } from "react";
+import Axios from "axios";
+import decrypt from "../../helper";
 
 const Tab4: React.FC = () => {
   const tilesData = [
@@ -44,11 +48,48 @@ const Tab4: React.FC = () => {
   ];
 
   const overallSettings = [
-    { icon: starOutline, label: "Reviews" },
-    { icon: chatbubblesOutline, label: "Questions & Answers" },
+    {
+      icon: lockClosedOutline,
+      label: "Change Password",
+      location: "/changePassword",
+    },
   ];
 
   const history = useHistory();
+
+  const [userData, setUserData] = useState({
+    name: "",
+    userCustId: "",
+  });
+
+  useEffect(() => {
+    const tokenString = localStorage.getItem("userDetails");
+
+    if (tokenString) {
+      const tokenObject = JSON.parse(tokenString);
+      const token = tokenObject.token;
+
+      Axios.get(`${import.meta.env.VITE_API_URL}/getProfile`, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      }).then((response) => {
+        const data = decrypt(
+          response.data[1],
+          response.data[0],
+          import.meta.env.VITE_ENCRYPTION_KEY
+        );
+
+        if (data.status) {
+          setUserData({
+            name: data.data.refUserName,
+            userCustId: data.data.refUserCustId,
+          });
+        }
+      });
+    }
+  }, []);
 
   return (
     <IonPage>
@@ -69,8 +110,8 @@ const Tab4: React.FC = () => {
               alt=""
             />
             <div className="profileEditCont ion-padding-start">
-              <p>Thomas Djono</p>
-              <p>ID 01011213</p>
+              <p>{userData.name}</p>
+              <p>ID {userData.userCustId}</p>
             </div>
           </div>
         </div>
@@ -78,26 +119,40 @@ const Tab4: React.FC = () => {
         <div className="settingsGrids">
           {/* <SettingsTile tiles={tilesData} /> */}
         </div>
-        <div className="listsSettings">
+        {/* <div className="listsSettings">
           <p className="headings">Account Settings</p>
           <div className="listSet">
             {listData.map((item, index) => (
               <ListItem key={index} icon={item.icon} label={item.label} />
             ))}
           </div>
-        </div>
+        </div> */}
         <div className="listsSettings">
           <p className="headings">Overall Settings</p>
           <div className="listSet">
             {overallSettings.map((item, index) => (
-              <ListItem key={index} icon={item.icon} label={item.label} />
+              <ListItem
+                key={index}
+                icon={item.icon}
+                label={item.label}
+                location={item.location}
+              />
             ))}
           </div>
-          <div onClick={()=>{
-            localStorage.clear();
-            location.replace("/")
-          }} className="listSet">
-            <ListItem key="logout" icon={logOutOutline} label="Logout" />
+          <div
+            onClick={() => {
+              localStorage.clear();
+              location.replace("/");
+            }}
+            className="listSet"
+          >
+            <div onClick={() => {}} className="listItems">
+              <div className="listContent">
+                <IonIcon icon={logOutOutline} />
+                <p>Logout</p>
+              </div>
+              <IonIcon className="chevronIcon" icon="chevronForwardOutline" />
+            </div>
           </div>
         </div>
       </IonContent>

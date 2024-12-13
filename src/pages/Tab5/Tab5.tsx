@@ -33,43 +33,57 @@ const Tab5: React.FC = () => {
   };
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar className="">
-          <IonButtons slot="start">
-            <IonBackButton defaultHref="/home" mode="md"></IonBackButton>
-          </IonButtons>
-          <IonTitle>Configure</IonTitle>
-          <IonButtons slot="end">
-            <IonIcon
-              className="addIcon mr-2"
-              icon={addCircleOutline}
-              onClick={handleAddClick}
-            ></IonIcon>
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonToolbar>
-          <IonSegment
-            value="questions"
-            scrollable={true}
-            onIonChange={(e) => setSelectedSegment(e.detail.value!)}
-          >
-            <IonSegmentButton value="questions" contentId="questions">
-              <IonLabel>Questions</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="employee" contentId="employee">
-              <IonLabel>Employee</IonLabel>
-            </IonSegmentButton>
-          </IonSegment>
-        </IonToolbar>
-        <IonSegmentView>
-          <IonSegmentContent id="questions">Question</IonSegmentContent>
-          <IonSegmentContent id="employee">Employee</IonSegmentContent>
-        </IonSegmentView>
+    // <IonPage>
+    //   <IonHeader>
+    //     <IonToolbar className="">
+    //       <IonButtons slot="start">
+    //         <IonBackButton defaultHref="/home" mode="md"></IonBackButton>
+    //       </IonButtons>
+    //       <IonTitle>Configure</IonTitle>
+    //       <IonButtons slot="end">
+    //         <IonIcon
+    //           className="addIcon mr-2"
+    //           icon={addCircleOutline}
+    //           onClick={handleAddClick}
+    //         ></IonIcon>
+    //       </IonButtons>
+    //     </IonToolbar>
+    //   </IonHeader>
+    //   <IonContent fullscreen>
+    //     <IonToolbar>
+    //       <IonSegment
+    //         value="questions"
+    //         scrollable={true}
+    //         onIonChange={(e) => setSelectedSegment(e.detail.value!)}
+    //       >
+    //         <IonSegmentButton value="questions" contentId="questions">
+    //           <IonLabel>Questions</IonLabel>
+    //         </IonSegmentButton>
+    //         <IonSegmentButton value="employee" contentId="employee">
+    //           <IonLabel>Employee</IonLabel>
+    //         </IonSegmentButton>
+    //       </IonSegment>
+    //     </IonToolbar>
+    //     <IonSegmentView>
+    //       <IonSegmentContent id="questions">Question</IonSegmentContent>
+    //       <IonSegmentContent id="employee">Employee</IonSegmentContent>
+    //     </IonSegmentView>
+    //   </IonContent>
+    // </IonPage>
+
+   <IonPage>
+     <IonContent fullscreen>
+        <div style={{
+          width:"100%",
+          height:"100vh",
+          display:"flex",
+          justifyContent:"center",
+          alignItems:"center"
+        }}>
+        <h1>Configure - Coming Soon</h1>
+        </div>
       </IonContent>
-    </IonPage>
+   </IonPage>
   );
 };
 
