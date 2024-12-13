@@ -16,13 +16,13 @@
 }
 
 .headerCont .headerProfile img {
-  block-size: 50px;
+  block-size: 60px;
   border-radius: 50%;
 }
 
 .headerCont .headerProfile .profileEditCont p {
   margin: 0;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 /* GRIDS */

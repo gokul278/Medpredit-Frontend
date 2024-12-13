@@ -106,19 +106,21 @@ const Tab4: React.FC = () => {
       </IonHeader>
 
       <IonContent fullscreen color="light">
-        <div className="headerCont">
+        <div className="headerCont ion-padding-start">
           <div className="headerProfile">
             <img src={profile} alt="" />
             <div className="profileEditCont ion-padding-start">
-              <p>{userData.name}</p>
+              <p className="">
+                <strong>{userData.name}</strong>
+              </p>
               <p>ID {userData.userCustId}</p>
             </div>
           </div>
         </div>
-        <Divider />
-        <div className="settingsGrids">
-          {/* <SettingsTile tiles={tilesData} /> */}
-        </div>
+        <Divider className="m-2" />
+        {/* <div className="settingsGrids"> */}
+        {/* <SettingsTile tiles={tilesData} /> */}
+        {/* </div> */}
         {/* <div className="listsSettings">
           <p className="headings">Account Settings</p>
           <div className="listSet">

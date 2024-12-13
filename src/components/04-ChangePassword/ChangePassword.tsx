@@ -11,9 +11,23 @@ import {
 } from "@ionic/react";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
-import React from "react";
+import React, { useState } from "react";
 
 const ChangePassword: React.FC = () => {
+  const [signInData, setSignInData] = useState({
+    oldPassword: "",
+    newPassword: "",
+    conformPassword: "",
+  });
+
+  const handleInputChange = (field: string, value: string) => {
+    setSignInData((prevData) => ({ ...prevData, [field]: value }));
+  };
+
+  const handleSubmit = () => {
+    console.log("Password Data:", signInData);
+  };
+
   return (
     <IonPage>
       <IonHeader mode="ios">
@@ -37,8 +51,8 @@ const ChangePassword: React.FC = () => {
               toggleMask
               required
               style={{ inlineSize: "100%", boxSizing: "border-box" }}
-              //   value={signInData.password}
-              //   onChange={(e) => handleInputChange(e, true)}
+              value={signInData.oldPassword}
+              onChange={(e) => handleInputChange("oldPassword", e.target.value)}
             />
           </div>
         </div>
@@ -54,8 +68,8 @@ const ChangePassword: React.FC = () => {
               toggleMask
               required
               style={{ inlineSize: "100%", boxSizing: "border-box" }}
-              //   value={signInData.password}
-              //   onChange={(e) => handleInputChange(e, true)}
+              value={signInData.newPassword}
+              onChange={(e) => handleInputChange("newPassword", e.target.value)}
             />
           </div>
         </div>
@@ -71,8 +85,10 @@ const ChangePassword: React.FC = () => {
               toggleMask
               required
               style={{ inlineSize: "100%", boxSizing: "border-box" }}
-              //   value={signInData.password}
-              //   onChange={(e) => handleInputChange(e, true)}
+              value={signInData.conformPassword}
+              onChange={(e) =>
+                handleInputChange("conformPassword", e.target.value)
+              }
             />
           </div>
         </div>
@@ -93,6 +109,7 @@ const ChangePassword: React.FC = () => {
             textTransform: "capitalize",
             background: "#1c70b0",
           }}
+          onClick={handleSubmit}
         >
           Change Password
         </IonButton>
