@@ -18,6 +18,8 @@ import Axios from "axios";
 
 import useriamge from "../../assets/images/SeacrhUser.png";
 
+import userImage from "../../assets/images/profile.png";
+
 interface Patient {
   refUserCustId: string;
   refUserFname: string;
@@ -92,7 +94,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
       Axios.post(
         `${import.meta.env.VITE_API_URL}/getAssistantDoctor`,
         {
-          hospitalId: localStorage.getItem("hospitalId")
+          hospitalId: localStorage.getItem("hospitalId"),
         },
         {
           headers: {
@@ -134,7 +136,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
         {
           employeeId: doctorId,
           patientId: patientId,
-          hospitalId: localStorage.getItem("hospitalId")
+          hospitalId: localStorage.getItem("hospitalId"),
         },
         {
           headers: {
@@ -180,7 +182,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
         {
           employeeId: doctorId,
           patientId: patientId,
-          hospitalId: localStorage.getItem("hospitalId")
+          hospitalId: localStorage.getItem("hospitalId"),
         },
         {
           headers: {
@@ -217,7 +219,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
         `${import.meta.env.VITE_API_URL}/checkPatientMap`,
         {
           patientId: patientId,
-          hospitalId: localStorage.getItem("hospitalId")
+          hospitalId: localStorage.getItem("hospitalId"),
         },
         {
           headers: {
@@ -262,7 +264,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
         `${import.meta.env.VITE_API_URL}/addPatientMap`,
         {
           patientId: patientId,
-          hospitalId: localStorage.getItem("hospitalId")
+          hospitalId: localStorage.getItem("hospitalId"),
         },
         {
           headers: {
@@ -299,10 +301,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
         const doctorName = patient.DoctorName || "-";
         const mobileno = patient.refUserMobileno || "-";
         const address = patient.refDistrict || "-";
-        const imageUrl =
-          patient.imageUrl ||
-          "https://ionicframework.com/docs/img/demos/thumbnail.svg";
-
+        const imageUrl = patient.imageUrl || userImage;
         return (
           <>
             {parsedDetails.roleType === 1 ? (

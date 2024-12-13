@@ -260,6 +260,9 @@ const Tab2: React.FC = () => {
                                 color: "#fff",
                                 fontWeight: "700",
                                 textAlign: "center",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
                               }}
                               onClick={() => {
                                 history.push(

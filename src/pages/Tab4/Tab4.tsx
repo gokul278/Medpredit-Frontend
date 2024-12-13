@@ -10,6 +10,9 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import "./Tab4.css";
+
+import profile from "../../assets/images/profile.png";
+
 import { Divider } from "primereact/divider";
 import {
   chatbubblesOutline,
@@ -105,10 +108,7 @@ const Tab4: React.FC = () => {
       <IonContent fullscreen color="light">
         <div className="headerCont">
           <div className="headerProfile">
-            <img
-              src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
-              alt=""
-            />
+            <img src={profile} alt="" />
             <div className="profileEditCont ion-padding-start">
               <p>{userData.name}</p>
               <p>ID {userData.userCustId}</p>

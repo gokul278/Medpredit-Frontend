@@ -13,6 +13,8 @@ import {
 } from "@ionic/react";
 import React, { useEffect, useRef, useState } from "react";
 
+import logo from "../../assets/logo/logo.svg";
+
 import "./Enroll.css";
 import { Divider } from "primereact/divider";
 import { Avatar } from "primereact/avatar";
@@ -270,7 +272,10 @@ const Enroll: React.FC = () => {
           }}
         >
           <div className="signinPage">
-            <p className="signinHeader ion-padding-bottom">Sign In</p>
+            <img src={logo} alt="" width="200px" className="ion-padding-bottom" />
+            <p className="signinHeader ion-padding-top ion-padding-bottom">
+              Sign In
+            </p>
             <p className="welcomeCont ion-padding-bottom">
               Hi! Welcome Back, You've Been Missed !!
             </p>
@@ -306,10 +311,7 @@ const Enroll: React.FC = () => {
                   />
                 </div>
               </div>
-              <p className="forgotPassword">Forgot Password ?</p>
-              {errorMessage && (
-                <IonText color="danger">{errorMessage}</IonText>
-              )}{" "}
+              {errorMessage && <IonText color="danger">{errorMessage}</IonText>}{" "}
               <button
                 className="ion-margin-top ion-margin-bottom"
                 onClick={handleSignIn}

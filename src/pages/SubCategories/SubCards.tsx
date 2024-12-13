@@ -5,6 +5,13 @@ import { useHistory } from "react-router";
 import Axios from "axios";
 import decrypt from "../../helper";
 
+import physical from "../../assets/images/physical.png";
+import stress from "../../assets/images/stress.png";
+import tobacco from "../../assets/images/tobacco.png";
+import alcohol from "../../assets/images/alcohol.png";
+import dietry from "../../assets/images/DIATERY-01.png";
+import bmi from "../../assets/images/bmi.png";
+
 interface CardData {
   refQCategoryId: number;
   refCategoryLabel: string;
@@ -38,6 +45,25 @@ const SubCards: React.FC<SubCardsProps> = ({
     refScoreId: "",
     refQCategoryId: 0,
   });
+
+  const getImage = (refQCategoryId: number) => {
+    switch (refQCategoryId) {
+      case 8:
+        return physical;
+      case 9:
+        return stress;
+      case 10:
+        return tobacco;
+      case 11:
+        return alcohol;
+      case 12:
+        return dietry;
+      case 13:
+        return bmi;
+      default:
+        return "https://via.placeholder.com/150";
+    }
+  };
 
   const handleremoveScore = () => {
     const tokenString = localStorage.getItem("userDetails");
@@ -220,10 +246,7 @@ const SubCards: React.FC<SubCardsProps> = ({
             }}
             style={{ cursor: "pointer" }}
           >
-            <img
-              src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
-              alt="Card Thumbnail"
-            />
+            <img src={getImage(card.refQCategoryId)} alt="Card Thumbnail" />
             <div className="cardConts">
               <div className="cardHeader">
                 <p

@@ -3,6 +3,10 @@ import React, { useRef, useState } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
+import home1 from "../../assets/images/home1.jpg";
+import home2 from "../../assets/images/home2.jpg";
+import home3 from "../../assets/images/home3.jpg";
+
 import "./Login.css";
 import { IonContent, IonIcon, IonPage } from "@ionic/react";
 import { chevronBackCircle, chevronForwardCircle } from "ionicons/icons";
@@ -61,10 +65,7 @@ const Login: React.FC = () => {
           onChange={handleSlideChange}
         >
           <div className="carouselDiv">
-            <img
-              src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
-              className="carouselImage"
-            />
+            <img src={home1} className="carouselImage" />
             <div className="contents">
               <p className="heading">
                 Discover <span>Experienced Doctors</span>
@@ -78,10 +79,7 @@ const Login: React.FC = () => {
             </div>
           </div>
           <div className="carouselDiv">
-            <img
-              src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
-              className="carouselImage"
-            />
+            <img src={home2} className="carouselImage" />
             <div className="contents">
               <p className="heading">
                 <span>Learn About</span> Your Doctors
@@ -95,10 +93,7 @@ const Login: React.FC = () => {
             </div>
           </div>
           <div className="carouselDiv">
-            <img
-              src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
-              className="carouselImage"
-            />
+            <img src={home3} className="carouselImage" />
             <div className="contents">
               <p className="heading">
                 <span>Effortless</span> Data Maintainence

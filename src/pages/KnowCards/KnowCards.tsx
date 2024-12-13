@@ -1,6 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
+import risk from "../../assets/images/risk.jpg";
+import symptoms from "../../assets/images/symptoms.jpg";
+import vitals from "../../assets/images/vitals.jpg";
+import blood from "../../assets/images/blood.jpg";
+
 interface CardData {
   refQCategoryId: number;
   refCategoryLabel: string;
@@ -11,10 +16,26 @@ interface KnowCardsValues {
 }
 
 const KnowCards: React.FC<KnowCardsValues> = ({ cardData }) => {
+  console.log("cardData", cardData);
   const history = useHistory();
 
   const handleCardClick = (categoryId: number, categroyName: string) => {
     history.push(`/subCategories/${categoryId}/${categroyName}`);
+  };
+
+  const getImage = (refQCategoryId: number) => {
+    switch (refQCategoryId) {
+      case 4:
+        return risk;
+      case 5:
+        return symptoms;
+      case 6:
+        return vitals;
+      case 7:
+        return blood;
+      default:
+        return "https://via.placeholder.com/150";
+    }
   };
 
   return (
@@ -31,9 +52,13 @@ const KnowCards: React.FC<KnowCardsValues> = ({ cardData }) => {
           >
             <div className="knowCard">
               <img
-                src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                style={{
+                  borderTopRightRadius: "10px",
+                  borderTopLeftRadius: "10px",
+                }}
+                src={getImage(card.refQCategoryId)}
                 alt={card.refCategoryLabel}
-              />
+              />{" "}
               <p>{card.refCategoryLabel}</p>
             </div>
           </div>
