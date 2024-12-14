@@ -23,6 +23,7 @@ import HrsMins from "./HrsMins";
 import NumberInputBoxT6 from "./NumberInputBoxT6";
 import NumberInputBoxT4 from "./NumberInputBoxT4";
 import MultipleSelect from "./MultipleSelect";
+import TextInputBox from "./TextInputBox";
 
 const Questions: React.FC = () => {
   const history = useHistory();
@@ -127,7 +128,7 @@ const Questions: React.FC = () => {
     forwardQId: any
   ) => {
     setSubmitButton(true);
-    console.log("forwardQId:", questionType);
+    console.log("forwardQId:", forwardQId);
     console.log("Answer submitted for questionId:", questionId, answer);
 
     // Convert forwardQId to a number, if not null
@@ -417,12 +418,30 @@ const Questions: React.FC = () => {
     }
   }, [token]);
 
+  const [backwardQ, setBackwardQ] = useState({
+    id: 0,
+    label: "",
+  });
+
+  useEffect(() => {
+    const categoryString: any = localStorage.getItem("getCategory");
+    const categoryObject = JSON.parse(categoryString);
+
+    setBackwardQ({
+      id: categoryObject.id,
+      label: categoryObject.label,
+    });
+  }, []);
+
   return (
     <IonPage>
       <IonHeader mode="ios">
         <IonToolbar className="pt-1 pb-1" mode="ios">
           <IonButtons slot="start">
-            <IonBackButton mode="md" defaultHref="/patient"></IonBackButton>
+            <IonBackButton
+              mode="md"
+              defaultHref={`/subCategories/${backwardQ.id}/${backwardQ.label}`}
+            ></IonBackButton>
           </IonButtons>
           <IonTitle>{refCategoryLabel}</IonTitle>
         </IonToolbar>
@@ -543,19 +562,56 @@ const Questions: React.FC = () => {
                   }}
                 />
               )}
+
+              {question.questionType === "3" && (
+                <TextInputBox
+                  type="text"
+                  label={question}
+                  onClickOpt={(value, questionId, forwardQId) => {
+                    if (index === enabledIndex) {
+                      console.log("-------------------->onEdit Triggered");
+                      // getNextQuestions(
+                      //   questionId,
+                      //   question.questionType,
+                      //   parseInt(value),
+                      //   forwardQId
+                      // );
+                    }
+                  }}
+                  onEdit={(questionType, value, forwardQId) => {
+                    handleQuestionEdit(
+                      question.questionId,
+                      questionType,
+                      value,
+                      forwardQId
+                    );
+                  }}
+                />
+              )}
             </div>
           ))}
         </div>
       </IonContent>
       <IonFooter>
         <IonToolbar>
-          <IonButton
-            expand="block"
+          <button
             disabled={submitButton}
             onClick={submitResponse}
+            style={{
+              width: "100%",
+              height: "3rem",
+              margin: "5px 0px",
+              borderRadius: "5px",
+              background: submitButton
+                ? "linear-gradient(160deg, #d3d3d3, #e0e0e0)" // Gray for disabled
+                : "linear-gradient(160deg, #077556, #2f9f97)", // Green for enabled
+              color: submitButton ? "#a0a0a0" : "#fff", // Lighter text color for disabled
+              fontSize: "16px",
+              cursor: submitButton ? "not-allowed" : "pointer", // Change cursor for disabled
+            }}
           >
             Submit
-          </IonButton>
+          </button>
         </IonToolbar>
       </IonFooter>
     </IonPage>

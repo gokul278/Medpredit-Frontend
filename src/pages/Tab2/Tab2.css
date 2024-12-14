@@ -53,7 +53,8 @@
 
 .addIcon {
   margin-right: 10px;
-  background-color: #51c145;
+  /* background-color: #51c145; */
+  background: linear-gradient(160deg, #077556, #2f9f97);
   color: #fff;
   width: 30px;
   height: 33px;
@@ -82,8 +83,6 @@
 }
 
 .patientCardsParent {
-  
-  
   border-radius: 5px;
   display: flex;
   overflow: auto;
@@ -91,7 +90,7 @@
   /* gap: 10px; */
 }
 
-.patientCardsParent .patientCard{
+.patientCardsParent .patientCard {
   padding: 10px;
   background-color: #e6e6e6;
 }
@@ -461,4 +460,3 @@
 .subCardContents .p-divider.p-divider-horizontal {
   margin: 0.75rem 0;
 }
-

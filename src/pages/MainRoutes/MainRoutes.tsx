@@ -44,9 +44,26 @@ import AlcoholInfo from "../Information/AlcoholInfo";
 import AlcoholInstructions from "../Instructions/AlcoholInstructions";
 import TobaccoInfo from "../Information/TobaccoInfo";
 import ChangePassword from "../../components/04-ChangePassword/ChangePassword";
+import { StatusBar, Style } from "@capacitor/status-bar";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
+
+  const configureStatusBar = async () => {
+    const path = location.pathname;
+    let bgcolor = "#ffffff";
+    // if (path === "/splash") {
+    //   bgcolor = "#d90216";
+    // }
+    // Change the color (example: blue)
+    await StatusBar.setBackgroundColor({ color: bgcolor });
+
+    // Optional: Set the style (light or dark content)
+    await StatusBar.setStyle({ style: Style.Light });
+  };
+
+  // Call the function on app startup
+  configureStatusBar();
 
   const showTabBar = [
     "/home",

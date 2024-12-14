@@ -83,12 +83,30 @@ const SubCategories: React.FC = () => {
     console.log(history.location.pathname);
   }, [history.location.pathname]);
 
+  const [backwardQ, setBackwardQ] = useState({
+    id: 0,
+    label: "",
+  });
+
+  useEffect(() => {
+    const categoryString: any = localStorage.getItem("getSubCategory");
+    const categoryObject = JSON.parse(categoryString);
+
+    setBackwardQ({
+      id: categoryObject.id,
+      label: categoryObject.label,
+    });
+  }, []);
+
   return (
     <IonPage>
       <IonHeader mode="ios">
         <IonToolbar className="pt-1 pb-1" mode="ios">
           <IonButtons slot="start">
-            <IonBackButton mode="md" defaultHref="/patient"></IonBackButton>
+            <IonBackButton
+              mode="md"
+              defaultHref={`knowAbout/${backwardQ.label}/${backwardQ.id}`}
+            ></IonBackButton>
           </IonButtons>
           <IonTitle>{categroyName}</IonTitle>
         </IonToolbar>
