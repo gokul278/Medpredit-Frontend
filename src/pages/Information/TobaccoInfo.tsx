@@ -4,6 +4,7 @@ import {
   IonBackButton,
   IonButtons,
   IonContent,
+  IonHeader,
   IonItem,
   IonLabel,
   IonPage,
@@ -16,15 +17,17 @@ const TobaccoInfo: React.FC = () => {
   console.log("asfs");
   return (
     <IonPage>
-      <IonToolbar className="" mode="ios">
-        <IonButtons slot="start">
-          <IonBackButton
-            mode="md"
-            defaultHref="questions/Stress/9"
-          ></IonBackButton>
-        </IonButtons>
-        <IonTitle>Tobacco Info</IonTitle>
-      </IonToolbar>
+      <IonHeader>
+        <IonToolbar className="" mode="ios">
+          <IonButtons slot="start">
+            <IonBackButton
+              mode="md"
+              defaultHref="questions/Stress/9"
+            ></IonBackButton>
+          </IonButtons>
+          <IonTitle>Tobacco Info</IonTitle>
+        </IonToolbar>
+      </IonHeader>
       <IonContent className="ion-padding" color="light">
         {/* <IonAccordionGroup>
           <IonAccordion value="first">

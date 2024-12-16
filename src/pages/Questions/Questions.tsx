@@ -312,9 +312,10 @@ const Questions: React.FC = () => {
               const getQuestionsToken = JSON.parse(getCategory);
               getQuestions();
               setResponses([]);
-              history.push(
-                `/subCategories/${getQuestionsToken.id}/${getQuestionsToken.label}`
-              );
+              // history.push(
+              //   `/subCategories/${getQuestionsToken.id}/${getQuestionsToken.label}`
+              // );
+              history.goBack();
               setSubmittedAnswer([]);
             } else {
               console.error("getCategory is null or undefined");
@@ -433,10 +434,22 @@ const Questions: React.FC = () => {
     });
   }, []);
 
+  const handleInfoClick = () => {
+    if (cardTitle === "8") {
+      history.push("/physicalActivity/showCards");
+    }
+  };
+
+  const handleInstructionsClick = () => {
+    if (cardTitle === "8") {
+      history.push("/physicalActivity/instructions");
+    }
+  };
+
   return (
     <IonPage>
       <IonHeader mode="ios">
-        <IonToolbar className="pt-1 pb-1" mode="ios">
+        <IonToolbar className="" mode="ios">
           <IonButtons slot="start">
             <IonBackButton
               mode="md"
@@ -444,6 +457,18 @@ const Questions: React.FC = () => {
             ></IonBackButton>
           </IonButtons>
           <IonTitle>{refCategoryLabel}</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonButton onClick={handleInfoClick}>Info</IonButton>
+          </IonButtons>
+          <IonButtons slot="end">
+            <IonButton onClick={handleInstructionsClick}>
+              Instructions
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

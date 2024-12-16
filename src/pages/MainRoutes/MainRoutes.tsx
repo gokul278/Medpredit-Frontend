@@ -45,6 +45,8 @@ import AlcoholInstructions from "../Instructions/AlcoholInstructions";
 import TobaccoInfo from "../Information/TobaccoInfo";
 import ChangePassword from "../../components/04-ChangePassword/ChangePassword";
 import { StatusBar, Style } from "@capacitor/status-bar";
+import PhysicalInstructions from "../Instructions/PhysicalInstructions";
+import PhysicalInfo from "../Information/PhysicalInfo";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -222,6 +224,13 @@ const MainRoutes: React.FC = () => {
         </Route>
         <Route path="/alcoholInstruction/:refCategoryLabel/:cardTitle">
           <AlcoholInstructions />
+        </Route>
+
+        <Route path="/physicalActivity/instructions">
+          <PhysicalInstructions />
+        </Route>
+        <Route path="/physicalActivity/showCards">
+          <PhysicalInfo />
         </Route>
       </IonRouterOutlet>
 
