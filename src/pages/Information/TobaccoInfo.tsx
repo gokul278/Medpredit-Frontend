@@ -13,6 +13,17 @@ import {
 } from "@ionic/react";
 import React from "react";
 
+import img1 from "../../assets/tobaccoShowCards/img1.png";
+import img2 from "../../assets/tobaccoShowCards/img2.png";
+import img3 from "../../assets/tobaccoShowCards/img3.png";
+import img4 from "../../assets/tobaccoShowCards/img4.png";
+import img5 from "../../assets/tobaccoShowCards/img5.png";
+
+import img11 from "../../assets/tobaccoShowCards/img11.png";
+import img12 from "../../assets/tobaccoShowCards/img12.png";
+import img13 from "../../assets/tobaccoShowCards/img13.png";
+import img14 from "../../assets/tobaccoShowCards/img14.png";
+
 const TobaccoInfo: React.FC = () => {
   console.log("asfs");
   return (
@@ -22,41 +33,53 @@ const TobaccoInfo: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton
               mode="md"
-              defaultHref="questions/Stress/9"
+              defaultHref="questions/Tobacoo/10"
             ></IonBackButton>
           </IonButtons>
           <IonTitle>Tobacco Info</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding" color="light">
-        {/* <IonAccordionGroup>
+        <IonAccordionGroup>
           <IonAccordion value="first">
             <IonItem slot="header" color="light">
               <IonLabel className="font-bold">
-                Why Tobacco usage is a major hazard to mankind worldwide?
+                Smoked tobacco products{" "}
               </IonLabel>
             </IonItem>
             <div className="" slot="content">
               <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Tobacco use remains the leading preventable cause of death in
-                  the world accounting for about 1 in 5 deaths each year.
-                </IonLabel>
+                <div className="flex flex-column pt-0">
+                  <p> Manufactured cigarettes</p>
+                  <img src={img1} alt="" />
+                </div>
               </IonItem>
               <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  {" "}
-                  On average, people who smoke die about 10 years earlier than
-                  people who have never smoked.
-                </IonLabel>
+                <div className="flex flex-column pt-0">
+                  <p> Hand-rolled cigarettes </p>
+                  <img src={img2} alt="" />
+                </div>
               </IonItem>
               <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Most people know smoking can cause cancer. But it can also
-                  cause a number of other diseases and can damage nearly every
-                  organ in the body, including the lungs, heart, blood vessels,
-                  reproductive organs, mouth, skin, eyes, and bones.
-                </IonLabel>
+                <div className="flex flex-column pt-0">
+                  <p> Pipe</p>
+                  <img src={img3} alt="" />
+                </div>
+              </IonItem>
+              <IonItem>
+                <div className="flex flex-column pt-0">
+                  <p>
+                    Cigars, e.g., cigarillos, double coronas, cheroots, stumpen,
+                    chutts and dhumtis{" "}
+                  </p>
+                  <img src={img4} alt="" />
+                </div>
+              </IonItem>
+              <IonItem>
+                <div className="flex flex-column pt-0">
+                  <p> Shisha</p>
+                  <img src={img5} alt="" />
+                </div>
               </IonItem>
             </div>
           </IonAccordion>
@@ -68,112 +91,28 @@ const TobaccoInfo: React.FC = () => {
             </IonItem>
             <div className="" slot="content">
               <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Smoking can affect a person’s health in many other ways as
-                  well, harming nearly every organ in the body. Here are a few
-                  examples of other ways smoking tobacco can affect your health:
-                </IonLabel>
+                <div className="flex flex-column pt-0">
+                  <p>Snuff, available in wet and dry form</p>
+                  <img src={img11} alt="" />
+                  <img src={img12} alt="" />
+                </div>
+              </IonItem>
+
+              <IonItem>
+                <div className="flex flex-column pt-0">
+                  <p> Chewing tobacco </p>
+                  <img src={img13} alt="" />
+                </div>
               </IonItem>
               <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Increased risk of gum disease and tooth loss.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Lowered immune system function increase risk of infectious
-                  diseases like Tuberculosis, flu, sinus infections etc.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Increased risk of type 2 diabetes, SHT , Heart disease, Stroke
-                  etc.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Increase the risk of Developing cancer.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Affect the sexual function and reproductive organs leading to
-                  infertility and impotency.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Decreased sense of smell and taste.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Premature aging of the skin.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Bad breath and stained teeth.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Lower bone density (thinner bones), which means a higher risk
-                  for broken bones, including hip fracture.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Higher risk of rheumatoid arthritis.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Increased risk for cataracts (clouding of the lenses of the
-                  eyes).
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Increased risk for age-related macular degeneration, which can
-                  lead to blindness.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Wounds taking longer to heal Many of the health problems
-                  linked to smoking can lower a person’s quality of life.
-                  Smoking-related illness can make it harder for a person to
-                  breathe, get around, work, or play. Quitting smoking,
-                  especially at younger ages, can reduce smoking-related
-                  disability.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Tobacco use remains the leading preventable cause of death in
-                  the world accounting for about 1 in 5 deaths each year.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  {" "}
-                  On average, people who smoke die about 10 years earlier than
-                  people who have never smoked.
-                </IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel style={{ textAlign: "justify" }}>
-                  Most people know smoking can cause cancer. But it can also
-                  cause a number of other diseases and can damage nearly every
-                  organ in the body, including the lungs, heart, blood vessels,
-                  reproductive organs, mouth, skin, eyes, and bones.
-                </IonLabel>
+                <div className="flex flex-column pt-0">
+                  <p>Betel nut, quid</p>
+                  <img src={img14} alt="" />
+                </div>
               </IonItem>
             </div>
           </IonAccordion>
-        </IonAccordionGroup> */}
+        </IonAccordionGroup>
       </IonContent>
     </IonPage>
   );

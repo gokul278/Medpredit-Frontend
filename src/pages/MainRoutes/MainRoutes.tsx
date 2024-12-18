@@ -49,6 +49,7 @@ import PhysicalInstructions from "../Instructions/PhysicalInstructions";
 import PhysicalInfo from "../Information/PhysicalInfo";
 import CurrentReport from "../../components/36-CurrentReport/CurrentReport";
 import ReportPDF from "../ReportPDF/ReportPDF";
+import TobaccoInstructions from "../Instructions/TobaccoInstructions";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -221,9 +222,7 @@ const MainRoutes: React.FC = () => {
         <Route path="/alcoholInfo">
           <AlcoholInfo />
         </Route>
-        <Route path="/tobaccoInfo">
-          <TobaccoInfo />
-        </Route>
+
         <Route path="/alcoholInstruction/:refCategoryLabel/:cardTitle">
           <AlcoholInstructions />
         </Route>
@@ -231,9 +230,19 @@ const MainRoutes: React.FC = () => {
         <Route path="/physicalActivity/instructions">
           <PhysicalInstructions />
         </Route>
+
+        <Route path="/tobacoo/instructions">
+          <TobaccoInstructions />
+        </Route>
+
         <Route path="/physicalActivity/showCards">
           <PhysicalInfo />
         </Route>
+
+        <Route path="/tobacoo/showCards">
+          <TobaccoInfo />
+        </Route>
+
         <Route path="/currentReport/:patient/:patientId">
           <CurrentReport />
         </Route>

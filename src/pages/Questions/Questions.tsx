@@ -384,11 +384,17 @@ const Questions: React.FC = () => {
     if (cardTitle === "8") {
       history.push("/physicalActivity/showCards");
     }
+    if (cardTitle === "10") {
+      history.push("/tobacoo/showCards");
+    }
   };
 
   const handleInstructionsClick = () => {
     if (cardTitle === "8") {
       history.push("/physicalActivity/instructions");
+    }
+    if (cardTitle === "10") {
+      history.push("/tobacoo/instructions");
     }
   };
 

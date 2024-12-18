@@ -14,6 +14,8 @@ import {
 
 import img1 from "../../assets/info/physicalAct1.png";
 import img2 from "../../assets/info/physicalAct2.png";
+import img3 from "../../assets/info/physicalAct3.png";
+import img4 from "../../assets/info/physicalAct4.png";
 
 import React, { useRef } from "react";
 
@@ -99,8 +101,24 @@ const PhysicalInfo: React.FC = () => {
                 Vigorous Physical Activity during Leisure Time
               </IonLabel>
             </IonItem>
-            <div className="ion-padding" slot="content">
-              Third Content
+            <div className="ion-padding-start ion-padding-end" slot="content">
+              <p style={{ textAlign: "justify" }}>
+                Make you breathe much harder than normal{" "}
+              </p>
+              <img src={img3} />
+              <p style={{ textAlign: "justify" }}>
+                Other examples for <b>Vigorous</b> activities during{" "}
+                <b>Leisure Time</b>{" "}
+              </p>
+              <ul>
+                <li>Soccer</li>
+                <li>Rugby</li>
+                <li>Tennis</li>
+                <li>High-impact aerobics </li>
+                <li>Aqua aerobics </li>
+                <li>Ballet dancing </li>
+                <li>Fast swimming</li>
+              </ul>
             </div>
           </IonAccordion>
           <IonAccordion value="fourth">
@@ -109,8 +127,25 @@ const PhysicalInfo: React.FC = () => {
                 Moderate Physical Activity during Leisure Time
               </IonLabel>
             </IonItem>
-            <div className="ion-padding" slot="content">
-              Third Content
+            <div className="ion-padding-start ion-padding-end" slot="content">
+              <p style={{ textAlign: "justify" }}>
+                Make you breathe much harder than normal{" "}
+              </p>
+              <img src={img4} />
+              <p style={{ textAlign: "justify" }}>
+                Other examples for <b>Moderate</b> activities at <b>Work</b>{" "}
+              </p>
+              <ul>
+                <li>Cycling</li>
+                <li>Jogging</li>
+                <li>Dancing</li>
+                <li>Horse-riding </li>
+                <li>Tai chi </li>
+                <li>Yoga </li>
+                <li>Pilates</li>
+                <li>Low-impact aerobics</li>
+                <li>Cricket</li>
+              </ul>
             </div>
           </IonAccordion>
         </IonAccordionGroup>
