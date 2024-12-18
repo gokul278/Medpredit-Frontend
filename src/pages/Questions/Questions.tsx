@@ -222,61 +222,6 @@ const Questions: React.FC = () => {
     }
   };
 
-  // const getNextQuestions = (
-  //   questionId: any,
-  //   questionType: any,
-  //   answer: any,
-  //   forwardQId: any
-  // ) => {
-  //   setSubmitButton(true);
-  //   console.log("forwardQId:", questionType);
-  //   console.log("Answer submitted for questionId:", questionId, answer);
-
-  //   // Convert forwardQId to a number, if not null
-  //   const nextQuestionId = forwardQId ? parseInt(forwardQId, 10) : null;
-
-  //   // Update the responses state
-  //   setResponses((prevResponses) => {
-  //     const responseMap = new Map(
-  //       prevResponses.map((res) => [
-  //         res.questionId,
-  //         { questionType: res.questionType, answer: res.answer },
-  //       ])
-  //     );
-
-  //     responseMap.set(questionId, { questionType, answer });
-
-  //     return Array.from(responseMap.entries()).map(([id, value]) => ({
-  //       questionId: id,
-  //       questionType: value.questionType,
-  //       answer: value.answer,
-  //     }));
-  //   });
-
-  //   // Find and reveal the next question, if it exists
-  //   const nextQuestion = questionData.find(
-  //     (q) => parseInt(q.questionId, 10) === nextQuestionId
-  //   );
-
-  //   console.log("line 159", nextQuestion);
-
-  //   if (nextQuestion) {
-  //     setVisibleQuestions((prevVisibleQuestions) => [
-  //       ...prevVisibleQuestions,
-  //       nextQuestion,
-  //     ]);
-  //     setEnabledIndex((prevIndex) => prevIndex + 1);
-  //   } else {
-  //     // Submit responses if no next question exists
-  //     const updatedResponses = responses; // Make sure responses reflects the current state
-
-  //     setSubmitButton(false);
-  //     setSubmittedAnswer(responses);
-  //     console.log("Submitting responses:", responses);
-  //     // submitResponse(updatedResponses);
-  //   }
-  // };
-
   const submitResponse = () => {
     console.log("updatedResponses", submittedAnswer);
     try {

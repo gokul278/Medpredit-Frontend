@@ -11,6 +11,7 @@ import tobacco from "../../assets/images/tobacco.png";
 import alcohol from "../../assets/images/alcohol.png";
 import dietry from "../../assets/images/DIATERY-01.png";
 import bmi from "../../assets/images/bmi.png";
+import { ScoreVerify } from "../../ScoreVerify";
 
 interface CardData {
   refQCategoryId: number;
@@ -112,94 +113,98 @@ const SubCards: React.FC<SubCardsProps> = ({
     }
   };
 
-  const handleScoreValue = (UserScoreVerify: any, refScore: any) => {
-    let label = "";
-    let scoreValue = "";
-    let color = "";
+  // const handleScoreValue = (UserScoreVerify: any, refScore: any) => {
 
-    UserScoreVerify.map((element: any) => {
-      switch (element.refAction) {
-        case "equal":
-          if (refScore.toString() === element.refValue.toString()) {
-            label = element.refAnswerLabel;
-            scoreValue = refScore;
-            color = element.refScoreColor;
-            break;
-          }
-          break;
+  //   ScoreVerify(UserScoreVerify, refScore)
+  //   // let label = "";
+  //   // let scoreValue = "";
+  //   // let color = "";
 
-        case "lessThanEqual":
-          if (parseFloat(refScore) <= parseFloat(element.refValue)) {
-            label = element.refAnswerLabel;
-            scoreValue = refScore;
-            color = element.refScoreColor;
-            break;
-          }
-          break;
+  //   // UserScoreVerify.map((element: any) => {
+  //   //   switch (element.refAction) {
+  //   //     case "equal":
+  //   //       if (refScore.toString() === element.refValue.toString()) {
+  //   //         label = element.refAnswerLabel;
+  //   //         scoreValue = refScore;
+  //   //         color = element.refScoreColor;
+  //   //         break;
+  //   //       }
+  //   //       break;
 
-        case "greaterThanEqual":
-          if (parseFloat(refScore) >= parseFloat(element.refValue)) {
-            label = element.refAnswerLabel;
-            scoreValue = refScore;
-            color = element.refScoreColor;
-            break;
-          }
-          break;
+  //   //     case "lessThanEqual":
+  //   //       if (parseFloat(refScore) <= parseFloat(element.refValue)) {
+  //   //         label = element.refAnswerLabel;
+  //   //         scoreValue = refScore;
+  //   //         color = element.refScoreColor;
+  //   //         break;
+  //   //       }
+  //   //       break;
 
-        case "lessThan":
-          if (parseFloat(refScore) < parseFloat(element.refValue)) {
-            label = element.refAnswerLabel;
-            scoreValue = refScore;
-            color = element.refScoreColor;
-            break;
-          }
-          break;
+  //   //     case "greaterThanEqual":
+  //   //       if (parseFloat(refScore) >= parseFloat(element.refValue)) {
+  //   //         label = element.refAnswerLabel;
+  //   //         scoreValue = refScore;
+  //   //         color = element.refScoreColor;
+  //   //         break;
+  //   //       }
+  //   //       break;
 
-        case "greaterThan":
-          if (parseFloat(refScore) > parseFloat(element.refValue)) {
-            label = element.refAnswerLabel;
-            scoreValue = refScore;
-            color = element.refScoreColor;
-            break;
-          }
-          break;
+  //   //     case "lessThan":
+  //   //       if (parseFloat(refScore) < parseFloat(element.refValue)) {
+  //   //         label = element.refAnswerLabel;
+  //   //         scoreValue = refScore;
+  //   //         color = element.refScoreColor;
+  //   //         break;
+  //   //       }
+  //   //       break;
 
-        case "rangeEqual":
-          const [firstVal, secondVal] = element.refValue
-            .split(",")
-            .map(parseFloat);
+  //   //     case "greaterThan":
+  //   //       if (parseFloat(refScore) > parseFloat(element.refValue)) {
+  //   //         label = element.refAnswerLabel;
+  //   //         scoreValue = refScore;
+  //   //         color = element.refScoreColor;
+  //   //         break;
+  //   //       }
+  //   //       break;
 
-          if (
-            parseFloat(firstVal) <= parseFloat(refScore) &&
-            parseFloat(refScore) <= parseFloat(secondVal)
-          ) {
-            label = element.refAnswerLabel;
-            scoreValue = refScore;
-            color = element.refScoreColor;
-            break;
-          }
-          break;
+  //   //     case "rangeEqual":
+  //   //       const [firstVal, secondVal] = element.refValue
+  //   //         .split(",")
+  //   //         .map(parseFloat);
 
-        default:
-          console.log("Unknown refAction:", element.refAction);
-      }
-    });
+  //   //       if (
+  //   //         parseFloat(firstVal) <= parseFloat(refScore) &&
+  //   //         parseFloat(refScore) <= parseFloat(secondVal)
+  //   //       ) {
+  //   //         label = element.refAnswerLabel;
+  //   //         scoreValue = refScore;
+  //   //         color = element.refScoreColor;
+  //   //         break;
+  //   //       }
+  //   //       break;
 
-    return (
-      <div
-        style={{
-          color: `${color}`,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-        <div>Score: {scoreValue}</div>
-        <div>{label}</div>
-      </div>
-    );
-  };
+  //   //     default:
+  //   //       console.log("Unknown refAction:", element.refAction);
+  //   //   }
+  //   // }
+  // // );
+  // }
+
+  //   return (
+  //     <div
+  //       style={{
+  //         color: `${color}`,
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //         flexDirection: "column",
+  //       }}
+  //     >
+  //       <div>Score: {scoreValue}</div>
+  //       <div>{label}</div>
+  //     </div>
+  //   );
+  // };
 
   return (
     <div className="subCardContents ion-padding-top">
@@ -268,7 +273,10 @@ const SubCards: React.FC<SubCardsProps> = ({
                       ></i>
                     </div>
                   ) : (
-                    <>{handleScoreValue(card.UserScoreVerify, card.refScore)}</>
+                    <ScoreVerify
+                      userScoreVerify={card.UserScoreVerify}
+                      refScore={card.refScore}
+                    />
                   )}
                 </div>
               </div>

@@ -47,6 +47,8 @@ import ChangePassword from "../../components/04-ChangePassword/ChangePassword";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import PhysicalInstructions from "../Instructions/PhysicalInstructions";
 import PhysicalInfo from "../Information/PhysicalInfo";
+import CurrentReport from "../../components/36-CurrentReport/CurrentReport";
+import ReportPDF from "../ReportPDF/ReportPDF";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -210,7 +212,7 @@ const MainRoutes: React.FC = () => {
         <Route path="/addEmployee">
           <AddEmployee />
         </Route>
-        <Route path="/pastreport/:reportId">
+        <Route path="/pastreport/:reportDate">
           <PastReport />
         </Route>
         <Route exact path="/">
@@ -231,6 +233,9 @@ const MainRoutes: React.FC = () => {
         </Route>
         <Route path="/physicalActivity/showCards">
           <PhysicalInfo />
+        </Route>
+        <Route path="/currentReport/:patient/:patientId">
+          <CurrentReport />
         </Route>
       </IonRouterOutlet>
 

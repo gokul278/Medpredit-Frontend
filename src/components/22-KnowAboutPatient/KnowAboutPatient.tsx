@@ -104,7 +104,7 @@ const KnowAboutPatient: React.FC = () => {
         console.error("Error fetching patient data:", error);
       }
     }
-  }, [tokenString]);
+  }, [history.location.pathname]);
 
   const subMainCategory = async (categoryId: number) => {
     try {
@@ -211,8 +211,12 @@ const KnowAboutPatient: React.FC = () => {
           );
 
           if (data.status) {
-            console.log(data.currentCatgoryStatus);
+            console.log(data);
             setCurrentReport(data.currentCatgoryStatus);
+            setNavCategory({
+              id: data.categoryId,
+              label: data.categoryLabel,
+            });
           }
         });
     } catch (error) {
@@ -222,14 +226,24 @@ const KnowAboutPatient: React.FC = () => {
 
   const [allReports, setAllReports] = useState<Report[]>([]);
 
-  const [currentReport, setCurrentReport] = useState(true);
+  const [currentReport, setCurrentReport]: any = useState(true);
+
+  const [navCategory, setNavCategory] = useState({
+    id: "",
+    label: "",
+  });
 
   return (
     <IonPage>
       <IonHeader mode="ios">
         <IonToolbar className="pt-1 pb-1" mode="ios">
-          <IonButtons slot="start">
-            <IonBackButton mode="md" defaultHref="/patient"></IonBackButton>
+          <IonButtons
+            onClick={() => {
+              history.goBack();
+            }}
+            slot="start"
+          >
+            <IonBackButton mode="md"></IonBackButton>
           </IonButtons>
           <IonTitle>{patient}</IonTitle>
         </IonToolbar>
@@ -287,9 +301,14 @@ const KnowAboutPatient: React.FC = () => {
                       </Divider>
 
                       <div
+                        onClick={() => {
+                          history.push(
+                            `/questions/${navCategory.label}/${navCategory.id}`
+                          );
+                        }}
                         style={{
                           width: "100%",
-                          background: "#e6e6e6",
+                          background: "#FFDE4D",
                           borderRadius: "5px",
                           height: "50px",
                           padding: "10px",
@@ -315,6 +334,53 @@ const KnowAboutPatient: React.FC = () => {
                     </>
                   )}
 
+                  {currentReport === "report" ? (
+                    <>
+                      <Divider layout="horizontal">
+                        <div
+                          style={{
+                            color: "#939185",
+                            fontWeight: "500",
+                          }}
+                        >
+                          Current Report
+                        </div>
+                      </Divider>
+
+                      <div
+                        onClick={() => {
+                          history.push(
+                            `/currentReport/${patient}/${patientId}`
+                          );
+                        }}
+                        style={{
+                          width: "100%",
+                          background: "#5DB996",
+                          borderRadius: "5px",
+                          height: "50px",
+                          padding: "10px",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div style={{ fontSize: "14px" }}>
+                          <i
+                            className="pi pi-check"
+                            style={{ paddingRight: "10px" }}
+                          ></i>
+                          Questions Completed (Generate Report)
+                        </div>
+                        <div>
+                          <i
+                            className="pi pi-angle-right"
+                            style={{ fontSize: "1.5rem" }}
+                          ></i>
+                        </div>
+                      </div>
+                    </>
+                  ) : null}
+
                   <Divider layout="horizontal">
                     <div
                       style={{
@@ -339,8 +405,9 @@ const KnowAboutPatient: React.FC = () => {
                               padding: "10px",
                             }}
                             onClick={() => {
-                              const reportId = allreport.refScoreId;
-                              history.push(`/pastreport/${reportId}`);
+                              history.push(
+                                `/pastreport/${allreport.createdAt}`
+                              );
                             }}
                           >
                             <div
@@ -376,7 +443,8 @@ const KnowAboutPatient: React.FC = () => {
                                 justifyContent: "space-between",
                               }}
                             >
-                              <div>Score: {allreport.refTotalScore}%</div>
+                              {/* <div>Score: {allreport.refTotalScore}%</div> */}
+                              <div></div>
                               <div>Date: {allreport.createdAt}</div>
                             </div>
                           </div>

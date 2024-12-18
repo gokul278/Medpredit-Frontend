@@ -24,13 +24,13 @@ import decrypt from "../../helper";
 import { Divider } from "primereact/divider";
 import { ScoreVerify } from "../../ScoreVerify";
 import { FaChevronRight } from "react-icons/fa6";
-import ReportPDF from "../../pages/ReportPDF/ReportPDF";
 
-const PastReport: React.FC = () => {
+const CurrentReport: React.FC = () => {
   const history = useHistory();
 
-  const { reportDate } = useParams<{
-    reportDate: string;
+  const { patient, patientId } = useParams<{
+    patient: string;
+    patientId: string;
   }>();
 
   const [doctorDetail, setDoctorDetail] = useState({
@@ -68,7 +68,7 @@ const PastReport: React.FC = () => {
 
         axios
           .post(
-            `${import.meta.env.VITE_API_URL}/getPastReportData `,
+            `${import.meta.env.VITE_API_URL}/getCurrentReportData `,
             {
               patientId: patientId,
               employeeId:
@@ -76,7 +76,6 @@ const PastReport: React.FC = () => {
                   ? null
                   : localStorage.getItem("currentDoctorId"),
               hospitalId: localStorage.getItem("hospitalId"),
-              reportDate: reportDate,
             },
             {
               headers: {
@@ -142,6 +141,54 @@ const PastReport: React.FC = () => {
 
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
+  const handleFinalReport = () => {
+    const tokenString = localStorage.getItem("userDetails");
+    const patientId = localStorage.getItem("currentPatientId");
+
+    if (tokenString) {
+      try {
+        const tokenObject = JSON.parse(tokenString);
+        const token = tokenObject.token;
+
+        axios
+          .post(
+            `${import.meta.env.VITE_API_URL}/createReport `,
+            {
+              patientId: patientId,
+              employeeId:
+                tokenObject.roleType === 1
+                  ? null
+                  : localStorage.getItem("currentDoctorId"),
+              hospitalId: localStorage.getItem("hospitalId"),
+            },
+            {
+              headers: {
+                Authorization: token,
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then((response) => {
+            const data = decrypt(
+              response.data[1],
+              response.data[0],
+              import.meta.env.VITE_ENCRYPTION_KEY
+            );
+
+            if (data.status) {
+              history.push(`/knowAbout/${patient}/${patientId}`);
+            }
+
+            console.log(data);
+          });
+      } catch (error) {
+        console.error("Error parsing token:", error);
+      }
+    } else {
+      console.error("No token found in localStorage.");
+    }
+  };
+
   return (
     <IonPage>
       <IonHeader mode="ios">
@@ -154,7 +201,7 @@ const PastReport: React.FC = () => {
           >
             <IonBackButton
               mode="md"
-              // defaultHref={`/knowAbout/${patient}/${patientId}`}
+              defaultHref={`/knowAbout/${patient}/${patientId}`}
             ></IonBackButton>
           </IonButtons>
           <IonTitle>
@@ -170,6 +217,31 @@ const PastReport: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent class="ion-padding" fullscreen>
+        <IonAlert
+          isOpen={isAlertOpen}
+          cssClass="custom-alert"
+          header="Are you sure to process the report ?"
+          backdropDismiss={false}
+          buttons={[
+            {
+              text: "Yes",
+              role: "confirm",
+              handler: () => {
+                setIsAlertOpen(false);
+                handleFinalReport();
+              },
+              cssClass: "yes-button",
+            },
+            {
+              text: "No",
+              role: "cancel",
+              handler: () => {},
+              cssClass: "no-button",
+            },
+          ]}
+          onDidDismiss={() => setIsAlertOpen(false)}
+        />
+
         <div
           style={{
             width: "100%",
@@ -588,11 +660,27 @@ const PastReport: React.FC = () => {
       </IonContent>
       <IonFooter>
         <IonToolbar>
-          <ReportPDF reportDate={reportDate} />
+          <button
+            style={{
+              width: "100%",
+              height: "3rem",
+              margin: "5px 0px",
+              borderRadius: "5px",
+              background: "linear-gradient(160deg, #077556, #2f9f97)",
+              color: "#fff",
+              fontSize: "16px",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              setIsAlertOpen(true);
+            }}
+          >
+            Generate Report
+          </button>
         </IonToolbar>
       </IonFooter>
     </IonPage>
   );
 };
 
-export default PastReport;
+export default CurrentReport;

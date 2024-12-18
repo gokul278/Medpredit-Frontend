@@ -260,6 +260,8 @@ const Enroll: React.FC = () => {
               <p className="welcomeCont ion-padding-bottom">
                 Hi! Welcome Back, You've Been Missed !!
               </p>
+              {/* <p>URL: {import.meta.env.VITE_API_URL}</p>
+              <p>KEY: {import.meta.env.VITE_ENCRYPTION_KEY}</p> */}
             </div>
 
             <div className="formContentSignIn ion-padding-top">

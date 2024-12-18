@@ -25,7 +25,7 @@ const MultipleSelect: React.FC<MultipleSelectProps> = ({
   const [selectedValues, setSelectedValues] = useState<number[]>([]);
 
   useEffect(() => {
-    setSelectedValues([0]);
+    setSelectedValues([]);
   }, []);
 
   const handleButtonClick = (refOptionId: number, refNextQn: string) => {

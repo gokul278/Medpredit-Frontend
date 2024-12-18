@@ -12,8 +12,13 @@ import {
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import React, { useState } from "react";
+import Axios from "axios";
+import decrypt from "../../helper";
+import { useHistory } from "react-router";
 
 const ChangePassword: React.FC = () => {
+  const history = useHistory();
+
   const [signInData, setSignInData] = useState({
     oldPassword: "",
     newPassword: "",
@@ -21,11 +26,60 @@ const ChangePassword: React.FC = () => {
   });
 
   const handleInputChange = (field: string, value: string) => {
+    setErrorStatus({
+      status: false,
+      message: "",
+    });
     setSignInData((prevData) => ({ ...prevData, [field]: value }));
   };
 
+  const [errorStatus, setErrorStatus] = useState({
+    status: false,
+    message: "",
+  });
+
   const handleSubmit = () => {
-    console.log("Password Data:", signInData);
+    const tokenString: any = localStorage.getItem("userDetails");
+    const tokenObject = JSON.parse(tokenString);
+    const token = tokenObject.token;
+
+    if (signInData.newPassword === signInData.conformPassword) {
+      Axios.post(
+        `${import.meta.env.VITE_API_URL}/changePassword`,
+        {
+          pastPassword: signInData.oldPassword,
+          currentPassword: signInData.newPassword,
+        },
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((response) => {
+        const data = decrypt(
+          response.data[1],
+          response.data[0],
+          import.meta.env.VITE_ENCRYPTION_KEY
+        );
+
+        console.log(data);
+
+        if (data.status) {
+          history.push("/settings");
+        } else {
+          setErrorStatus({
+            status: true,
+            message: data.message,
+          });
+        }
+      });
+    } else {
+      setErrorStatus({
+        status: true,
+        message: "Confirm Password not Match",
+      });
+    }
   };
 
   return (
@@ -92,6 +146,16 @@ const ChangePassword: React.FC = () => {
             />
           </div>
         </div>
+        {errorStatus.status ? (
+          <div
+            className="ion-padding"
+            style={{
+              color: "red",
+            }}
+          >
+            {errorStatus.message}
+          </div>
+        ) : null}
       </IonContent>
       <IonFooter>
         <IonButton
