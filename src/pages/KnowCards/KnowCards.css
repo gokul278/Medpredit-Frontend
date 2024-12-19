@@ -1,0 +1,9 @@
+.disabled-card {
+    opacity: 0.5; /* Makes the card appear faded */
+    pointer-events: none; /* Prevents clicks */
+    cursor: not-allowed; /* Changes the cursor to indicate disabled state */
+  }
+  
+  .disabled-card .knowCard {
+    filter: grayscale(100%); /* Optional: Makes the card image grayscale */
+  }
