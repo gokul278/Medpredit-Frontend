@@ -25,6 +25,7 @@ import NumberInputBoxT4 from "./NumberInputBoxT4";
 import MultipleSelect from "./MultipleSelect";
 import TextInputBox from "./TextInputBox";
 import TimeInputBox from "./TimeInputBox";
+import TimeInputBox24 from "./TimeInputBox24";
 
 const Questions: React.FC = () => {
   const history = useHistory();
@@ -568,6 +569,22 @@ const Questions: React.FC = () => {
 
               {question.questionType === "7" && (
                 <TimeInputBox
+                  type="text"
+                  label={question}
+                  onEdit={(questionType, value, forwardQId) => {
+                    handleQuestionEdit(
+                      question.questionId,
+                      questionType,
+                      value,
+                      forwardQId
+                    );
+                  }}
+                />
+              )}
+
+
+{question.questionType === "8" && (
+                <TimeInputBox24
                   type="text"
                   label={question}
                   onEdit={(questionType, value, forwardQId) => {
