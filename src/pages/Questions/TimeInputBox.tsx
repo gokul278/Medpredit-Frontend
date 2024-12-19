@@ -59,6 +59,7 @@ const TimeInputBox: React.FC<TimeInputBoxProps> = ({ label, type, onEdit }) => {
               placeholder="Enter Time"
               hourFormat="12"
               className="w-full"
+              required
             />
             <button type="submit">
               <span className="p-inputgroup-addon">

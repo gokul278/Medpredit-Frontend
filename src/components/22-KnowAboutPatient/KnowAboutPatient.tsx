@@ -393,7 +393,13 @@ const KnowAboutPatient: React.FC = () => {
                   </Divider>
                   {allReports.length > 0 ? (
                     <>
-                      <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "12px",
+                        }}
+                      >
                         {allReports.map((allreport, index) => (
                           <div
                             key={index}

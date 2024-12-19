@@ -135,7 +135,7 @@ const ReportPDF: React.FC<ReportPDFProps> = ({ reportDate }) => {
                   style={{ width: 100, height: "auto", marginTop: "5px" }}
                 />
               </View>
-              <View style={{ width: "80%", }}>
+              <View style={{ width: "80%" }}>
                 <Text
                   style={{
                     color: "#000",
@@ -475,7 +475,23 @@ const ReportPDF: React.FC<ReportPDFProps> = ({ reportDate }) => {
                         fontSize: "10px",
                       }}
                     >
-                      Sleep:
+                      Sleep:{" "}
+                      {score
+                        .filter(
+                          (element: any) => element.refQCategoryId === "43"
+                        )
+                        .map((element: any) => {
+                          const result = scoreVerify.filter(
+                            (soc: any) => soc.refQCategoryId === "43"
+                          );
+                          return (
+                            <ScoreVerify
+                              userScoreVerify={result}
+                              refScore={element.refPTScore}
+                              status={true}
+                            />
+                          );
+                        })}
                     </Text>
                     <Text
                       style={{
