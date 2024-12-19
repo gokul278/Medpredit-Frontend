@@ -28,6 +28,7 @@ import ReportPDF from "../../pages/ReportPDF/ReportPDF";
 
 const PastReport: React.FC = () => {
   const history = useHistory();
+  const modal = useRef<HTMLIonModalElement>(null);
 
   const { reportDate } = useParams<{
     reportDate: string;
@@ -190,6 +191,7 @@ const PastReport: React.FC = () => {
         </div>
         <IonModal
           isOpen={isOpen}
+          ref={modal}
           initialBreakpoint={0.3}
           onDidDismiss={closeModal}
         >

@@ -136,8 +136,7 @@ const KnowAboutPatient: React.FC = () => {
       if (data.status) {
         setSubCategoryData(data.data);
         setLatestReport(data.latestreportDate);
-        console.log("################",data.latestreportDate);
-        
+        console.log("################", data.latestreportDate);
       }
     } catch (error) {
       console.error("Error fetching subcategories:", error);
@@ -248,7 +247,7 @@ const KnowAboutPatient: React.FC = () => {
             }}
             slot="start"
           >
-            <IonBackButton mode="md"></IonBackButton>
+            <IonBackButton mode="md" defaultHref="/patient"></IonBackButton>
           </IonButtons>
           <IonTitle>{patient}</IonTitle>
         </IonToolbar>
@@ -503,7 +502,10 @@ const KnowAboutPatient: React.FC = () => {
                 >
                   {selectedValue === category.refCategoryLabel && (
                     <>
-                      <KnowCards cardData={subCategoryData} latestReport={latestReport} />
+                      <KnowCards
+                        cardData={subCategoryData}
+                        latestReport={latestReport}
+                      />
                     </>
                   )}
                 </IonSegmentContent>

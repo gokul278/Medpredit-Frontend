@@ -424,18 +424,23 @@ const Questions: React.FC = () => {
           <IonTitle>{refCategoryLabel}</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonButton onClick={handleInfoClick}>Info</IonButton>
-          </IonButtons>
-          <IonButtons slot="end">
-            <IonButton onClick={handleInstructionsClick}>
-              Instructions
-            </IonButton>
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
+      {cardTitle !== "12" &&
+        cardTitle !== "13" &&
+        cardTitle !== "43" &&
+        cardTitle !== "51" && (
+          <IonHeader>
+            <IonToolbar>
+              <IonButtons slot="start">
+                <IonButton onClick={handleInfoClick}>Info</IonButton>
+              </IonButtons>
+              <IonButtons slot="end">
+                <IonButton onClick={handleInstructionsClick}>
+                  Instructions
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+        )}
       <IonContent fullscreen>
         <div className="questionContainers">
           {visibleQuestions.map((question, index) => (
@@ -594,8 +599,7 @@ const Questions: React.FC = () => {
                 />
               )}
 
-
-{question.questionType === "8" && (
+              {question.questionType === "8" && (
                 <TimeInputBox24
                   type="text"
                   label={question}
