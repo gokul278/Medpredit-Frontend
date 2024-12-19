@@ -390,6 +390,9 @@ const Questions: React.FC = () => {
     if (cardTitle === "9") {
       history.push("/stress/showCards");
     }
+    if (cardTitle === "11") {
+      history.push("/alcohol/showCards");
+    }
   };
 
   const handleInstructionsClick = () => {
@@ -401,6 +404,9 @@ const Questions: React.FC = () => {
     }
     if (cardTitle === "9") {
       history.push("/stress/instructions");
+    }
+    if (cardTitle === "11") {
+      history.push("/alcohol/instructions");
     }
   };
 

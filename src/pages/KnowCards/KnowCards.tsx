@@ -5,6 +5,7 @@ import risk from "../../assets/images/risk.jpg";
 import symptoms from "../../assets/images/symptoms.jpg";
 import vitals from "../../assets/images/vitals.jpg";
 import blood from "../../assets/images/blood.jpg";
+import menstrual from "../../assets/images/MENSTRURAL.jpg";
 
 interface CardData {
   refQCategoryId: number;
@@ -28,7 +29,7 @@ const KnowCards: React.FC<KnowCardsValues> = ({ cardData }) => {
       case 4:
         return risk;
       case 5:
-        return symptoms;
+        return menstrual;
       case 6:
         return vitals;
       case 7:

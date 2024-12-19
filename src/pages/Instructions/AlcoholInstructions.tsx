@@ -4,6 +4,7 @@ import {
   IonBackButton,
   IonButtons,
   IonContent,
+  IonHeader,
   IonInput,
   IonItem,
   IonLabel,
@@ -16,15 +17,17 @@ import {
 const AlcoholInstructions: React.FC = () => {
   return (
     <IonPage>
-      <IonToolbar className="" mode="ios">
-        <IonButtons slot="start">
-          <IonBackButton
-            mode="md"
-            defaultHref="questions/Physical%20Activity/8"
-          ></IonBackButton>
-        </IonButtons>
-        <IonTitle>Alcohol Instructions</IonTitle>
-      </IonToolbar>
+      <IonHeader>
+        <IonToolbar className="" mode="ios">
+          <IonButtons slot="start">
+            <IonBackButton
+              mode="md"
+              defaultHref="/questions/Alcohol/11"
+            ></IonBackButton>
+          </IonButtons>
+          <IonTitle>Alcohol Instructions</IonTitle>
+        </IonToolbar>
+      </IonHeader>
       <IonContent className="ion-padding">
         <IonItem lines="none">
           <IonLabel style={{ textAlign: "justify" }}>

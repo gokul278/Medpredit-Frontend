@@ -221,13 +221,6 @@ const MainRoutes: React.FC = () => {
         <Route exact path="/">
           <Redirect to="/splash" />
         </Route>
-        <Route path="/alcoholInfo">
-          <AlcoholInfo />
-        </Route>
-
-        <Route path="/alcoholInstruction/:refCategoryLabel/:cardTitle">
-          <AlcoholInstructions />
-        </Route>
 
         <Route path="/physicalActivity/instructions">
           <PhysicalInstructions />
@@ -241,6 +234,10 @@ const MainRoutes: React.FC = () => {
           <StressInstructions />
         </Route>
 
+        <Route path="/alcohol/instructions">
+          <AlcoholInstructions />
+        </Route>
+
         <Route path="/physicalActivity/showCards">
           <PhysicalInfo />
         </Route>
@@ -251,6 +248,10 @@ const MainRoutes: React.FC = () => {
 
         <Route path="/stress/showCards">
           <StressInfo />
+        </Route>
+
+        <Route path="/alcohol/showCards">
+          <AlcoholInfo />
         </Route>
 
         <Route path="/currentReport/:patient/:patientId">
