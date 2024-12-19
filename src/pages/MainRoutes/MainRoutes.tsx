@@ -50,6 +50,7 @@ import PhysicalInfo from "../Information/PhysicalInfo";
 import CurrentReport from "../../components/36-CurrentReport/CurrentReport";
 import ReportPDF from "../ReportPDF/ReportPDF";
 import TobaccoInstructions from "../Instructions/TobaccoInstructions";
+import StressInstructions from "../Instructions/StressInstructions";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -233,6 +234,10 @@ const MainRoutes: React.FC = () => {
 
         <Route path="/tobacoo/instructions">
           <TobaccoInstructions />
+        </Route>
+
+        <Route path="/stress/instructions">
+          <StressInstructions />
         </Route>
 
         <Route path="/physicalActivity/showCards">

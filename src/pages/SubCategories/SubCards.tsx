@@ -11,6 +11,7 @@ import tobacco from "../../assets/images/tobacco.png";
 import alcohol from "../../assets/images/alcohol.png";
 import dietry from "../../assets/images/DIATERY-01.png";
 import bmi from "../../assets/images/bmi.png";
+import sleep from "../../assets/images/sleep.png";
 import { ScoreVerify } from "../../ScoreVerify";
 
 interface CardData {
@@ -61,6 +62,8 @@ const SubCards: React.FC<SubCardsProps> = ({
         return dietry;
       case 13:
         return bmi;
+      case 43:
+        return sleep;
       default:
         return "https://via.placeholder.com/150";
     }

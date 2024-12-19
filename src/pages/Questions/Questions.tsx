@@ -396,6 +396,9 @@ const Questions: React.FC = () => {
     if (cardTitle === "10") {
       history.push("/tobacoo/instructions");
     }
+    if (cardTitle === "9") {
+      history.push("/stress/instructions");
+    }
   };
 
   return (
