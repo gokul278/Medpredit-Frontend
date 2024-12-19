@@ -21,7 +21,11 @@ interface TimeInputBoxProps {
   onEdit: (questionType: any, value: any, forwardQId: string) => void;
 }
 
-const TimeInputBox: React.FC<TimeInputBoxProps> = ({ label, type, onEdit }) => {
+const TimeInputBox24: React.FC<TimeInputBoxProps> = ({
+  label,
+  type,
+  onEdit,
+}) => {
   const [time, setTime] = useState<Nullable<Date>>(null);
 
   const forwardQId = label.options[0]?.forwardQId || "";
@@ -57,7 +61,7 @@ const TimeInputBox: React.FC<TimeInputBoxProps> = ({ label, type, onEdit }) => {
               onChange={handleTimeChange}
               timeOnly
               placeholder="Enter Time"
-              hourFormat="12"
+              hourFormat="24"
               className="w-full"
               required
             />
@@ -74,4 +78,4 @@ const TimeInputBox: React.FC<TimeInputBoxProps> = ({ label, type, onEdit }) => {
   );
 };
 
-export default TimeInputBox;
+export default TimeInputBox24;

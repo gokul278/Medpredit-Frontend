@@ -46,6 +46,8 @@ const KnowAboutPatient: React.FC = () => {
   >([]);
   const tokenString: any = localStorage.getItem("userDetails");
 
+  const [latestReport, setLatestReport] = useState<any>(null);
+
   const tokenObject = JSON.parse(tokenString);
   const token = tokenObject.token;
 
@@ -133,6 +135,9 @@ const KnowAboutPatient: React.FC = () => {
 
       if (data.status) {
         setSubCategoryData(data.data);
+        setLatestReport(data.latestreportDate);
+        console.log("################",data.latestreportDate);
+        
       }
     } catch (error) {
       console.error("Error fetching subcategories:", error);
@@ -393,7 +398,13 @@ const KnowAboutPatient: React.FC = () => {
                   </Divider>
                   {allReports.length > 0 ? (
                     <>
-                      <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "12px",
+                        }}
+                      >
                         {allReports.map((allreport, index) => (
                           <div
                             key={index}
@@ -492,7 +503,7 @@ const KnowAboutPatient: React.FC = () => {
                 >
                   {selectedValue === category.refCategoryLabel && (
                     <>
-                      <KnowCards cardData={subCategoryData} />
+                      <KnowCards cardData={subCategoryData} latestReport={latestReport} />
                     </>
                   )}
                 </IonSegmentContent>
