@@ -39,7 +39,7 @@ const TobaccoInfo: React.FC = () => {
           <IonTitle>Tobacco Info</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding" color="light">
+      <IonContent className="ion-padding">
         <IonAccordionGroup>
           <IonAccordion value="first">
             <IonItem slot="header" color="light">

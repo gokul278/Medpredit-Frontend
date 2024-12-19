@@ -51,6 +51,7 @@ import CurrentReport from "../../components/36-CurrentReport/CurrentReport";
 import ReportPDF from "../ReportPDF/ReportPDF";
 import TobaccoInstructions from "../Instructions/TobaccoInstructions";
 import StressInstructions from "../Instructions/StressInstructions";
+import StressInfo from "../Information/StressInfo";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -246,6 +247,10 @@ const MainRoutes: React.FC = () => {
 
         <Route path="/tobacoo/showCards">
           <TobaccoInfo />
+        </Route>
+
+        <Route path="/stress/showCards">
+          <StressInfo />
         </Route>
 
         <Route path="/currentReport/:patient/:patientId">
