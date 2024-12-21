@@ -12,6 +12,7 @@ import alcohol from "../../assets/images/alcohol.png";
 import dietry from "../../assets/images/DIATERY-01.png";
 import bmi from "../../assets/images/bmi.png";
 import sleep from "../../assets/images/sleep.png";
+import familyhistory from "../../assets/images/familyhistory.png";
 import { ScoreVerify } from "../../ScoreVerify";
 
 interface CardData {
@@ -64,6 +65,8 @@ const SubCards: React.FC<SubCardsProps> = ({
         return bmi;
       case 43:
         return sleep;
+      case 51:
+        return familyhistory;
       default:
         return "https://via.placeholder.com/150";
     }
@@ -115,99 +118,6 @@ const SubCards: React.FC<SubCardsProps> = ({
       console.error("No token found in localStorage.");
     }
   };
-
-  // const handleScoreValue = (UserScoreVerify: any, refScore: any) => {
-
-  //   ScoreVerify(UserScoreVerify, refScore)
-  //   // let label = "";
-  //   // let scoreValue = "";
-  //   // let color = "";
-
-  //   // UserScoreVerify.map((element: any) => {
-  //   //   switch (element.refAction) {
-  //   //     case "equal":
-  //   //       if (refScore.toString() === element.refValue.toString()) {
-  //   //         label = element.refAnswerLabel;
-  //   //         scoreValue = refScore;
-  //   //         color = element.refScoreColor;
-  //   //         break;
-  //   //       }
-  //   //       break;
-
-  //   //     case "lessThanEqual":
-  //   //       if (parseFloat(refScore) <= parseFloat(element.refValue)) {
-  //   //         label = element.refAnswerLabel;
-  //   //         scoreValue = refScore;
-  //   //         color = element.refScoreColor;
-  //   //         break;
-  //   //       }
-  //   //       break;
-
-  //   //     case "greaterThanEqual":
-  //   //       if (parseFloat(refScore) >= parseFloat(element.refValue)) {
-  //   //         label = element.refAnswerLabel;
-  //   //         scoreValue = refScore;
-  //   //         color = element.refScoreColor;
-  //   //         break;
-  //   //       }
-  //   //       break;
-
-  //   //     case "lessThan":
-  //   //       if (parseFloat(refScore) < parseFloat(element.refValue)) {
-  //   //         label = element.refAnswerLabel;
-  //   //         scoreValue = refScore;
-  //   //         color = element.refScoreColor;
-  //   //         break;
-  //   //       }
-  //   //       break;
-
-  //   //     case "greaterThan":
-  //   //       if (parseFloat(refScore) > parseFloat(element.refValue)) {
-  //   //         label = element.refAnswerLabel;
-  //   //         scoreValue = refScore;
-  //   //         color = element.refScoreColor;
-  //   //         break;
-  //   //       }
-  //   //       break;
-
-  //   //     case "rangeEqual":
-  //   //       const [firstVal, secondVal] = element.refValue
-  //   //         .split(",")
-  //   //         .map(parseFloat);
-
-  //   //       if (
-  //   //         parseFloat(firstVal) <= parseFloat(refScore) &&
-  //   //         parseFloat(refScore) <= parseFloat(secondVal)
-  //   //       ) {
-  //   //         label = element.refAnswerLabel;
-  //   //         scoreValue = refScore;
-  //   //         color = element.refScoreColor;
-  //   //         break;
-  //   //       }
-  //   //       break;
-
-  //   //     default:
-  //   //       console.log("Unknown refAction:", element.refAction);
-  //   //   }
-  //   // }
-  // // );
-  // }
-
-  //   return (
-  //     <div
-  //       style={{
-  //         color: `${color}`,
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         flexDirection: "column",
-  //       }}
-  //     >
-  //       <div>Score: {scoreValue}</div>
-  //       <div>{label}</div>
-  //     </div>
-  //   );
-  // };
 
   return (
     <div className="subCardContents ion-padding-top">

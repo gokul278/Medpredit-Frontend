@@ -52,6 +52,7 @@ import ReportPDF from "../ReportPDF/ReportPDF";
 import TobaccoInstructions from "../Instructions/TobaccoInstructions";
 import StressInstructions from "../Instructions/StressInstructions";
 import StressInfo from "../Information/StressInfo";
+import TesingPdf from "../TestingPdf/TestingPdf";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -256,6 +257,10 @@ const MainRoutes: React.FC = () => {
 
         <Route path="/currentReport/:patient/:patientId">
           <CurrentReport />
+        </Route>
+
+        <Route path="/testingPdf">
+          <TesingPdf reportDate={"21-12-2024"} />
         </Route>
       </IonRouterOutlet>
 

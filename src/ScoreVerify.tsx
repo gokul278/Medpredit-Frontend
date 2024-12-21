@@ -108,14 +108,8 @@ export const ScoreVerify: React.FC<HandleScoreValueProps> = ({
   return (
     <>
       {status ? (
-        <Text
-          style={{
-            color: `${color}`,
-            fontFamily: "PopBold",
-            fontSize: "10px",
-          }}
-        >
-          {label || "No Label Available"}
+        <Text style={{ width: "70%", color: "#000" }}>
+          : {label || "No Label Available"}
         </Text>
       ) : (
         <>
