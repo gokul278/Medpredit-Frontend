@@ -544,7 +544,22 @@ const ReportPDF: React.FC<ReportPDFProps> = ({ reportDate }) => {
                         >
                           Diet
                         </Text>
-                        <Text style={{ width: "70%", color: "#000" }}>: -</Text>
+                        <Text style={{ width: "70%", color: "#000" }}>{score
+                            .filter(
+                              (element: any) => element.refQCategoryId === "12"
+                            )
+                            .map((element: any) => {
+                              const result = scoreVerify.filter(
+                                (soc: any) => soc.refQCategoryId === "12"
+                              );
+                              return (
+                                <ScoreVerify
+                                  userScoreVerify={result}
+                                  refScore={element.refPTScore}
+                                  status={true}
+                                />
+                              );
+                            })}</Text>
                       </View>
 
                       {/* Physical Status */}
