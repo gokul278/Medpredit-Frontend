@@ -260,7 +260,7 @@ const MainRoutes: React.FC = () => {
         </Route>
 
         <Route path="/testingPdf">
-          <TesingPdf reportDate={"21-12-2024"} />
+          <TesingPdf reportDate={"24-12-2024"} />
         </Route>
       </IonRouterOutlet>
 

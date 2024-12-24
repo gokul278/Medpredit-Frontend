@@ -216,7 +216,7 @@ const KnowCards: React.FC<KnowCardsValues> = ({ cardData, latestReport }) => {
             key={card.refQCategoryId}
             onClick={() => {
               if (latestReport > 14 || latestReport === null) {
-                if (card.refQCategoryId === 5) {
+                if (card.refQCategoryId === 5 || card.refQCategoryId === 6) {
                   checkSore(card.refQCategoryId, card.refCategoryLabel);
                 } else {
                   handleCardClick(card.refQCategoryId, card.refCategoryLabel);

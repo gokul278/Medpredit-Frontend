@@ -917,7 +917,22 @@ const TestingPdf: React.FC<ReportPDFProps> = ({ reportDate }) => {
                                 Temperature
                               </Text>
                               <Text style={{ width: "55%", color: "#000" }}>
-                                : 98.4 F
+                                :{" "}
+                                {score
+                                  .filter(
+                                    (element: any) =>
+                                      element.refQCategoryId === "89"
+                                  )
+                                  .map((element: any, index: any) => {
+                                    return (
+                                      <>
+                                        {index === 0 ? (
+                                          <>{element.refPTScore}</>
+                                        ) : null}
+                                      </>
+                                    );
+                                  })}{" "}
+                                F
                               </Text>
                             </View>
 
@@ -940,7 +955,21 @@ const TestingPdf: React.FC<ReportPDFProps> = ({ reportDate }) => {
                                 RR
                               </Text>
                               <Text style={{ width: "55%", color: "#000" }}>
-                                : 14/min
+                                :{" "}
+                                {score
+                                  .filter(
+                                    (element: any) =>
+                                      element.refQCategoryId === "92"
+                                  )
+                                  .map((element: any, index: any) => {
+                                    return (
+                                      <>
+                                        {index === 0 ? (
+                                          <>{element.refPTScore}</>
+                                        ) : null}
+                                      </>
+                                    );
+                                  })}/min
                               </Text>
                             </View>
 
@@ -968,7 +997,21 @@ const TestingPdf: React.FC<ReportPDFProps> = ({ reportDate }) => {
                                   color: "#000",
                                 }}
                               >
-                                : 78/min
+                                :{" "}
+                                {score
+                                  .filter(
+                                    (element: any) =>
+                                      element.refQCategoryId === "84"
+                                  )
+                                  .map((element: any, index: any) => {
+                                    return (
+                                      <>
+                                        {index === 0 ? (
+                                          <>{element.refPTScore}</>
+                                        ) : null}
+                                      </>
+                                    );
+                                  })}/min
                               </Text>
                             </View>
 
@@ -991,7 +1034,34 @@ const TestingPdf: React.FC<ReportPDFProps> = ({ reportDate }) => {
                                 BP
                               </Text>
                               <Text style={{ width: "55%", color: "#000" }}>
-                                : 120/80 mm of Hg
+                                :{" "}
+                                {score
+                                  .filter(
+                                    (element: any) =>
+                                      element.refQCategoryId === "90"
+                                  )
+                                  .map((element: any, index: any) => {
+                                    return (
+                                      <>
+                                        {index === 0 ? (
+                                          <>{element.refPTScore}</>
+                                        ) : null}
+                                      </>
+                                    );
+                                  })}/{score
+                                    .filter(
+                                      (element: any) =>
+                                        element.refQCategoryId === "91"
+                                    )
+                                    .map((element: any, index: any) => {
+                                      return (
+                                        <>
+                                          {index === 0 ? (
+                                            <>{element.refPTScore}</>
+                                          ) : null}
+                                        </>
+                                      );
+                                    })} mm of Hg
                               </Text>
                             </View>
                           </View>
@@ -1345,7 +1415,8 @@ const TestingPdf: React.FC<ReportPDFProps> = ({ reportDate }) => {
                               const categoryLabels = score
                                 .filter(
                                   (element: any) =>
-                                    element.refQCategoryId.toString() === refQCategoryId &&
+                                    element.refQCategoryId.toString() ===
+                                      refQCategoryId &&
                                     element.refPTScore === "Yes"
                                 )
                                 .flatMap((element: any) =>
