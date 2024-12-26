@@ -209,33 +209,48 @@ const KnowCards: React.FC<KnowCardsValues> = ({ cardData, latestReport }) => {
       <div className="listView"></div>
       <div className="grid-container ion-padding">
         {cardData.map((card) => (
-          <div
-            className={`grid-item ${
-              latestReport > 14 || latestReport === null ? "" : "disabled-card"
-            }`}
-            key={card.refQCategoryId}
-            onClick={() => {
-              if (latestReport > 14 || latestReport === null) {
-                if (card.refQCategoryId === 5 || card.refQCategoryId === 6) {
-                  checkSore(card.refQCategoryId, card.refCategoryLabel);
-                } else {
-                  handleCardClick(card.refQCategoryId, card.refCategoryLabel);
-                }
-              }
-            }}
-          >
-            <div className="knowCard">
-              <img
-                style={{
-                  borderTopRightRadius: "10px",
-                  borderTopLeftRadius: "10px",
+          <>
+            {localStorage.getItem("currentPatientGender") === "male" &&
+            card.refQCategoryId.toString() === "5" ? (
+              <></>
+            ) : (
+              <div
+                className={`grid-item ${
+                  latestReport > 14 || latestReport === null
+                    ? ""
+                    : "disabled-card"
+                }`}
+                key={card.refQCategoryId}
+                onClick={() => {
+                  if (latestReport > 14 || latestReport === null) {
+                    if (
+                      card.refQCategoryId === 5 ||
+                      card.refQCategoryId === 6
+                    ) {
+                      checkSore(card.refQCategoryId, card.refCategoryLabel);
+                    } else {
+                      handleCardClick(
+                        card.refQCategoryId,
+                        card.refCategoryLabel
+                      );
+                    }
+                  }
                 }}
-                src={getImage(card.refQCategoryId)}
-                alt={card.refCategoryLabel}
-              />
-              <p>{card.refCategoryLabel}</p>
-            </div>
-          </div>
+              >
+                <div className="knowCard">
+                  <img
+                    style={{
+                      borderTopRightRadius: "10px",
+                      borderTopLeftRadius: "10px",
+                    }}
+                    src={getImage(card.refQCategoryId)}
+                    alt={card.refCategoryLabel}
+                  />
+                  <p>{card.refCategoryLabel}</p>
+                </div>
+              </div>
+            )}
+          </>
         ))}
       </div>
     </>

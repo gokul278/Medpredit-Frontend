@@ -1,0 +1,24 @@
+.faqheader {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.faqcontnet {
+  font-size: 16px;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+}
+
+.faqpoints {
+  text-align: justify;
+  display: flex;
+  gap: 10px;
+}
+
+.faqextrapoints {
+  text-align: justify;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}

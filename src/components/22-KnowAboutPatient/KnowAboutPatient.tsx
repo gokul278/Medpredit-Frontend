@@ -199,6 +199,7 @@ const KnowAboutPatient: React.FC = () => {
               ? localStorage.getItem("currentDoctorId")
               : null,
             patientId: patientId,
+            patientGender: localStorage.getItem("currentPatientGender")?.toLowerCase(),
           },
           {
             headers: {

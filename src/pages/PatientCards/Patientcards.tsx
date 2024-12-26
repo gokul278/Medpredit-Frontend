@@ -11,12 +11,9 @@ import { Divider } from "primereact/divider";
 import React, { useEffect, useRef, useState } from "react";
 import decrypt from "../../helper";
 
-import ReactPaginate from "react-paginate";
 import { useHistory } from "react-router";
 import "./Patientcards.css";
 import Axios from "axios";
-
-import useriamge from "../../assets/images/SeacrhUser.png";
 
 import userImage from "../../assets/images/profile.png";
 
@@ -30,6 +27,7 @@ interface Patient {
   refDistrict: string;
   imageUrl: string;
   refUserId: number;
+  refGender: string;
 }
 
 interface Doctor {
@@ -63,8 +61,14 @@ const Patientcards: React.FC<PatientcardsProps> = ({
     setOpenModalPatientId(null); // Close the modal by resetting the state
   };
 
-  const handleCardClick = (patient: any, patientId: any) => {
+  const handleCardClick = (
+    patient: any,
+    patientId: any,
+    patientGender: any
+  ) => {
     localStorage.setItem("currentPatientId", patientId.toString());
+    localStorage.setItem("currentPatientGender", patientGender.toLowerCase());
+
     history.push(`/knowAbout/${patient}/${patientId}`);
   };
 
@@ -76,6 +80,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
   const [patientData, setPatientData] = useState({
     patientId: "",
     refUserCusId: "",
+    patientGender: "",
   });
 
   const [doctors, setDoctors] = useState<Doctor[]>([]);
@@ -123,7 +128,8 @@ const Patientcards: React.FC<PatientcardsProps> = ({
   const handleAssistantPatientCard = (
     patientId: any,
     refUserCustId: any,
-    doctorId: any
+    doctorId: any,
+    refGender: any
   ) => {
     const tokenString = localStorage.getItem("userDetails");
 
@@ -152,15 +158,14 @@ const Patientcards: React.FC<PatientcardsProps> = ({
             import.meta.env.VITE_ENCRYPTION_KEY
           );
 
-          console.log(data);
-
           if (data.status) {
-            handleCardClick(refUserCustId, patientId);
+            handleCardClick(refUserCustId, patientId, refGender);
           } else {
             setIsAlertOpen(true);
             setPatientData({
               patientId: patientId,
               refUserCusId: refUserCustId,
+              patientGender: refGender,
             });
           }
         })
@@ -199,7 +204,11 @@ const Patientcards: React.FC<PatientcardsProps> = ({
           );
 
           if (data.status) {
-            handleCardClick(patientData.refUserCusId, patientData.patientId);
+            handleCardClick(
+              patientData.refUserCusId,
+              patientData.patientId,
+              patientData.patientGender
+            );
           }
         })
         .catch((error) => {
@@ -208,7 +217,11 @@ const Patientcards: React.FC<PatientcardsProps> = ({
     }
   };
 
-  const handledoctorPatientCard = (patientId: any, refUserCustId: any) => {
+  const handledoctorPatientCard = (
+    patientId: any,
+    refUserCustId: any,
+    refGender: any
+  ) => {
     const tokenString = localStorage.getItem("userDetails");
 
     if (tokenString) {
@@ -238,12 +251,13 @@ const Patientcards: React.FC<PatientcardsProps> = ({
           console.log(data);
 
           if (data.status) {
-            handleCardClick(refUserCustId, patientId);
+            handleCardClick(refUserCustId, patientId, refGender);
           } else {
             setIsAlertOpen(true);
             setPatientData({
               patientId: patientId,
               refUserCusId: refUserCustId,
+              patientGender: refGender,
             });
           }
         })
@@ -253,7 +267,7 @@ const Patientcards: React.FC<PatientcardsProps> = ({
     }
   };
 
-  const handlePatientMap = (patientId: any) => {
+  const handlePatientMap = (patientId: any, patientGender: any) => {
     const tokenString = localStorage.getItem("userDetails");
 
     if (tokenString) {
@@ -280,8 +294,14 @@ const Patientcards: React.FC<PatientcardsProps> = ({
             import.meta.env.VITE_ENCRYPTION_KEY
           );
 
+          console.log(patientGender);
+
           if (data.status) {
-            handleCardClick(patientData.refUserCusId, patientData.patientId);
+            handleCardClick(
+              patientData.refUserCusId,
+              patientData.patientId,
+              patientData.patientGender
+            );
           }
         })
         .catch((error) => {
@@ -317,7 +337,10 @@ const Patientcards: React.FC<PatientcardsProps> = ({
                       role: "confirm",
                       handler: () => {
                         setIsAlertOpen(false);
-                        handlePatientMap(patientData.patientId);
+                        handlePatientMap(
+                          patientData.patientId,
+                          patientData.patientGender
+                        );
                       },
                       cssClass: "yes-button",
                     },
@@ -328,7 +351,8 @@ const Patientcards: React.FC<PatientcardsProps> = ({
                         setIsAlertOpen(false);
                         handleCardClick(
                           patientData.refUserCusId,
-                          patientData.patientId
+                          patientData.patientId,
+                          patientData.patientGender
                         );
                       },
                       cssClass: "no-button",
@@ -343,7 +367,8 @@ const Patientcards: React.FC<PatientcardsProps> = ({
                     () =>
                       handledoctorPatientCard(
                         patient.refUserId,
-                        patient.refUserCustId
+                        patient.refUserCustId,
+                        patient.refGender
                       )
                     // handleCardClick(patient.refUserCustId, patient.refUserId)
                   }
@@ -407,7 +432,8 @@ const Patientcards: React.FC<PatientcardsProps> = ({
                             handleAssistantPatientCard(
                               patient.refUserId,
                               patient.refUserCustId,
-                              doctor.refDoctorId
+                              doctor.refDoctorId,
+                              patient.refGender
                             );
                             setOpenModalPatientId(null);
                             localStorage.setItem(
@@ -490,7 +516,8 @@ const Patientcards: React.FC<PatientcardsProps> = ({
                         setIsAlertOpen(false);
                         handleCardClick(
                           patientData.refUserCusId,
-                          patientData.patientId
+                          patientData.patientId,
+                          patientData.patientGender
                         );
                       },
                       cssClass: "no-button",

@@ -58,12 +58,6 @@ const Tab2: React.FC = () => {
 
   const location = useLocation();
 
-  // useEffect(() => {
-  //   // setPatientData([]);
-  //   // setMobileNumber("");
-  //   // console.log("dfhbdf");
-  // }, [location.pathname]);
-
   const [urlMobileNo, setURLMobileNo] = useState("");
   const [urluserId, setUrluserId] = useState("");
 
@@ -97,6 +91,8 @@ const Tab2: React.FC = () => {
               response.data[0],
               import.meta.env.VITE_ENCRYPTION_KEY
             );
+
+            console.log(data);
 
             setLoadingStatus(false);
 
