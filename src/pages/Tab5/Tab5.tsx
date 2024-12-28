@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./Tab5.css";
 import {
@@ -18,6 +18,17 @@ import {
   SegmentValue,
 } from "@ionic/react";
 import { addCircleOutline } from "ionicons/icons";
+import Diabetes from "../KnowDisease/Diabetes";
+import diabetesImg from "../../assets/KnowAbout/diabetics.png";
+import hypertension from "../../assets/KnowAbout/hypertension.png";
+import stroke from "../../assets/KnowAbout/stroke.png";
+import coronary from "../../assets/KnowAbout/coronary.png";
+import Hypertension from "../KnowDisease/Hypertension";
+import diabetesWhite from "../../assets/KnowAbout/diabeticsWhite.png";
+import hypertensionWhite from "../../assets/KnowAbout/hypertensionWhite.png";
+import strokeWhite from "../../assets/KnowAbout/strokeWhite.png";
+import coronaryWhite from "../../assets/KnowAbout/coronaryWhite.png";
+import Coronary from "../KnowDisease/Coronary";
 
 const Tab5: React.FC = () => {
   const [selectedSegment, setSelectedSegment] =
@@ -32,58 +43,191 @@ const Tab5: React.FC = () => {
     }
   };
 
-  return (
-    // <IonPage>
-    //   <IonHeader>
-    //     <IonToolbar className="">
-    //       <IonButtons slot="start">
-    //         <IonBackButton defaultHref="/home" mode="md"></IonBackButton>
-    //       </IonButtons>
-    //       <IonTitle>Configure</IonTitle>
-    //       <IonButtons slot="end">
-    //         <IonIcon
-    //           className="addIcon mr-2"
-    //           icon={addCircleOutline}
-    //           onClick={handleAddClick}
-    //         ></IonIcon>
-    //       </IonButtons>
-    //     </IonToolbar>
-    //   </IonHeader>
-    //   <IonContent fullscreen>
-    //     <IonToolbar>
-    //       <IonSegment
-    //         value="questions"
-    //         scrollable={true}
-    //         onIonChange={(e) => setSelectedSegment(e.detail.value!)}
-    //       >
-    //         <IonSegmentButton value="questions" contentId="questions">
-    //           <IonLabel>Questions</IonLabel>
-    //         </IonSegmentButton>
-    //         <IonSegmentButton value="employee" contentId="employee">
-    //           <IonLabel>Employee</IonLabel>
-    //         </IonSegmentButton>
-    //       </IonSegment>
-    //     </IonToolbar>
-    //     <IonSegmentView>
-    //       <IonSegmentContent id="questions">Question</IonSegmentContent>
-    //       <IonSegmentContent id="employee">Employee</IonSegmentContent>
-    //     </IonSegmentView>
-    //   </IonContent>
-    // </IonPage>
+  const [activeDisease, setActiveDisease] = useState(1);
 
-   <IonPage>
-     <IonContent fullscreen>
-        <div style={{
-          width:"100%",
-          height:"100vh",
-          display:"flex",
-          justifyContent:"center",
-          alignItems:"center"
-        }}>
-        <h1>Configure - Coming Soon</h1>
+  useEffect(() => {
+    console.log(activeDisease);
+  }, [activeDisease]);
+
+  return (
+    <IonPage>
+      <IonContent fullscreen>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              width: "100%",
+              height: "170px",
+              justifyContent: "center",
+              padding: "0px 10px",
+              marginTop: "10px",
+              gap: "10px",
+            }}
+          >
+            <div
+              style={{
+                width: "48%",
+                height: "80px",
+                background:
+                  activeDisease === 1
+                    ? "linear-gradient(160deg, #077556, #2f9f97)"
+                    : "#e6e6e6",
+
+                borderRadius: "10px",
+                padding: "10px",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                color: activeDisease === 1 ? "#fff" : "#000",
+              }}
+              onClick={() => {
+                setActiveDisease(1);
+              }}
+            >
+              <img
+                src={activeDisease != 1 ? diabetesImg : diabetesWhite}
+                width={70}
+              />
+              <div
+                style={{
+                  width: "70%",
+                  padding: "10px",
+                  fontSize: "14px",
+                  fontWeight: "700",
+                  textAlign: "center",
+                }}
+              >
+                Diabetes
+              </div>
+            </div>
+            <div
+              style={{
+                width: "48%",
+                height: "80px",
+                borderRadius: "10px",
+                padding: "10px",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                background:
+                  activeDisease === 2
+                    ? "linear-gradient(160deg, #077556, #2f9f97)"
+                    : "#e6e6e6",
+                color: activeDisease === 2 ? "#fff" : "#000",
+              }}
+              onClick={() => {
+                setActiveDisease(2);
+              }}
+            >
+              <img
+                src={activeDisease != 2 ? hypertension : hypertensionWhite}
+                width={60}
+              />
+              <div
+                style={{
+                  width: "70%",
+                  padding: "10px",
+                  fontSize: "14px",
+                  fontWeight: "700",
+                  textAlign: "center",
+                }}
+              >
+                Hypertension
+              </div>
+            </div>
+            <div
+              style={{
+                width: "48%",
+                height: "80px",
+                borderRadius: "10px",
+                padding: "10px",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                background:
+                  activeDisease === 3
+                    ? "linear-gradient(160deg, #077556, #2f9f97)"
+                    : "#e6e6e6",
+                color: activeDisease === 3 ? "#fff" : "#000",
+              }}
+              onClick={() => {
+                setActiveDisease(3);
+              }}
+            >
+              <img
+                src={activeDisease != 3 ? coronary : coronaryWhite}
+                width={60}
+              />
+              <div
+                style={{
+                  width: "70%",
+                  padding: "10px",
+                  fontSize: "14px",
+                  fontWeight: "700",
+                  textAlign: "center",
+                }}
+              >
+                Coronary Artery Disease
+              </div>
+            </div>
+            <div
+              style={{
+                width: "48%",
+                height: "80px",
+                background:
+                  activeDisease === 4
+                    ? "linear-gradient(160deg, #077556, #2f9f97)"
+                    : "#e6e6e6",
+                borderRadius: "10px",
+                padding: "10px",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                color: activeDisease === 4 ? "#fff" : "#000",
+              }}
+              onClick={() => {
+                setActiveDisease(4);
+              }}
+            >
+              <img src={activeDisease != 4 ? stroke : strokeWhite} width={60} />
+              <div
+                style={{
+                  width: "70%",
+                  padding: "10px",
+                  fontSize: "14px",
+                  fontWeight: "700",
+                  textAlign: "center",
+                }}
+              >
+                Stroke
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style={{ padding: "10px", marginTop: "5px" }}>
+          {activeDisease === 1 ? (
+            <>
+              <Diabetes />
+            </>
+          ) : activeDisease === 2 ? (
+            <>
+              <Hypertension />
+            </>
+          ) :activeDisease === 3 ? (
+            <>
+              <Coronary />
+            </>
+          ): null}
         </div>
       </IonContent>
-   </IonPage>
+    </IonPage>
   );
 };
 

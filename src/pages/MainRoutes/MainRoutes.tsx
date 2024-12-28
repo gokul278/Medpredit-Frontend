@@ -54,6 +54,8 @@ import StressInstructions from "../Instructions/StressInstructions";
 import StressInfo from "../Information/StressInfo";
 import TesingPdf from "../TestingPdf/TestingPdf";
 
+import knowabout from "../../assets/logo/knowabout.png";
+
 const MainRoutes: React.FC = () => {
   const location = useLocation();
 
@@ -77,6 +79,7 @@ const MainRoutes: React.FC = () => {
     "/home",
     "/patient",
     "/advice",
+    "/disease",
     "/settings",
     "/configure",
   ].includes(location.pathname);
@@ -103,6 +106,12 @@ const MainRoutes: React.FC = () => {
       outlineIcon: personOutline,
       sharpIcon: personSharp,
     },
+    {
+      name: "Disease",
+      path: "/disease",
+      outlineIcon: knowabout,
+      sharpIcon: cogSharp,
+    },
   ];
 
   const assistant = [
@@ -111,6 +120,12 @@ const MainRoutes: React.FC = () => {
       path: "/home",
       outlineIcon: homeOutline,
       sharpIcon: homeSharp,
+    },
+    {
+      name: "Disease",
+      path: "/disease",
+      outlineIcon: knowabout,
+      sharpIcon: cogSharp,
     },
     {
       name: "Patient",
@@ -140,9 +155,9 @@ const MainRoutes: React.FC = () => {
       sharpIcon: personAddSharp,
     },
     {
-      name: "Configure",
-      path: "/configure",
-      outlineIcon: cogOutline,
+      name: "Disease",
+      path: "/disease",
+      outlineIcon: knowabout,
       sharpIcon: cogSharp,
     },
     {
@@ -180,7 +195,7 @@ const MainRoutes: React.FC = () => {
         <Route path="/settings">
           <Tab4 />
         </Route>
-        <Route path="/configure">
+        <Route path="/disease">
           <Tab5 />
         </Route>
         <Route path="/addUser">
@@ -275,14 +290,22 @@ const MainRoutes: React.FC = () => {
             : []
           ).map((element) => (
             <IonTabButton tab={element.name} href={element.path}>
-              <IonIcon
-                icon={
-                  location.pathname === element.path
-                    ? element.sharpIcon
-                    : element.outlineIcon
-                }
-              />
-              <IonLabel>{element.name}</IonLabel>
+              {element.name === "Disease" ? (
+                <img
+                  style={{ width: "50px" }}
+                  src={knowabout}
+                  alt="knowabout"
+                />
+              ) : (
+                <IonIcon
+                  icon={
+                    location.pathname === element.path
+                      ? element.sharpIcon
+                      : element.outlineIcon
+                  }
+                />
+              )}
+              <IonLabel style={{ fontSize: "12px" }}>{element.name}</IonLabel>
             </IonTabButton>
           ))}
         </IonTabBar>
