@@ -55,6 +55,7 @@ import StressInfo from "../Information/StressInfo";
 import TesingPdf from "../TestingPdf/TestingPdf";
 
 import knowabout from "../../assets/logo/knowabout.png";
+import knowaboutOutline from "../../assets/logo/knowaboutOutline.png";
 
 const MainRoutes: React.FC = () => {
   const location = useLocation();
@@ -84,6 +85,8 @@ const MainRoutes: React.FC = () => {
     "/configure",
   ].includes(location.pathname);
 
+  const history = useHistory();
+
   const tokenString = localStorage.getItem("userDetails");
 
   let roleType = 1;
@@ -110,7 +113,7 @@ const MainRoutes: React.FC = () => {
       name: "Disease",
       path: "/disease",
       outlineIcon: knowabout,
-      sharpIcon: cogSharp,
+      sharpIcon: knowaboutOutline,
     },
   ];
 
@@ -125,7 +128,7 @@ const MainRoutes: React.FC = () => {
       name: "Disease",
       path: "/disease",
       outlineIcon: knowabout,
-      sharpIcon: cogSharp,
+      sharpIcon: knowaboutOutline,
     },
     {
       name: "Patient",
@@ -158,7 +161,7 @@ const MainRoutes: React.FC = () => {
       name: "Disease",
       path: "/disease",
       outlineIcon: knowabout,
-      sharpIcon: cogSharp,
+      sharpIcon: knowaboutOutline,
     },
     {
       name: "Advice",
@@ -292,8 +295,12 @@ const MainRoutes: React.FC = () => {
             <IonTabButton tab={element.name} href={element.path}>
               {element.name === "Disease" ? (
                 <img
-                  style={{ width: "50px" }}
-                  src={knowabout}
+                  style={{ width: "40px", paddingTop:"5px"}}
+                  src={
+                    history.location.pathname === "/disease"
+                      ? element.sharpIcon
+                      : element.outlineIcon
+                  }
                   alt="knowabout"
                 />
               ) : (

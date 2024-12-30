@@ -29,6 +29,7 @@ import hypertensionWhite from "../../assets/KnowAbout/hypertensionWhite.png";
 import strokeWhite from "../../assets/KnowAbout/strokeWhite.png";
 import coronaryWhite from "../../assets/KnowAbout/coronaryWhite.png";
 import Coronary from "../KnowDisease/Coronary";
+import Stroke from "../KnowDisease/Stroke";
 
 const Tab5: React.FC = () => {
   const [selectedSegment, setSelectedSegment] =
@@ -220,11 +221,15 @@ const Tab5: React.FC = () => {
             <>
               <Hypertension />
             </>
-          ) :activeDisease === 3 ? (
+          ) : activeDisease === 3 ? (
             <>
               <Coronary />
             </>
-          ): null}
+          ) : activeDisease === 4 ? (
+            <>
+              <Stroke />
+            </>
+          ) : null}
         </div>
       </IonContent>
     </IonPage>
