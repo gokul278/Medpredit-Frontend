@@ -225,7 +225,8 @@ const KnowCards: React.FC<KnowCardsValues> = ({ cardData, latestReport }) => {
                   if (latestReport > 14 || latestReport === null) {
                     if (
                       card.refQCategoryId === 5 ||
-                      card.refQCategoryId === 6
+                      card.refQCategoryId === 6 ||
+                      card.refQCategoryId === 94
                     ) {
                       checkSore(card.refQCategoryId, card.refCategoryLabel);
                     } else {

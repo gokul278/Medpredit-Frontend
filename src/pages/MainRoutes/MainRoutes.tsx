@@ -295,7 +295,7 @@ const MainRoutes: React.FC = () => {
             <IonTabButton tab={element.name} href={element.path}>
               {element.name === "Disease" ? (
                 <img
-                  style={{ width: "40px", paddingTop:"5px"}}
+                  style={{ width: "40px", paddingTop: "5px" }}
                   src={
                     history.location.pathname === "/disease"
                       ? element.sharpIcon
